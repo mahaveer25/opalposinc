@@ -4,16 +4,16 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/GenrateRegisterDetails.dart';
-import 'package:opalsystem/auth/login.dart';
-import 'package:opalsystem/model/register_details_model.dart';
-import 'package:opalsystem/multiplePay/money_denominationService.dart';
-import 'package:opalsystem/printing.dart';
-import 'package:opalsystem/services/close_register.dart';
-import 'package:opalsystem/services/register_details_service.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/views/Register_Screen.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/GenrateRegisterDetails.dart';
+import 'package:opalposinc/auth/login.dart';
+import 'package:opalposinc/model/register_details_model.dart';
+import 'package:opalposinc/multiplePay/money_denominationService.dart';
+import 'package:opalposinc/printing.dart';
+import 'package:opalposinc/services/close_register.dart';
+import 'package:opalposinc/services/register_details_service.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/views/Register_Screen.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
 
 import '../../CustomWidgets/CustomIniputField.dart';
 

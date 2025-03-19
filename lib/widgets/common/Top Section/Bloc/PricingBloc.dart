@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/model/pricinggroup.dart';
+import 'package:opalposinc/model/pricinggroup.dart';
 
 class PricingBloc extends Bloc<PricingEvents?, PricingState> {
   PricingBloc() : super(PricingInitialState()) {

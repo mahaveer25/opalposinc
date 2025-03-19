@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:opalsystem/main.dart';
-import 'package:opalsystem/model/loggedInUser.dart';
-import 'package:opalsystem/utils/constant_dialog.dart';
+import 'package:opalposinc/main.dart';
+import 'package:opalposinc/model/loggedInUser.dart';
+import 'package:opalposinc/utils/constant_dialog.dart';
 
 class AuthService {
   static const String apiKey = "#bk_api_opal_v1_1_1@";

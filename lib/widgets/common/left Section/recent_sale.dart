@@ -2,11 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/model/recent_sales_model.dart';
-import 'package:opalsystem/services/recent_sale_service.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/widgets/common/Recent%20Sales/Pages/CustomRecentSaleTab.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/model/recent_sales_model.dart';
+import 'package:opalposinc/services/recent_sale_service.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/widgets/common/Recent%20Sales/Pages/CustomRecentSaleTab.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
 
 class RecentSales extends StatefulWidget {
   const RecentSales({
@@ -65,8 +65,7 @@ class _RecentSalesState extends State<RecentSales>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text
-                      (
+                    const Text(
                       'Recent Transactions',
                       style: TextStyle(
                         fontSize: 25,

@@ -1,7 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:opalsystem/services/customer_group.dart';
-import 'package:opalsystem/utils/constants.dart';
+import 'package:opalposinc/services/customer_group.dart';
+import 'package:opalposinc/utils/constants.dart';
 
 class CustomerGroupDropDown extends StatefulWidget {
   const CustomerGroupDropDown({super.key});

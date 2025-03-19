@@ -3,14 +3,14 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:opalsystem/CloverDesign/Bloc/inventory_bloc.dart';
-import 'package:opalsystem/CloverDesign/Dashboard%20Pages/widgets/common_app_barV1.dart';
-import 'package:opalsystem/CloverDesign/Dashboard%20Pages/widgets/menuItem.dart';
-import 'package:opalsystem/CloverDesign/Dashboard%20Pages/widgets/sidebar_item.dart';
-import 'package:opalsystem/utils/assets.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/utils/utils.dart';
-import 'package:opalsystem/widgets/CustomWidgets/custom_text_widgets.dart';
+import 'package:opalposinc/CloverDesign/Bloc/inventory_bloc.dart';
+import 'package:opalposinc/CloverDesign/Dashboard%20Pages/widgets/common_app_barV1.dart';
+import 'package:opalposinc/CloverDesign/Dashboard%20Pages/widgets/menuItem.dart';
+import 'package:opalposinc/CloverDesign/Dashboard%20Pages/widgets/sidebar_item.dart';
+import 'package:opalposinc/utils/assets.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/utils/utils.dart';
+import 'package:opalposinc/widgets/CustomWidgets/custom_text_widgets.dart';
 
 class AddInventoryV1 extends StatefulWidget {
   const AddInventoryV1({super.key});
@@ -21,7 +21,6 @@ class AddInventoryV1 extends StatefulWidget {
 
 class _AddInventoryV1State extends State<AddInventoryV1> {
   String selectedMenu = '';
-
 
   final TextEditingController _searchController = TextEditingController();
 
@@ -74,10 +73,13 @@ class _AddInventoryV1State extends State<AddInventoryV1> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         backgroundColor: Constant.colorWhite,
-        appBar:PreferredSize(
+        appBar: PreferredSize(
             preferredSize: Size.fromHeight(60.0),
-            child: CommonAppBarV1(imagePath:    Myassets.addInventory, title: "Inventory",actionList: actionList(context),)),
-
+            child: CommonAppBarV1(
+              imagePath: Myassets.addInventory,
+              title: "Inventory",
+              actionList: actionList(context),
+            )),
         body: BlocConsumer<InventoryBloc, InventoryState>(
           listener: (context, state) {},
           builder: (context, state) {
@@ -98,22 +100,28 @@ class _AddInventoryV1State extends State<AddInventoryV1> {
                         menu.length,
                         (index) => SideBarItemClover(
                           items: menu,
-                          backgroundColor: MyUtility.getParentState(selectedMenu) == menu[index].title
-                              ? Constant.colorPurple.withOpacity(0.3) // Selected background
-                              : Colors.white, // Default backgroundDefault background
+                          backgroundColor: MyUtility.getParentState(
+                                      selectedMenu) ==
+                                  menu[index].title
+                              ? Constant.colorPurple
+                                  .withOpacity(0.3) // Selected background
+                              : Colors
+                                  .white, // Default backgroundDefault background
                           index: index,
                           onSelected: (item) {
-
-                            context.read<InventoryBloc>().add(MenuSelectionEvent(selectedMenu: item.title));
+                            context.read<InventoryBloc>().add(
+                                MenuSelectionEvent(selectedMenu: item.title));
                           },
                           depth: 0,
-                          iconColor: MyUtility.getParentState(selectedMenu) == menu[index].title
+                          iconColor: MyUtility.getParentState(selectedMenu) ==
+                                  menu[index].title
                               ? Colors.white
                               : Colors.black,
                           textStyle: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 17,
-                            color: MyUtility.getParentState(selectedMenu) == menu[index].title
+                            color: MyUtility.getParentState(selectedMenu) ==
+                                    menu[index].title
                                 ? Colors.white // Selected background
                                 : Colors.black,
                           ),
@@ -139,8 +147,8 @@ class _AddInventoryV1State extends State<AddInventoryV1> {
 
   List<Widget> actionList(BuildContext context) {
     return [
-          IconButton(
-          icon: const Icon(Icons.filter_list),
+      IconButton(
+        icon: const Icon(Icons.filter_list),
         onPressed: () {},
       ),
       SizedBox(
@@ -178,18 +186,18 @@ class _AddInventoryV1State extends State<AddInventoryV1> {
             ),
             suffixIcon: _searchController.text.isNotEmpty
                 ? IconButton(
-              icon: const Icon(Icons.clear, size: 18),
-              onPressed: () {
-                _searchController.clear();
-                _performSearch('');
-              },
-            )
+                    icon: const Icon(Icons.clear, size: 18),
+                    onPressed: () {
+                      _searchController.clear();
+                      _performSearch('');
+                    },
+                  )
                 : null,
           ),
           style: const TextStyle(fontSize: 14), // Smaller font size
           onChanged: (value) {
             setState(
-                    () {}); // Force the widget to rebuild when the text changes
+                () {}); // Force the widget to rebuild when the text changes
             _performSearch(value);
           },
         ),
@@ -205,12 +213,12 @@ class _AddInventoryV1State extends State<AddInventoryV1> {
         itemBuilder: (BuildContext context) {
           return ['Option 1', 'Option 2', 'Option 3']
               .map((option) => PopupMenuItem<String>(
-            value: option,
-            child: Text(option),
-          ))
+                    value: option,
+                    child: Text(option),
+                  ))
               .toList();
         },
       ),
-      ];
+    ];
   }
 }

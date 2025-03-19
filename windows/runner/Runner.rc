@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "opalsystem" "\0"
+            VALUE "FileDescription", "opalposinc" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "opalsystem" "\0"
+            VALUE "InternalName", "opalposinc" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "opalsystem.exe" "\0"
-            VALUE "ProductName", "opalsystem" "\0"
+            VALUE "OriginalFilename", "opalposinc.exe" "\0"
+            VALUE "ProductName", "opalposinc" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

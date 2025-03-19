@@ -4,8 +4,8 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:opalsystem/utils/constant_dialog.dart';
-import 'package:opalsystem/utils/global_variables.dart';
+import 'package:opalposinc/utils/constant_dialog.dart';
+import 'package:opalposinc/utils/global_variables.dart';
 
 class DeleteSuspendedOrder {
   static const String apiKey = "#bk_api_opal_v1_1_1@";

@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:opalsystem/invoices/transaction.dart';
-import 'package:opalsystem/localDatabase/Transaction/Pages/LocalDraftdb.dart';
-import 'package:opalsystem/services/placeorder.dart';
+import 'package:opalposinc/invoices/transaction.dart';
+import 'package:opalposinc/localDatabase/Transaction/Pages/LocalDraftdb.dart';
+import 'package:opalposinc/services/placeorder.dart';
 
 part 'local_draft_event.dart';
 part 'local_draft_state.dart';

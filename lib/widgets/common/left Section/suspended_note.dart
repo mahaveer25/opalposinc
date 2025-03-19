@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:opalsystem/CustomFuncs.dart';
-import 'package:opalsystem/model/product.dart';
-import 'package:opalsystem/multiplePay/MultiplePay.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/widgets/CustomWidgets/CustomIniputField.dart';
+import 'package:opalposinc/CustomFuncs.dart';
+import 'package:opalposinc/model/product.dart';
+import 'package:opalposinc/multiplePay/MultiplePay.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/widgets/CustomWidgets/CustomIniputField.dart';
 
 import '../../../invoices/transaction.dart';
 import '../../../model/CustomerModel.dart';

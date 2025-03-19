@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:opalsystem/model/category.dart';
-import 'package:opalsystem/model/loggedInUser.dart';
-import 'package:opalsystem/utils/global_variables.dart';
+import 'package:opalposinc/model/category.dart';
+import 'package:opalposinc/model/loggedInUser.dart';
+import 'package:opalposinc/utils/global_variables.dart';
 
 class CategoryService {
   String storeUrl = GlobalData.storeUrl;

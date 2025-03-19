@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/Animations/Slide.dart';
-import 'package:opalsystem/model/brand.dart';
-import 'package:opalsystem/model/category.dart';
-import 'package:opalsystem/model/location.dart';
-import 'package:opalsystem/model/pricinggroup.dart';
-import 'package:opalsystem/model/product.dart';
-import 'package:opalsystem/pages/productFilteration.dart';
-import 'package:opalsystem/utils/decorations.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CartBloc.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/ProductBloc.dart';
+import 'package:opalposinc/Animations/Slide.dart';
+import 'package:opalposinc/model/brand.dart';
+import 'package:opalposinc/model/category.dart';
+import 'package:opalposinc/model/location.dart';
+import 'package:opalposinc/model/pricinggroup.dart';
+import 'package:opalposinc/model/product.dart';
+import 'package:opalposinc/pages/productFilteration.dart';
+import 'package:opalposinc/utils/decorations.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CartBloc.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/ProductBloc.dart';
 
 class ShowProducts extends StatefulWidget {
   final TextEditingController searchController;

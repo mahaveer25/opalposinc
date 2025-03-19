@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:opalsystem/utils/constants.dart';
+import 'package:opalposinc/utils/constants.dart';
 
 class ToastUtility {
   static void showToast({

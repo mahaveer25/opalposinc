@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:opalsystem/CloverDesign/Dashboard%20Pages/widgets/menuItem.dart';
+import 'package:opalposinc/CloverDesign/Dashboard%20Pages/widgets/menuItem.dart';
 
 class SideBarItemClover extends StatelessWidget {
   const SideBarItemClover({
@@ -74,7 +74,8 @@ class SideBarItemClover extends StatelessWidget {
         title: _buildTitle(item.title, selected),
         selected: selected,
         tileColor: backgroundColor,
-        selectedTileColor: activeBackgroundColor ?? Colors.blue.withOpacity(0.2),
+        selectedTileColor:
+            activeBackgroundColor ?? Colors.blue.withOpacity(0.2),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
@@ -127,12 +128,12 @@ class SideBarItemClover extends StatelessWidget {
   Widget _buildIcon(IconData? icon, [bool selected = false]) {
     return icon != null
         ? Icon(
-      icon,
-      size: 22,
-      color: selected
-          ? activeIconColor ?? activeTextStyle?.color
-          : iconColor ?? textStyle.color,
-    )
+            icon,
+            size: 22,
+            color: selected
+                ? activeIconColor ?? activeTextStyle?.color
+                : iconColor ?? textStyle.color,
+          )
         : const SizedBox();
   }
 

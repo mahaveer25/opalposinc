@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/NewUi/BlocPages/SettingsBlocPage.dart';
-import 'package:opalsystem/model/loggedInUser.dart';
-import 'package:opalsystem/utils/constants.dart';
+import 'package:opalposinc/NewUi/BlocPages/SettingsBlocPage.dart';
+import 'package:opalposinc/model/loggedInUser.dart';
+import 'package:opalposinc/utils/constants.dart';
 
 import '../../FetchingApis/FetchApis.dart';
 import '../../model/location.dart';

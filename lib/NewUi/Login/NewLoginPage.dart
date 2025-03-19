@@ -3,19 +3,19 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/NewUi/BlocPages/LoggedUserBloc.dart';
-import 'package:opalsystem/NewUi/Widgets/CustomButton.dart';
-import 'package:opalsystem/auth/remember_login.dart';
-import 'package:opalsystem/connection.dart';
-import 'package:opalsystem/model/loggedInUser.dart';
-import 'package:opalsystem/my_flutter_app_icons.dart';
-import 'package:opalsystem/services/user_authenticate.dart';
-import 'package:opalsystem/utils/constant_dialog.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/utils/decorations.dart';
-import 'package:opalsystem/utils/global_variables.dart';
-import 'package:opalsystem/widgets/CustomWidgets/CustomIniputField.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/NewUi/BlocPages/LoggedUserBloc.dart';
+import 'package:opalposinc/NewUi/Widgets/CustomButton.dart';
+import 'package:opalposinc/auth/remember_login.dart';
+import 'package:opalposinc/connection.dart';
+import 'package:opalposinc/model/loggedInUser.dart';
+import 'package:opalposinc/my_flutter_app_icons.dart';
+import 'package:opalposinc/services/user_authenticate.dart';
+import 'package:opalposinc/utils/constant_dialog.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/utils/decorations.dart';
+import 'package:opalposinc/utils/global_variables.dart';
+import 'package:opalposinc/widgets/CustomWidgets/CustomIniputField.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
 
 class NewLoginPage extends StatefulWidget {
   const NewLoginPage({super.key});

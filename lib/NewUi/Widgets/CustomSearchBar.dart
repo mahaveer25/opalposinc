@@ -3,11 +3,11 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:opalsystem/NewUi/Widgets/CustomMaterialWidget.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/utils/decorations.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/ProductBloc.dart';
+import 'package:opalposinc/NewUi/Widgets/CustomMaterialWidget.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/utils/decorations.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/ProductBloc.dart';
 
 class CustomSearchBar extends StatefulWidget {
   final FocusNode focusNode;

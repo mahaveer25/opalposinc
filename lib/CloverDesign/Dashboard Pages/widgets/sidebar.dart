@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:opalsystem/CloverDesign/Dashboard%20Pages/widgets/menuItem.dart';
-import 'package:opalsystem/CloverDesign/Dashboard%20Pages/widgets/sidebar_item.dart';
+import 'package:opalposinc/CloverDesign/Dashboard%20Pages/widgets/menuItem.dart';
+import 'package:opalposinc/CloverDesign/Dashboard%20Pages/widgets/sidebar_item.dart';
 
 class SideBarClover extends StatefulWidget {
   const SideBarClover({
@@ -46,7 +46,7 @@ class SideBarClover extends StatefulWidget {
   _SideBarState createState() => _SideBarState();
 }
 
-class _SideBarState extends State<SideBarClover>  {
+class _SideBarState extends State<SideBarClover> {
   late double _sideBarWidth;
   late Widget _child;
 

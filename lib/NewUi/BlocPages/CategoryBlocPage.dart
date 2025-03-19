@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/FetchingApis/FetchApis.dart';
-import 'package:opalsystem/model/location.dart';
+import 'package:opalposinc/FetchingApis/FetchApis.dart';
+import 'package:opalposinc/model/location.dart';
 import '../../model/category.dart';
 import '../../widgets/common/Top Section/Bloc/CustomBloc.dart';
 

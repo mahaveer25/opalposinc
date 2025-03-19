@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:opalsystem/CloverDesign/Dashboard%20Pages/widgets/navbar.dart';
-import 'package:opalsystem/CloverDesign/Dashboard%20Pages/widgets/units_dialog.dart';
-import 'package:opalsystem/CloverDesign/Dashboard%20Pages/widgets/variants_dialog.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/utils/utils.dart';
-import 'package:opalsystem/widgets/CustomWidgets/custom_text_widgets.dart';
+import 'package:opalposinc/CloverDesign/Dashboard%20Pages/widgets/navbar.dart';
+import 'package:opalposinc/CloverDesign/Dashboard%20Pages/widgets/units_dialog.dart';
+import 'package:opalposinc/CloverDesign/Dashboard%20Pages/widgets/variants_dialog.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/utils/utils.dart';
+import 'package:opalposinc/widgets/CustomWidgets/custom_text_widgets.dart';
 
 class UnitsNewClover extends StatefulWidget {
   const UnitsNewClover({super.key});
@@ -15,62 +15,21 @@ class UnitsNewClover extends StatefulWidget {
 }
 
 class _UnitsNewCloverState extends State<UnitsNewClover> {
-
   final List<Map<String, String>> units = [
-    {
-      "Name": "Grocery",
-      "Short name": "Gro",
-      "Allow decimal": "Yes"
-    },
-    {
-      "Name": "Electronics",
-      "Short name": "Elec",
-      "Allow decimal": "No"
-    },
-    {
-      "Name": "Clothing",
-      "Short name": "Cloth",
-      "Allow decimal": "Yes"
-    },
-    {
-      "Name": "Stationery",
-      "Short name": "Stat",
-      "Allow decimal": "Yes"
-    },
-    {
-      "Name": "Furniture",
-      "Short name": "Furn",
-      "Allow decimal": "No"
-    },
-    {
-      "Name": "Toys",
-      "Short name": "Toy",
-      "Allow decimal": "Yes"
-    },
-    {
-      "Name": "Beverages",
-      "Short name": "Bev",
-      "Allow decimal": "No"
-    },
-    {
-      "Name": "Snacks",
-      "Short name": "Snack",
-      "Allow decimal": "Yes"
-    },
-    {
-      "Name": "Books",
-      "Short name": "Book",
-      "Allow decimal": "No"
-    },
-    {
-      "Name": "Hardware",
-      "Short name": "Hard",
-      "Allow decimal": "No"
-    }
+    {"Name": "Grocery", "Short name": "Gro", "Allow decimal": "Yes"},
+    {"Name": "Electronics", "Short name": "Elec", "Allow decimal": "No"},
+    {"Name": "Clothing", "Short name": "Cloth", "Allow decimal": "Yes"},
+    {"Name": "Stationery", "Short name": "Stat", "Allow decimal": "Yes"},
+    {"Name": "Furniture", "Short name": "Furn", "Allow decimal": "No"},
+    {"Name": "Toys", "Short name": "Toy", "Allow decimal": "Yes"},
+    {"Name": "Beverages", "Short name": "Bev", "Allow decimal": "No"},
+    {"Name": "Snacks", "Short name": "Snack", "Allow decimal": "Yes"},
+    {"Name": "Books", "Short name": "Book", "Allow decimal": "No"},
+    {"Name": "Hardware", "Short name": "Hard", "Allow decimal": "No"}
   ];
   @override
   Widget build(BuildContext context) {
-    List<String> headings=["Name", "Short name","Allow decimal"];
+    List<String> headings = ["Name", "Short name", "Allow decimal"];
 
     return Stack(
       children: [
@@ -85,7 +44,8 @@ class _UnitsNewCloverState extends State<UnitsNewClover> {
                 ),
                 SizedBox(
                   width: MyUtility.fixedWidthCloverNewDesign,
-                  child: Text("Actions", style: const TextStyle(fontWeight: FontWeight.bold)),
+                  child: Text("Actions",
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
                 ),
               ],
             ),
@@ -95,7 +55,8 @@ class _UnitsNewCloverState extends State<UnitsNewClover> {
                 itemBuilder: (context, index) {
                   return Container(
                     height: 60,
-                    margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
                     color: Colors.white,
                     child: Row(
                       children: [
@@ -112,7 +73,8 @@ class _UnitsNewCloverState extends State<UnitsNewClover> {
                                 Expanded(
                                   child: Text(
                                     units[index]["Name"] ?? "",
-                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ),
                                 // Remaining space for Values
@@ -138,7 +100,7 @@ class _UnitsNewCloverState extends State<UnitsNewClover> {
                                     child: Row(
                                       children: [
                                         GestureDetector(
-                                            onTap:() {
+                                            onTap: () {
                                               showDialog(
                                                 context: context,
                                                 builder: (context) {
@@ -146,7 +108,8 @@ class _UnitsNewCloverState extends State<UnitsNewClover> {
                                                     title: "Edit Unit",
                                                     blueButton: "Update",
 
-                                                    initialData: units[index], // Pass the current variation data
+                                                    initialData: units[
+                                                        index], // Pass the current variation data
                                                     onSubmit: (data) {
                                                       setState(() {
                                                         units[index] = data;
@@ -155,16 +118,22 @@ class _UnitsNewCloverState extends State<UnitsNewClover> {
                                                   );
                                                 },
                                               );
-                                            } ,
-                                            child: Icon(Icons.edit,color: Constant.colorPurple,)),
+                                            },
+                                            child: Icon(
+                                              Icons.edit,
+                                              color: Constant.colorPurple,
+                                            )),
                                         Gap(15),
                                         GestureDetector(
-                                            onTap:() {
+                                            onTap: () {
                                               setState(() {
                                                 units.removeAt(index);
                                               });
-                                            } ,
-                                            child: Icon(Icons.delete,color: Constant.colorRed,)),
+                                            },
+                                            child: Icon(
+                                              Icons.delete,
+                                              color: Constant.colorRed,
+                                            )),
                                       ],
                                     ),
                                   ),
@@ -192,10 +161,9 @@ class _UnitsNewCloverState extends State<UnitsNewClover> {
                   return UnitsDialog(
                     title: "Add Unit",
                     blueButton: "Save",
-
                     onSubmit: (data) {
                       setState(() {
-                        units.add(  data);
+                        units.add(data);
                       });
                     },
                   );

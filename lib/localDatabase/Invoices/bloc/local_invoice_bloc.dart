@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:opalsystem/invoices/InvoiceModel.dart';
-import 'package:opalsystem/localDatabase/Invoices/LocalInvoices.dart';
+import 'package:opalposinc/invoices/InvoiceModel.dart';
+import 'package:opalposinc/localDatabase/Invoices/LocalInvoices.dart';
 
 part 'local_invoice_event.dart';
 part 'local_invoice_state.dart';

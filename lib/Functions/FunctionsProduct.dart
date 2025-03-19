@@ -2,16 +2,16 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/invoices/InvoiceModel.dart';
-import 'package:opalsystem/model/CustomerModel.dart';
-import 'package:opalsystem/model/TotalDiscountModel.dart';
-import 'package:opalsystem/model/product.dart';
-import 'package:opalsystem/model/TaxModel.dart';
-import 'package:opalsystem/model/setttings.dart';
-import 'package:opalsystem/multiplePay/PaymentListMethod.dart';
-import 'package:opalsystem/services/sell_return.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
-import 'package:opalsystem/widgets/major/left_section.dart';
+import 'package:opalposinc/invoices/InvoiceModel.dart';
+import 'package:opalposinc/model/CustomerModel.dart';
+import 'package:opalposinc/model/TotalDiscountModel.dart';
+import 'package:opalposinc/model/product.dart';
+import 'package:opalposinc/model/TaxModel.dart';
+import 'package:opalposinc/model/setttings.dart';
+import 'package:opalposinc/multiplePay/PaymentListMethod.dart';
+import 'package:opalposinc/services/sell_return.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/widgets/major/left_section.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FunctionProduct {

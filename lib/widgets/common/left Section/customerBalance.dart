@@ -4,14 +4,14 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/model/CustomerModel.dart';
-import 'package:opalsystem/model/customer_balance.dart';
-import 'package:opalsystem/multiplePay/MultiplePay.dart';
-import 'package:opalsystem/multiplePay/PaymentListMethod.dart';
-import 'package:opalsystem/services/customer_balance.dart';
-import 'package:opalsystem/utils/commonFunction.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/model/CustomerModel.dart';
+import 'package:opalposinc/model/customer_balance.dart';
+import 'package:opalposinc/multiplePay/MultiplePay.dart';
+import 'package:opalposinc/multiplePay/PaymentListMethod.dart';
+import 'package:opalposinc/services/customer_balance.dart';
+import 'package:opalposinc/utils/commonFunction.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
 
 class CustomerBalance extends StatefulWidget {
   const CustomerBalance({super.key});
@@ -45,8 +45,8 @@ class _CustomerBalanceState extends State<CustomerBalance> {
                 ),
                 builder: (BuildContext context,
                     AsyncSnapshot<CustomerBalanceModel> snapshot) {
-
-                  double customerBalance=CommonFunctions.roundNumber(double.parse(snapshot.data?.balance??"0.0"), 1);
+                  double customerBalance = CommonFunctions.roundNumber(
+                      double.parse(snapshot.data?.balance ?? "0.0"), 1);
                   log("This is customerBalance: ${customerBalance}");
                   if (!snapshot.hasData) {
                     return Container();
@@ -65,7 +65,7 @@ class _CustomerBalanceState extends State<CustomerBalance> {
                       //   snapshot.data != null &&
                       //   snapshot.data!.name
 
-                      selectedCustomer.id != '1' && customerBalance!=0) {
+                      selectedCustomer.id != '1' && customerBalance != 0) {
                     customerbalance = snapshot.data!.balance!;
                     return Row(
                       children: [

@@ -4,8 +4,8 @@ import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:opalsystem/model/recent_sales_model.dart';
-import 'package:opalsystem/utils/global_variables.dart';
+import 'package:opalposinc/model/recent_sales_model.dart';
+import 'package:opalposinc/utils/global_variables.dart';
 
 import '../widgets/common/Top Section/Bloc/CustomBloc.dart';
 

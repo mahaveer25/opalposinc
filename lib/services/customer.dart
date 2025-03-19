@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
-import 'package:opalsystem/model/CustomerModel.dart';
-import 'package:opalsystem/model/loggedInUser.dart';
-import 'package:opalsystem/utils/global_variables.dart';
+import 'package:opalposinc/model/CustomerModel.dart';
+import 'package:opalposinc/model/loggedInUser.dart';
+import 'package:opalposinc/utils/global_variables.dart';
 
 class CustomerDataService {
   String storeUrl = GlobalData.storeUrl;
@@ -22,7 +22,7 @@ class CustomerDataService {
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
 
-        if (jsonData['success']==true) {
+        if (jsonData['success'] == true) {
           List<Map<String, dynamic>> data = List.from(jsonData['data']);
           return data.map((item) => CustomerModel.fromJson(item)).toList();
           // ${item['id']}-

@@ -1,11 +1,11 @@
-import 'package:opalsystem/CloverDesign/Bloc/inventory_bloc.dart';
-import 'package:opalsystem/connection.dart';
-import 'package:opalsystem/localDatabase/Invoices/bloc/local_invoice_bloc.dart';
-import 'package:opalsystem/localDatabase/PathBuilders%20+%20blocs/databaseTypeSelected.dart';
-import 'package:opalsystem/localDatabase/Transaction/Bloc/bloc/local_transaction_bloc_bloc.dart';
-import 'package:opalsystem/localDatabase/Transaction/Bloc/darftBloc/local_draft_bloc.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CartBloc.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/showPriceTextField.dart';
+import 'package:opalposinc/CloverDesign/Bloc/inventory_bloc.dart';
+import 'package:opalposinc/connection.dart';
+import 'package:opalposinc/localDatabase/Invoices/bloc/local_invoice_bloc.dart';
+import 'package:opalposinc/localDatabase/PathBuilders%20+%20blocs/databaseTypeSelected.dart';
+import 'package:opalposinc/localDatabase/Transaction/Bloc/bloc/local_transaction_bloc_bloc.dart';
+import 'package:opalposinc/localDatabase/Transaction/Bloc/darftBloc/local_draft_bloc.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CartBloc.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/showPriceTextField.dart';
 
 import '../widgets/common/Top Section/Bloc/CustomBloc.dart';
 import '../widgets/common/Top Section/Bloc/ProductBloc.dart';

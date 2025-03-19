@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/connection.dart';
-import 'package:opalsystem/utils/decorations.dart';
+import 'package:opalposinc/connection.dart';
+import 'package:opalposinc/utils/decorations.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});

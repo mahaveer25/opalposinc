@@ -2,7 +2,8 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/localDatabase/Transaction/localTransaction.dart';
+
+import 'localDatabase/Transaction/localTransaction.dart';
 
 class CheckConnection extends Bloc<bool, bool> {
   CheckConnection() : super(true) {

@@ -1,13 +1,13 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/auth/login.dart';
-import 'package:opalsystem/model/loggedInUser.dart';
-import 'package:opalsystem/pages/home_page.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/utils/decorations.dart';
-import 'package:opalsystem/widgets/CustomWidgets.dart';
-import 'package:opalsystem/widgets/CustomWidgets/CustomIniputField.dart';
+import 'package:opalposinc/auth/login.dart';
+import 'package:opalposinc/model/loggedInUser.dart';
+import 'package:opalposinc/pages/home_page.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/utils/decorations.dart';
+import 'package:opalposinc/widgets/CustomWidgets.dart';
+import 'package:opalposinc/widgets/CustomWidgets/CustomIniputField.dart';
 import '../services/open_register.dart';
 import '../widgets/common/Top Section/Bloc/CustomBloc.dart';
 import '../widgets/common/Top Section/location.dart';
@@ -179,20 +179,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     SizedBox(
                       width: double.infinity,
                       child:
-                      Decorations.contain(child: const LocationDropdown()),
+                          Decorations.contain(child: const LocationDropdown()),
                     ),
-
                   ],
                   const SizedBox(height: 10),
                   const Align(
                       alignment: Alignment.centerLeft,
-                      child:
-                      const CustomTextWidget(text: "Select PAX Device")),
+                      child: const CustomTextWidget(text: "Select PAX Device")),
                   const SizedBox(height: 5),
                   SizedBox(
                     width: double.infinity,
                     child:
-                    Decorations.contain(child: const PaxDeviceDropdown()),
+                        Decorations.contain(child: const PaxDeviceDropdown()),
                   ),
                   const SizedBox(height: 35),
                   Row(

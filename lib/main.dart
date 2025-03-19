@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/Functions/FunctionsProduct.dart';
-import 'package:opalsystem/auth/login.dart';
-import 'package:opalsystem/localDatabase/LocalDatabaseInit.dart';
-import 'package:opalsystem/views/Customer_dsiplay.dart';
-import 'package:opalsystem/Registery/BlocProviders.dart';
 import 'package:presentation_displays/displays_manager.dart';
 import 'package:toastification/toastification.dart';
+
+import 'Functions/FunctionsProduct.dart';
+import 'Registery/BlocProviders.dart';
+import 'auth/login.dart';
+import 'localDatabase/LocalDatabaseInit.dart';
+import 'views/Customer_dsiplay.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {

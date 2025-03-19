@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/CloverDesign/Dashboard.dart';
-import 'package:opalsystem/FetchingApis/FetchApis.dart';
-import 'package:opalsystem/model/category.dart';
-import 'package:opalsystem/model/loggedInUser.dart';
-import 'package:opalsystem/model/location.dart';
-import 'package:opalsystem/pages/home_page.dart';
-import 'package:opalsystem/views/Register_Screen.dart';
+import 'package:opalposinc/CloverDesign/Dashboard.dart';
+import 'package:opalposinc/FetchingApis/FetchApis.dart';
+import 'package:opalposinc/model/category.dart';
+import 'package:opalposinc/model/loggedInUser.dart';
+import 'package:opalposinc/model/location.dart';
+import 'package:opalposinc/pages/home_page.dart';
+import 'package:opalposinc/views/Register_Screen.dart';
 
 import '../../model/brand.dart';
 import '../../widgets/common/Top Section/Bloc/CustomBloc.dart';

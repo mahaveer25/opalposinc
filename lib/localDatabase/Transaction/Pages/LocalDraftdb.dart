@@ -2,11 +2,11 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:opalsystem/localDatabase/createTables.dart';
-import 'package:opalsystem/services/placeorder.dart';
-import 'package:opalsystem/utils/constant_dialog.dart';
+import 'package:opalposinc/localDatabase/createTables.dart';
+import 'package:opalposinc/services/placeorder.dart';
+import 'package:opalposinc/utils/constant_dialog.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:opalsystem/invoices/transaction.dart' as TransactionModel;
+import 'package:opalposinc/invoices/transaction.dart' as TransactionModel;
 import 'package:path/path.dart';
 
 class LocalDraft {

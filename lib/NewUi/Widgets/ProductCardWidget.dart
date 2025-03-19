@@ -2,10 +2,10 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/Animations/Slide.dart';
-import 'package:opalsystem/utils/decorations.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CartBloc.dart';
-import 'package:opalsystem/widgets/common/left%20Section/product_disctcard.dart';
+import 'package:opalposinc/Animations/Slide.dart';
+import 'package:opalposinc/utils/decorations.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CartBloc.dart';
+import 'package:opalposinc/widgets/common/left%20Section/product_disctcard.dart';
 
 import '../../model/product.dart';
 

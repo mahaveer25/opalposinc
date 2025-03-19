@@ -5,10 +5,10 @@ import 'dart:developer';
 // import 'dart:js_interop';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
-import 'package:opalsystem/invoices/InvoiceModel.dart';
-import 'package:opalsystem/invoices/transaction.dart';
-import 'package:opalsystem/utils/api_constants.dart';
-import 'package:opalsystem/utils/global_variables.dart';
+import 'package:opalposinc/invoices/InvoiceModel.dart';
+import 'package:opalposinc/invoices/transaction.dart';
+import 'package:opalposinc/utils/api_constants.dart';
+import 'package:opalposinc/utils/global_variables.dart';
 
 class PostQuatationService {
   static String storeUrl = GlobalData.storeUrl;
@@ -18,7 +18,8 @@ class PostQuatationService {
     try {
       log('${invoiceModel.toJson()}');
       final response = await http.post(
-          Uri.parse(ApiConstants.getBaseUrl(storeUrl)+ApiConstants.posQuotation),
+          Uri.parse(
+              ApiConstants.getBaseUrl(storeUrl) + ApiConstants.posQuotation),
           headers: {
             'OPAL-PAY-API-KEY': '#bk_api_opal_v1_1_1@',
           },

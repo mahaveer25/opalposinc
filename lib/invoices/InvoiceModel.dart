@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:opalsystem/multiplePay/PaymentListMethod.dart';
+import 'package:opalposinc/multiplePay/PaymentListMethod.dart';
 
 import '../model/product.dart';
 
@@ -33,8 +33,6 @@ class InvoiceModel {
     String? invoiceNoReturned,
     String? offlineInvoiceNo,
     String? transactionPaxDeviceId,
-
-
   }) {
     _transactionId = transactionId;
     _invoiceTitle = invoiceTitle;
@@ -60,8 +58,8 @@ class InvoiceModel {
     _discountAmount = discountAmount;
     _invoiceNoReturned = invoiceNoReturned;
     _offlineInvoiceNo = offlineInvoiceNo;
-    _transactionPaxDeviceId=transactionPaxDeviceId;
-    _previousSaleReturnPaymentMethod=previousSaleReturnPaymentMethod;
+    _transactionPaxDeviceId = transactionPaxDeviceId;
+    _previousSaleReturnPaymentMethod = previousSaleReturnPaymentMethod;
   }
 
   InvoiceModel.fromJson(dynamic json) {
@@ -91,12 +89,17 @@ class InvoiceModel {
             return PaymentListMethod.fromJson(e);
           }).toList();
 
-    if (json.containsKey('previous_sale_return_payment_method') && json['previous_sale_return_payment_method'] != null) {
-      _previousSaleReturnPaymentMethod = json['previous_sale_return_payment_method'] is String
-          ? List.from(jsonDecode(json['previous_sale_return_payment_method']))
-          .map((e) => PaymentListMethod.fromJson(e))
-          .toList()
-          : List.from(json['previous_sale_return_payment_method']).map((e) => PaymentListMethod.fromJson(e)).toList();
+    if (json.containsKey('previous_sale_return_payment_method') &&
+        json['previous_sale_return_payment_method'] != null) {
+      _previousSaleReturnPaymentMethod =
+          json['previous_sale_return_payment_method'] is String
+              ? List.from(
+                      jsonDecode(json['previous_sale_return_payment_method']))
+                  .map((e) => PaymentListMethod.fromJson(e))
+                  .toList()
+              : List.from(json['previous_sale_return_payment_method'])
+                  .map((e) => PaymentListMethod.fromJson(e))
+                  .toList();
     } else {
       _previousSaleReturnPaymentMethod = [];
     }
@@ -115,7 +118,6 @@ class InvoiceModel {
     _changeReturn = json['change_return'];
     _discountAmount = json['discount_amount'];
     _offlineInvoiceNo = json['offline_invoice_no'];
-
   }
   String? _transactionId;
   String? _invoiceTitle;
@@ -171,8 +173,6 @@ class InvoiceModel {
     String? discountAmount,
     String? offlineInvoiceNo,
     String? transactionPaxDeviceId,
-
-
   }) =>
       InvoiceModel(
           invoiceTitle: invoiceTitle ?? _invoiceTitle,
@@ -198,10 +198,11 @@ class InvoiceModel {
           discountAmount: discountAmount ?? _discountAmount,
           invoiceNoReturned: invoiceNoReturned ?? _invoiceNoReturned,
           offlineInvoiceNo: offlineInvoiceNo ?? _offlineInvoiceNo,
-          transactionPaxDeviceId: transactionPaxDeviceId??_transactionPaxDeviceId,
+          transactionPaxDeviceId:
+              transactionPaxDeviceId ?? _transactionPaxDeviceId,
           taxAmount: taxAmount ?? _taxAmount,
-        previousSaleReturnPaymentMethod: previousSaleReturnPaymentMethod??_previousSaleReturnPaymentMethod
-      );
+          previousSaleReturnPaymentMethod: previousSaleReturnPaymentMethod ??
+              _previousSaleReturnPaymentMethod);
   String? get transactionId => _transactionId;
   String? get invoiceTitle => _invoiceTitle;
   String? get address => _address;
@@ -212,7 +213,8 @@ class InvoiceModel {
   String? get customerMobile => _customerMobile;
   List<Product>? get product => _products;
   List<PaymentListMethod>? get paymentMethod => _paymentMethod;
-  List<PaymentListMethod>? get previousSaleReturnPaymentMethod => _previousSaleReturnPaymentMethod;
+  List<PaymentListMethod>? get previousSaleReturnPaymentMethod =>
+      _previousSaleReturnPaymentMethod;
   String? get taxPercentage => _taxPercentage;
   String? get invoiceFooterText => _invoiceFooterText;
   String? get invoiceDiscount => _invoiceDiscount;
@@ -228,7 +230,6 @@ class InvoiceModel {
   String? get invoiceNoReturned => _invoiceNoReturned;
   String? get offlineInvoiceNo => _offlineInvoiceNo;
   String? get transactionPaxDeviceId => _transactionPaxDeviceId;
-
 
   Map<String, Object?> toJson() {
     return {
@@ -246,9 +247,12 @@ class InvoiceModel {
       'payment_method': jsonEncode(
         _paymentMethod?.map((v) => v.toJson()).toList(),
       ),
-      'previous_sale_return_payment_method': _previousSaleReturnPaymentMethod!=null?jsonEncode(
-        _previousSaleReturnPaymentMethod?.map((v) => v.toJson()).toList(),
-      ):[],
+      'previous_sale_return_payment_method': _previousSaleReturnPaymentMethod !=
+              null
+          ? jsonEncode(
+              _previousSaleReturnPaymentMethod?.map((v) => v.toJson()).toList(),
+            )
+          : [],
       'tax_percentage': _taxPercentage,
       'invoice_footer_text': _invoiceFooterText,
       'invoice_discount': _invoiceDiscount,
@@ -263,8 +267,7 @@ class InvoiceModel {
       'discount_amount': _discountAmount,
       'invoice_no_return': _invoiceNoReturned,
       'offline_invoice_no': _offlineInvoiceNo,
-      'transaction_pax_device_id':_transactionPaxDeviceId,
-
+      'transaction_pax_device_id': _transactionPaxDeviceId,
     };
   }
 }

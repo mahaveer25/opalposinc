@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:opalsystem/utils/constant_dialog.dart';
-import 'package:opalsystem/views/Register_Screen.dart';
+
+import 'utils/constant_dialog.dart';
+import 'views/Register_Screen.dart';
 
 class ErrorFuncs {
   final BuildContext context;

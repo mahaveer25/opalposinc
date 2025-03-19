@@ -4,13 +4,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/invoices/InvoiceModel.dart';
-import 'package:opalsystem/localDatabase/Invoices/LocalDatabaseInvoices.dart';
-import 'package:opalsystem/localDatabase/Transaction/Bloc/bloc/local_transaction_bloc_bloc.dart';
-import 'package:opalsystem/localDatabase/createTables.dart';
+import 'package:opalposinc/invoices/InvoiceModel.dart';
+import 'package:opalposinc/localDatabase/Invoices/LocalDatabaseInvoices.dart';
+import 'package:opalposinc/localDatabase/Transaction/Bloc/bloc/local_transaction_bloc_bloc.dart';
+import 'package:opalposinc/localDatabase/createTables.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:opalsystem/invoices/transaction.dart' as TransactionModel;
+import 'package:opalposinc/invoices/transaction.dart' as TransactionModel;
 
 class LocalTransaction {
   static const databaseName = 'transactions';

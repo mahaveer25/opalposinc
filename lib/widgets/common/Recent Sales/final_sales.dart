@@ -5,18 +5,18 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/CustomFuncs.dart';
-import 'package:opalsystem/MobileView/sellreturnMobile.dart';
-import 'package:opalsystem/invoices/InvoiceModel.dart';
-import 'package:opalsystem/model/recent_sales_model.dart';
-import 'package:opalsystem/multiplePay/MultiplePay.dart';
-import 'package:opalsystem/pages/sell_retun.dart';
-import 'package:opalsystem/services/edit_recent_sale.dart';
-import 'package:opalsystem/services/recent_sale_service.dart';
-import 'package:opalsystem/services/sell_return.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
-import 'package:opalsystem/printing.dart';
+import 'package:opalposinc/CustomFuncs.dart';
+import 'package:opalposinc/MobileView/sellreturnMobile.dart';
+import 'package:opalposinc/invoices/InvoiceModel.dart';
+import 'package:opalposinc/model/recent_sales_model.dart';
+import 'package:opalposinc/multiplePay/MultiplePay.dart';
+import 'package:opalposinc/pages/sell_retun.dart';
+import 'package:opalposinc/services/edit_recent_sale.dart';
+import 'package:opalposinc/services/recent_sale_service.dart';
+import 'package:opalposinc/services/sell_return.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/printing.dart';
 
 import '../../../invoices/GenerateInvoice.dart';
 
@@ -40,19 +40,18 @@ class _FinalSaleState extends State<FinalSale> with PrintPDF {
     super.initState();
   }
 
+  int loadingIndex = -1;
 
-  int loadingIndex=-1;
-
-  void _startLoading(int index){
+  void _startLoading(int index) {
     setState(() {
-      loadingIndex=index;
+      loadingIndex = index;
     });
-
   }
 
   onInit() async {
     try {
-      final List<RecentSalesModel> data = await recentSale.getRecentSales(context, type = 'sell');
+      final List<RecentSalesModel> data =
+          await recentSale.getRecentSales(context, type = 'sell');
       if (mounted) {
         setState(() {
           recentModel = data;
@@ -69,7 +68,6 @@ class _FinalSaleState extends State<FinalSale> with PrintPDF {
     }
   }
 
-
   void _onSend(int index, bool isMobile) async {
     try {
       InvoiceModel? sellReturn = await SellReturnService.getSellRetrunDetails(
@@ -77,23 +75,26 @@ class _FinalSaleState extends State<FinalSale> with PrintPDF {
           .whenComplete(() => Navigator.of(context).pop());
 
       if (sellReturn != null) {
-
         !isMobile
             ? showDialog(
                 context: context,
                 builder: (context) {
                   return SellReturn(returnsale: sellReturn);
                 })
-            : Navigator.push(context, MaterialPageRoute(builder: (context) => SellReturnMobile(returnsale: sellReturn,)));
+            : Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => SellReturnMobile(
+                          returnsale: sellReturn,
+                        )));
       } else {
         Navigator.of(context).pop();
       }
     } catch (e) {
       log('Error fetching suspended order details: $e');
-    }
-    finally{
+    } finally {
       setState(() {
-        loadingIndex=-1;
+        loadingIndex = -1;
       });
     }
   }
@@ -383,27 +384,24 @@ class _FinalSaleState extends State<FinalSale> with PrintPDF {
                                     trailing: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-
-
-
                                         SizedBox(
                                           width: 50,
                                           height: 50,
-                                          child: (loadingIndex!=index )?IconButton(
-                                              onPressed: () {
-                                                _startLoading(index);
-                                                _onSend(index, isMobile);
-
-                                              },
-                                              icon: Icon(
-                                                Icons.undo_rounded,
-                                                size: 30,
-                                                color: Constant.colorPurple,
-                                              )) :
-                                          CupertinoActivityIndicator(color: Constant.colorPurple,),
+                                          child: (loadingIndex != index)
+                                              ? IconButton(
+                                                  onPressed: () {
+                                                    _startLoading(index);
+                                                    _onSend(index, isMobile);
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.undo_rounded,
+                                                    size: 30,
+                                                    color: Constant.colorPurple,
+                                                  ))
+                                              : CupertinoActivityIndicator(
+                                                  color: Constant.colorPurple,
+                                                ),
                                         ),
-
-
 
                                         // IconButton(
                                         //     onPressed: () {

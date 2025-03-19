@@ -3,15 +3,15 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:opalsystem/Functions/FunctionsProduct.dart';
-import 'package:opalsystem/invoices/InvoiceModel.dart';
-import 'package:opalsystem/invoices/transaction.dart';
-import 'package:opalsystem/model/CustomerModel.dart';
-import 'package:opalsystem/model/product.dart';
-import 'package:opalsystem/model/TaxModel.dart';
-import 'package:opalsystem/model/location.dart';
-import 'package:opalsystem/multiplePay/PaymentListMethod.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/Functions/FunctionsProduct.dart';
+import 'package:opalposinc/invoices/InvoiceModel.dart';
+import 'package:opalposinc/invoices/transaction.dart';
+import 'package:opalposinc/model/CustomerModel.dart';
+import 'package:opalposinc/model/product.dart';
+import 'package:opalposinc/model/TaxModel.dart';
+import 'package:opalposinc/model/location.dart';
+import 'package:opalposinc/multiplePay/PaymentListMethod.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
 
 class LocalDatabaseInvoices {
   final BuildContext context;

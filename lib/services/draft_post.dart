@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
-import 'package:opalsystem/invoices/InvoiceModel.dart';
-import 'package:opalsystem/invoices/transaction.dart';
-import 'package:opalsystem/utils/api_constants.dart';
-import 'package:opalsystem/utils/global_variables.dart';
+import 'package:opalposinc/invoices/InvoiceModel.dart';
+import 'package:opalposinc/invoices/transaction.dart';
+import 'package:opalposinc/utils/api_constants.dart';
+import 'package:opalposinc/utils/global_variables.dart';
 
 class PostDraftService {
   static String storeUrl = GlobalData.storeUrl;
@@ -14,16 +14,16 @@ class PostDraftService {
       Transaction invoiceModel) async {
     try {
       log('${invoiceModel.toJson()}');
-      final response = await http.post(Uri.parse(
-         'https://$storeUrl.opalpay.us/public/api/post_draft'
+      final response = await http.post(
+          Uri.parse('https://$storeUrl.opalpay.us/public/api/post_draft'
 
-        // ApiConstants.getBaseUrl(storeUrl)+ApiConstants.postDraft
-      ),
+              // ApiConstants.getBaseUrl(storeUrl)+ApiConstants.postDraft
+              ),
           headers: {
-            ApiConstants.headerAuthorizationKey:ApiConstants.headerAuthorizationValue,
+            ApiConstants.headerAuthorizationKey:
+                ApiConstants.headerAuthorizationValue,
             // 'OPAL-PAY-API-KEY': '#bk_api_opal_v1_1_1@',
           },
-
           body: invoiceModel.toJson());
 
       if (response.statusCode == 200) {

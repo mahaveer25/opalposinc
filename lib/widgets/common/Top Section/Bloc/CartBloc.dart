@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/model/TotalDiscountModel.dart';
+import 'package:opalposinc/model/TotalDiscountModel.dart';
 import 'package:presentation_displays/displays_manager.dart';
 import '../../../../model/product.dart';
 

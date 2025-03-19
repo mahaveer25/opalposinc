@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/CustomFuncs.dart';
-import 'package:opalsystem/NewUi/Widgets/CustomButton.dart';
-import 'package:opalsystem/connection.dart';
-import 'package:opalsystem/invoices/transaction.dart';
-import 'package:opalsystem/localDatabase/Transaction/Bloc/bloc/local_transaction_bloc_bloc.dart';
-import 'package:opalsystem/model/TaxModel.dart';
-import 'package:opalsystem/model/setttings.dart';
-import 'package:opalsystem/multiplePay/MultiplePay.dart';
-import 'package:opalsystem/services/draft_post.dart';
-import 'package:opalsystem/services/quatation-Post.dart';
-import 'package:opalsystem/utils/constant_dialog.dart';
-import 'package:opalsystem/utils/decorations.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CartBloc.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
-import 'package:opalsystem/widgets/common/left%20Section/suspended_note.dart';
+import 'package:opalposinc/CustomFuncs.dart';
+import 'package:opalposinc/NewUi/Widgets/CustomButton.dart';
+import 'package:opalposinc/connection.dart';
+import 'package:opalposinc/invoices/transaction.dart';
+import 'package:opalposinc/localDatabase/Transaction/Bloc/bloc/local_transaction_bloc_bloc.dart';
+import 'package:opalposinc/model/TaxModel.dart';
+import 'package:opalposinc/model/setttings.dart';
+import 'package:opalposinc/multiplePay/MultiplePay.dart';
+import 'package:opalposinc/services/draft_post.dart';
+import 'package:opalposinc/services/quatation-Post.dart';
+import 'package:opalposinc/utils/constant_dialog.dart';
+import 'package:opalposinc/utils/decorations.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CartBloc.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/widgets/common/left%20Section/suspended_note.dart';
 
 class CustomPaymentBar extends StatelessWidget {
   final double itemTotal;

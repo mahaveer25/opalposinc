@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:opalsystem/invoices/chargeInvoiceModel.dart';
-import 'package:opalsystem/model/location.dart';
-import 'package:opalsystem/multiplePay/PaymentListMethod.dart';
-import 'package:opalsystem/utils/global_variables.dart';
+import 'package:opalposinc/invoices/chargeInvoiceModel.dart';
+import 'package:opalposinc/model/location.dart';
+import 'package:opalposinc/multiplePay/PaymentListMethod.dart';
+import 'package:opalposinc/utils/global_variables.dart';
 
 import '../model/loggedInUser.dart';
 

@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:opalsystem/CloverDesign/Dashboard%20Pages/widgets/navbar.dart';
-import 'package:opalsystem/CloverDesign/Dashboard%20Pages/widgets/selling_price_dialog.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/utils/utils.dart';
+import 'package:opalposinc/CloverDesign/Dashboard%20Pages/widgets/navbar.dart';
+import 'package:opalposinc/CloverDesign/Dashboard%20Pages/widgets/selling_price_dialog.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/utils/utils.dart';
 
 class SellingPriceGroupsNewClover extends StatefulWidget {
   const SellingPriceGroupsNewClover({super.key});
 
   @override
-  State<SellingPriceGroupsNewClover> createState() => _SellingPriceGroupsNewCloverState();
+  State<SellingPriceGroupsNewClover> createState() =>
+      _SellingPriceGroupsNewCloverState();
 }
 
-class _SellingPriceGroupsNewCloverState extends State<SellingPriceGroupsNewClover> {
-
+class _SellingPriceGroupsNewCloverState
+    extends State<SellingPriceGroupsNewClover> {
   final List<Map<String, String>> sellingPrices = [
     {
       "Name": "Grocery",
@@ -59,30 +60,33 @@ class _SellingPriceGroupsNewCloverState extends State<SellingPriceGroupsNewClove
     }
   ];
 
-int activeIndex=-1;
-List<int> deactivateIndex=[];
+  int activeIndex = -1;
+  List<int> deactivateIndex = [];
 
   @override
   Widget build(BuildContext context) {
-    List<String> headings=["Name", "Description"];
+    List<String> headings = ["Name", "Description"];
 
     return Stack(
       children: [
         Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 28,vertical: 5),
+              padding: EdgeInsets.symmetric(horizontal: 28, vertical: 5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
                       width: MyUtility.fixedWidthCloverNewDesign,
-                      child: Text("Name", style: const TextStyle(fontWeight: FontWeight.bold))),
+                      child: Text("Name",
+                          style: const TextStyle(fontWeight: FontWeight.bold))),
                   Expanded(
-                      child: Text("Description", style: const TextStyle(fontWeight: FontWeight.bold))),
+                      child: Text("Description",
+                          style: const TextStyle(fontWeight: FontWeight.bold))),
                   SizedBox(
                     width: MyUtility.fixedWidthCloverNewDesign,
-                    child: Text("Actions", style: const TextStyle(fontWeight: FontWeight.bold)),
+                    child: Text("Actions",
+                        style: const TextStyle(fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
@@ -93,7 +97,8 @@ List<int> deactivateIndex=[];
                 itemBuilder: (context, index) {
                   return Container(
                     height: 60,
-                    margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
                     color: Colors.white,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -112,7 +117,8 @@ List<int> deactivateIndex=[];
                                   width: MyUtility.fixedWidthCloverNewDesign,
                                   child: Text(
                                     sellingPrices[index]["Name"] ?? "",
-                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ),
                                 // Remaining space for Values
@@ -129,7 +135,7 @@ List<int> deactivateIndex=[];
                                   child: Row(
                                     children: [
                                       GestureDetector(
-                                          onTap:() {
+                                          onTap: () {
                                             showDialog(
                                               context: context,
                                               builder: (context) {
@@ -137,39 +143,55 @@ List<int> deactivateIndex=[];
                                                   title: "Edit Selling ",
                                                   blueButton: "Update",
 
-                                                  initialData: sellingPrices[index], // Pass the current variation data
+                                                  initialData: sellingPrices[
+                                                      index], // Pass the current variation data
                                                   onSubmit: (data) {
                                                     setState(() {
-                                                      sellingPrices[index] = data;
+                                                      sellingPrices[index] =
+                                                          data;
                                                     });
                                                   },
                                                 );
                                               },
                                             );
-                                          } ,
-                                          child: Icon(Icons.edit,color: Constant.colorPurple,)),
+                                          },
+                                          child: Icon(
+                                            Icons.edit,
+                                            color: Constant.colorPurple,
+                                          )),
                                       Gap(15),
                                       GestureDetector(
-                                          onTap:() {
+                                          onTap: () {
                                             setState(() {
                                               sellingPrices.removeAt(index);
                                             });
-                                          } ,
-                                          child: Icon(Icons.delete,color: Constant.colorRed,)),
+                                          },
+                                          child: Icon(
+                                            Icons.delete,
+                                            color: Constant.colorRed,
+                                          )),
                                       Gap(15),
                                       GestureDetector(
-                                          onTap:() {
+                                          onTap: () {
                                             setState(() {
-                                              if(!deactivateIndex.contains(index)){
+                                              if (!deactivateIndex
+                                                  .contains(index)) {
                                                 deactivateIndex.add(index);
-
-                                              }else{
-                                                deactivateIndex.removeWhere((element) => element==index,);
+                                              } else {
+                                                deactivateIndex.removeWhere(
+                                                  (element) => element == index,
+                                                );
                                               }
                                             });
-
-                                          } ,
-                                          child: Icon(FontAwesomeIcons.powerOff,color:deactivateIndex.contains(index)?Constant.colorGreen:Constant.colorRed,size: 20,)),
+                                          },
+                                          child: Icon(
+                                            FontAwesomeIcons.powerOff,
+                                            color:
+                                                deactivateIndex.contains(index)
+                                                    ? Constant.colorGreen
+                                                    : Constant.colorRed,
+                                            size: 20,
+                                          )),
                                     ],
                                   ),
                                 ),
@@ -196,10 +218,9 @@ List<int> deactivateIndex=[];
                   return SellingPriceDialog(
                     title: "Add selling price group",
                     blueButton: "Save",
-
                     onSubmit: (data) {
                       setState(() {
-                        sellingPrices.add(  data);
+                        sellingPrices.add(data);
                       });
                     },
                   );

@@ -1,14 +1,14 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:opalsystem/CustomFuncs.dart';
-import 'package:opalsystem/model/recent_sales_model.dart';
-import 'package:opalsystem/multiplePay/MultiplePay.dart';
-import 'package:opalsystem/services/delete_recent_sale.dart';
-import 'package:opalsystem/services/edit_recent_sale.dart';
-import 'package:opalsystem/services/recent_sale_service.dart';
-import 'package:opalsystem/utils/constant_dialog.dart';
-import 'package:opalsystem/utils/constants.dart';
+import 'package:opalposinc/CustomFuncs.dart';
+import 'package:opalposinc/model/recent_sales_model.dart';
+import 'package:opalposinc/multiplePay/MultiplePay.dart';
+import 'package:opalposinc/services/delete_recent_sale.dart';
+import 'package:opalposinc/services/edit_recent_sale.dart';
+import 'package:opalposinc/services/recent_sale_service.dart';
+import 'package:opalposinc/utils/constant_dialog.dart';
+import 'package:opalposinc/utils/constants.dart';
 
 class QuotationSale extends StatefulWidget {
   const QuotationSale({super.key});

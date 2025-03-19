@@ -2,13 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/model/OrderTaxModel.dart';
+import 'package:opalposinc/model/OrderTaxModel.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:opalsystem/model/TaxModel.dart';
-import 'package:opalsystem/services/getordertax.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/utils/decorations.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/model/TaxModel.dart';
+import 'package:opalposinc/services/getordertax.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/utils/decorations.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
 
 class OrderTaxDropdown extends StatefulWidget {
   const OrderTaxDropdown({super.key});

@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:opalsystem/model/brand.dart';
-import 'package:opalsystem/utils/global_variables.dart';
+import 'package:opalposinc/model/brand.dart';
+import 'package:opalposinc/utils/global_variables.dart';
 
 import '../model/loggedInUser.dart';
 

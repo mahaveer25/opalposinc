@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/ReportsTab/ReportsPanels/Trending/TaxReportsPanel.dart';
+import 'package:opalposinc/ReportsTab/ReportsPanels/Trending/TaxReportsPanel.dart';
 
 import '../../widgets/common/Top Section/Bloc/CustomBloc.dart';
 import 'Trending/ProfitLossPanel.dart';

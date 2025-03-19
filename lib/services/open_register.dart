@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
-import 'package:opalsystem/utils/global_variables.dart';
+import 'package:opalposinc/utils/global_variables.dart';
 
 class CashRegisterService {
   static String url =

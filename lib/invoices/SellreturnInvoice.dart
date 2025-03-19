@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:intl/intl.dart';
-import 'package:opalsystem/Functions/FunctionsProduct.dart';
-import 'package:opalsystem/invoices/InvoiceModel.dart';
-import 'package:opalsystem/printing.dart';
+import 'package:opalposinc/Functions/FunctionsProduct.dart';
+import 'package:opalposinc/invoices/InvoiceModel.dart';
+import 'package:opalposinc/printing.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -56,8 +56,8 @@ class SellReturnInvoice with PrintPDF {
 
   static Future<String> printInvoice(
       {required InvoiceModel invoiceModel,
-         String? cardTotal, String? cashTotal
-      }) async {
+      String? cardTotal,
+      String? cashTotal}) async {
     final pdf = pw.Document();
 
     // Calculate the total height needed for the invoice content
@@ -84,7 +84,10 @@ class SellReturnInvoice with PrintPDF {
                   pw.SizedBox(height: 15),
                   productTableView(invoiceModel: invoiceModel),
                   pw.SizedBox(height: 15),
-                  productTableFooter(invoiceModel: invoiceModel,cardTotal: cardTotal,cashTotal: cashTotal),
+                  productTableFooter(
+                      invoiceModel: invoiceModel,
+                      cardTotal: cardTotal,
+                      cashTotal: cashTotal),
                   pw.SizedBox(height: 15),
                   thankYouNote(invoiceModel: invoiceModel),
                 ],
@@ -172,17 +175,18 @@ class SellReturnInvoice with PrintPDF {
           ),
         ],
       ),
-      if(invoiceModel.mobile!=null)
+      if (invoiceModel.mobile != null)
         pw.TableRow(
-        children: [
-          pw.Text(
-
-            invoiceModel.mobile!=null? 'Mobile: ${invoiceModel.mobile??""}':"",
-            style: const pw.TextStyle(fontSize: 7),
-            textAlign: pw.TextAlign.center,
-          ),
-        ],
-      ),
+          children: [
+            pw.Text(
+              invoiceModel.mobile != null
+                  ? 'Mobile: ${invoiceModel.mobile ?? ""}'
+                  : "",
+              style: const pw.TextStyle(fontSize: 7),
+              textAlign: pw.TextAlign.center,
+            ),
+          ],
+        ),
       pw.TableRow(
         children: [
           pw.Text(
@@ -263,7 +267,10 @@ class SellReturnInvoice with PrintPDF {
     );
   }
 
-  static pw.Widget productTableFooter({required InvoiceModel invoiceModel, String? cardTotal,String? cashTotal}) {
+  static pw.Widget productTableFooter(
+      {required InvoiceModel invoiceModel,
+      String? cardTotal,
+      String? cashTotal}) {
     final double discountAmount = double.parse(
       double.parse(invoiceModel.invoiceDiscount ?? '0.0').toStringAsFixed(2),
     );
@@ -348,7 +355,6 @@ class SellReturnInvoice with PrintPDF {
             style: const pw.TextStyle(fontSize: 7),
           )
         ]),
-
         pw.TableRow(children: [
           pw.Text(
             'Total',

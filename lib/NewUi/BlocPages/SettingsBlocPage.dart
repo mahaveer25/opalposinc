@@ -2,10 +2,10 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/NewUi/BlocPages/CategoryBlocPage.dart';
-import 'package:opalsystem/model/location.dart';
-import 'package:opalsystem/model/setttings.dart';
-import 'package:opalsystem/services/settings_api.dart';
+import 'package:opalposinc/NewUi/BlocPages/CategoryBlocPage.dart';
+import 'package:opalposinc/model/location.dart';
+import 'package:opalposinc/model/setttings.dart';
+import 'package:opalposinc/services/settings_api.dart';
 import '../../widgets/common/Top Section/Bloc/CustomBloc.dart';
 
 import 'EmptyPage.dart';

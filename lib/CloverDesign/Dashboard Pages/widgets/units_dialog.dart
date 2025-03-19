@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:opalsystem/CloverDesign/Dashboard%20Pages/Add%20Item%20Inventory%20V1/add_inventory.dart';
-import 'package:opalsystem/widgets/CustomWidgets/custom_elevated_button.dart';
-import 'package:opalsystem/widgets/CustomWidgets/custom_text_widgets.dart';
-import 'package:opalsystem/utils/constants.dart';
+import 'package:opalposinc/CloverDesign/Dashboard%20Pages/Add%20Item%20Inventory%20V1/add_inventory.dart';
+import 'package:opalposinc/widgets/CustomWidgets/custom_elevated_button.dart';
+import 'package:opalposinc/widgets/CustomWidgets/custom_text_widgets.dart';
+import 'package:opalposinc/utils/constants.dart';
 
 class UnitsDialog extends StatefulWidget {
   final String title;
@@ -26,16 +26,19 @@ class UnitsDialog extends StatefulWidget {
 class _UnitsDialogState extends State<UnitsDialog> {
   late TextEditingController nameController;
   late TextEditingController selectedShortName;
-  String allowDecimal="Yes";
+  String allowDecimal = "Yes";
 
   final List<String> allowDecimalOptions = ["Yes", "No"];
 
   @override
   void initState() {
     super.initState();
-    nameController = TextEditingController(text: widget.initialData?['Name'] ?? "");
-    selectedShortName = TextEditingController(text: widget.initialData?['Short name'] ?? "");
-    allowDecimal = widget.initialData?['Allow decimal'] ?? allowDecimalOptions.first;
+    nameController =
+        TextEditingController(text: widget.initialData?['Name'] ?? "");
+    selectedShortName =
+        TextEditingController(text: widget.initialData?['Short name'] ?? "");
+    allowDecimal =
+        widget.initialData?['Allow decimal'] ?? allowDecimalOptions.first;
   }
 
   @override
@@ -75,14 +78,14 @@ class _UnitsDialogState extends State<UnitsDialog> {
                 value: allowDecimal,
                 onChanged: (value) {
                   setState(() {
-                    allowDecimal = value??"No";
+                    allowDecimal = value ?? "No";
                   });
                 },
                 items: allowDecimalOptions
                     .map((option) => DropdownMenuItem<String>(
-                  value: option,
-                  child: Text(option),
-                ))
+                          value: option,
+                          child: Text(option),
+                        ))
                     .toList(),
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),

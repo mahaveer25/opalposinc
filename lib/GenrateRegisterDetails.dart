@@ -1,9 +1,10 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:opalposinc/printing.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:opalsystem/model/register_details_model.dart';
-import 'package:opalsystem/printing.dart';
+
+import 'model/register_details_model.dart';
 
 class GenerateRegisterPdf with PrintPDF {
   static Future<Uint8List> generateInvoice(
