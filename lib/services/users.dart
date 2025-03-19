@@ -3,9 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
-import 'package:opalsystem/model/user.dart';
-import 'package:opalsystem/utils/global_variables.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/model/user.dart';
+import 'package:opalposinc/utils/global_variables.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
 
 class UserDataService {
   String storeUrl = GlobalData.storeUrl;

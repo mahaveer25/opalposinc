@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:opalsystem/model/product.dart';
+import 'package:opalposinc/model/product.dart';
 
 class Transaction {
   String? userId;
@@ -42,45 +42,44 @@ class Transaction {
   String? customerPhone;
   String? transactionPaxDeviceId;
 
-  Transaction({
-    this.userId,
-    this.invoiceNoReturned,
-    this.businessId,
-    this.locationId,
-    this.contactId,
-    this.transactionDate,
-    this.priceGroup,
-    this.product,
-    this.discountType,
-    this.discountAmount,
-    this.totalAmountBeforeTax,
-    this.taxRateId,
-    this.taxCalculationPercentage,
-    this.taxCalculationAmount,
-    this.payment,
-    this.discountTypeModal,
-    this.discountAmountModal,
-    this.orderTaxModal,
-    this.saleNote,
-    this.staffNote,
-    this.cardString,
-    this.userLocation,
-    this.suspendNote,
-    this.transactionId,
-    this.changeReturn,
-    this.enableRp,
-    this.amountForUnitRp,
-    this.invoiceNo,
-    this.rpRedeemed,
-    this.rpRedeemedDiscountTypes,
-    this.redeemAmountPerUnitRp,
-    this.offlineInvoiceNo,
-    this.customerId,
-    this.customerEmail,
-    this.customerFirstName,
-    this.customerPhone,
-    this.transactionPaxDeviceId
-  });
+  Transaction(
+      {this.userId,
+      this.invoiceNoReturned,
+      this.businessId,
+      this.locationId,
+      this.contactId,
+      this.transactionDate,
+      this.priceGroup,
+      this.product,
+      this.discountType,
+      this.discountAmount,
+      this.totalAmountBeforeTax,
+      this.taxRateId,
+      this.taxCalculationPercentage,
+      this.taxCalculationAmount,
+      this.payment,
+      this.discountTypeModal,
+      this.discountAmountModal,
+      this.orderTaxModal,
+      this.saleNote,
+      this.staffNote,
+      this.cardString,
+      this.userLocation,
+      this.suspendNote,
+      this.transactionId,
+      this.changeReturn,
+      this.enableRp,
+      this.amountForUnitRp,
+      this.invoiceNo,
+      this.rpRedeemed,
+      this.rpRedeemedDiscountTypes,
+      this.redeemAmountPerUnitRp,
+      this.offlineInvoiceNo,
+      this.customerId,
+      this.customerEmail,
+      this.customerFirstName,
+      this.customerPhone,
+      this.transactionPaxDeviceId});
   Transaction copyWith({
     String? userId,
     String? businessId,
@@ -119,50 +118,49 @@ class Transaction {
     String? customerFirstName,
     String? customerPhone,
     String? transactionPaxDeviceId,
-
   }) {
     return Transaction(
-      userId: userId ?? this.userId,
-      businessId: businessId ?? this.businessId,
-      locationId: locationId ?? this.locationId,
-      contactId: contactId ?? this.contactId,
-      transactionDate: transactionDate ?? this.transactionDate,
-      priceGroup: priceGroup ?? this.priceGroup,
-      product: product ?? this.product,
-      discountType: discountType ?? this.discountType,
-      discountAmount: discountAmount ?? this.discountAmount,
-      totalAmountBeforeTax: totalAmountBeforeTax ?? this.totalAmountBeforeTax,
-      taxRateId: taxRateId ?? this.taxRateId,
-      taxCalculationPercentage:
-          taxCalculationPercentage ?? this.taxCalculationPercentage,
-      taxCalculationAmount: taxCalculationAmount ?? this.taxCalculationAmount,
-      payment: payment ?? this.payment,
-      discountTypeModal: discountTypeModal ?? this.discountTypeModal,
-      discountAmountModal: discountAmountModal ?? this.discountAmountModal,
-      orderTaxModal: orderTaxModal ?? this.orderTaxModal,
-      saleNote: saleNote ?? this.saleNote,
-      staffNote: staffNote ?? this.staffNote,
-      cardString: cardString ?? this.cardString,
-      userLocation: userLocation ?? this.userLocation,
-      suspendNote: suspendNote ?? this.suspendNote,
-      transactionId: transactionId ?? this.transactionId,
-      invoiceNo: invoiceNo ?? this.invoiceNo,
-      offlineInvoiceNo: offlineInvoiceNo ?? this.offlineInvoiceNo,
-      changeReturn: changeReturn ?? this.changeReturn,
-      enableRp: enableRp ?? this.enableRp,
-      amountForUnitRp: amountForUnitRp ?? this.amountForUnitRp,
-      invoiceNoReturned: invoiceNoReturned ?? this.invoiceNoReturned,
-      rpRedeemed: rpRedeemed ?? this.rpRedeemed,
-      rpRedeemedDiscountTypes:
-          rpRedeemedDiscountTypes ?? this.rpRedeemedDiscountTypes,
-      redeemAmountPerUnitRp:
-          redeemAmountPerUnitRp ?? this.redeemAmountPerUnitRp,
-      customerId: customerId ?? this.customerId,
-      customerEmail: customerEmail ?? this.customerEmail,
-      customerFirstName: customerFirstName ?? this.customerFirstName,
-      customerPhone: customerPhone ?? this.customerPhone,
-      transactionPaxDeviceId: transactionPaxDeviceId?? this.transactionPaxDeviceId
-    );
+        userId: userId ?? this.userId,
+        businessId: businessId ?? this.businessId,
+        locationId: locationId ?? this.locationId,
+        contactId: contactId ?? this.contactId,
+        transactionDate: transactionDate ?? this.transactionDate,
+        priceGroup: priceGroup ?? this.priceGroup,
+        product: product ?? this.product,
+        discountType: discountType ?? this.discountType,
+        discountAmount: discountAmount ?? this.discountAmount,
+        totalAmountBeforeTax: totalAmountBeforeTax ?? this.totalAmountBeforeTax,
+        taxRateId: taxRateId ?? this.taxRateId,
+        taxCalculationPercentage:
+            taxCalculationPercentage ?? this.taxCalculationPercentage,
+        taxCalculationAmount: taxCalculationAmount ?? this.taxCalculationAmount,
+        payment: payment ?? this.payment,
+        discountTypeModal: discountTypeModal ?? this.discountTypeModal,
+        discountAmountModal: discountAmountModal ?? this.discountAmountModal,
+        orderTaxModal: orderTaxModal ?? this.orderTaxModal,
+        saleNote: saleNote ?? this.saleNote,
+        staffNote: staffNote ?? this.staffNote,
+        cardString: cardString ?? this.cardString,
+        userLocation: userLocation ?? this.userLocation,
+        suspendNote: suspendNote ?? this.suspendNote,
+        transactionId: transactionId ?? this.transactionId,
+        invoiceNo: invoiceNo ?? this.invoiceNo,
+        offlineInvoiceNo: offlineInvoiceNo ?? this.offlineInvoiceNo,
+        changeReturn: changeReturn ?? this.changeReturn,
+        enableRp: enableRp ?? this.enableRp,
+        amountForUnitRp: amountForUnitRp ?? this.amountForUnitRp,
+        invoiceNoReturned: invoiceNoReturned ?? this.invoiceNoReturned,
+        rpRedeemed: rpRedeemed ?? this.rpRedeemed,
+        rpRedeemedDiscountTypes:
+            rpRedeemedDiscountTypes ?? this.rpRedeemedDiscountTypes,
+        redeemAmountPerUnitRp:
+            redeemAmountPerUnitRp ?? this.redeemAmountPerUnitRp,
+        customerId: customerId ?? this.customerId,
+        customerEmail: customerEmail ?? this.customerEmail,
+        customerFirstName: customerFirstName ?? this.customerFirstName,
+        customerPhone: customerPhone ?? this.customerPhone,
+        transactionPaxDeviceId:
+            transactionPaxDeviceId ?? this.transactionPaxDeviceId);
   }
 
   Map<String, Object?> toJson() {
@@ -204,7 +202,7 @@ class Transaction {
       'customer_email': customerEmail.toString(),
       'customer_firstname': customerFirstName.toString(),
       'customer_phone': customerPhone.toString(),
-      'transaction_pax_device_id':transactionPaxDeviceId.toString()
+      'transaction_pax_device_id': transactionPaxDeviceId.toString()
     };
   }
 
@@ -214,88 +212,89 @@ class Transaction {
     // log('$product');
 
     return Transaction(
-      userId: json['user_id'] == null
-          ? null
-          : int.parse(json['user_id'].toString()).toString(),
-      businessId: json['business_id'] == null
-          ? null
-          : int.parse(json['business_id'].toString()).toString(),
-      locationId: json['location_id'] == null
-          ? null
-          : int.parse(json['location_id'].toString()).toString(),
-      contactId: json['contact_id'] == null
-          ? null
-          : int.parse(json['contact_id'].toString()).toString(),
-      transactionDate: json['transaction_date'] == null
-          ? null
-          : json['transaction_date'] as String?,
-      priceGroup: json['price_group'] == null
-          ? null
-          : int.parse(json['price_group'].toString()),
-      product: json['products'] == null ? null : product,
-      discountType: json['discount_type'] == null
-          ? "fixed"
-          : json['discount_type'].toString(),
-      discountAmount: json['discount_amount'] == null
-          ? null
-          : double.parse(json['discount_amount'].toString()),
-      totalAmountBeforeTax: json['total_amount_before_tax'] == null
-          ? null
-          : double.parse(json['total_amount_before_tax'].toString()),
-      taxRateId: json['tax_rate_id'] == null
-          ? null
-          : int.parse(json['tax_rate_id'].toString()).toString(),
-      taxCalculationPercentage: json['tax_calculation_percentage'] == null
-          ? null
-          : double.parse(json['tax_calculation_percentage'].toString()),
-      taxCalculationAmount: json['tax_calculation_amount'] == null
-          ? null
-          : double.parse(json['tax_calculation_amount'].toString()),
-      payment: json['payment'] == null
-          ? null
-          : jsonDecode(json['payment'].toString()) as List<dynamic>,
-      discountTypeModal: json['discount_type_modal'] == null
-          ? "fixed"
-          : json['discount_type_modal'] as String?,
-      discountAmountModal: json['discount_amount_modal'] == null
-          ? null
-          : double.parse(json['discount_amount_modal'].toString()),
-      orderTaxModal: json['order_tax_modal'] == null
-          ? null
-          : int.parse(json['order_tax_modal'].toString()),
-      saleNote: json['sale_note'] == null ? null : json['sale_note'] as String?,
-      staffNote:
-          json['staff_note'] == null ? null : json['staff_note'] as String?,
-      cardString:
-          json['card_string'] == null ? null : json['card_string'] as String?,
-      userLocation: json['user_location'] == null
-          ? null
-          : json['user_location'] as String?,
-      suspendNote:
-          json['suspend_note'] == null ? null : json['suspend_note'] as String?,
-      transactionId: json['transaction_id'] == null
-          ? null
-          : json['transaction_id'] as String?,
-      invoiceNo:
-          json['invoice_no'] == null ? null : json['invoice_no'] as String?,
-      offlineInvoiceNo: json['offline_invoice_no'] == null
-          ? null
-          : json['offline_invoice_no'] as String?,
-      invoiceNoReturned: json['invoice_no_return'] == null
-          ? null
-          : json['invoice_no_return'] as String?,
-      changeReturn: json['change_return'] as String?,
-      enableRp: json['enable_rp'] as String?,
-      amountForUnitRp: json['amount_for_unit_rp'] as String?,
-      rpRedeemed: json['rp_redeemed'] as String?,
-      rpRedeemedDiscountTypes: json['rp_redeemed_discount_types'] as String?,
-      redeemAmountPerUnitRp: json['redeem_amount_per_unit_rp'] as String?,
-      customerId: json['customer_id'] as String?,
-      customerFirstName: json['customer_firstname'] as String?,
-      customerEmail: json['customer_email'] as String?,
-      customerPhone: json['customer_phone'] as String?,
-      transactionPaxDeviceId: json['transaction_pax_device_id'] as String?
-    );
+        userId: json['user_id'] == null
+            ? null
+            : int.parse(json['user_id'].toString()).toString(),
+        businessId: json['business_id'] == null
+            ? null
+            : int.parse(json['business_id'].toString()).toString(),
+        locationId: json['location_id'] == null
+            ? null
+            : int.parse(json['location_id'].toString()).toString(),
+        contactId: json['contact_id'] == null
+            ? null
+            : int.parse(json['contact_id'].toString()).toString(),
+        transactionDate: json['transaction_date'] == null
+            ? null
+            : json['transaction_date'] as String?,
+        priceGroup: json['price_group'] == null
+            ? null
+            : int.parse(json['price_group'].toString()),
+        product: json['products'] == null ? null : product,
+        discountType: json['discount_type'] == null
+            ? "fixed"
+            : json['discount_type'].toString(),
+        discountAmount: json['discount_amount'] == null
+            ? null
+            : double.parse(json['discount_amount'].toString()),
+        totalAmountBeforeTax: json['total_amount_before_tax'] == null
+            ? null
+            : double.parse(json['total_amount_before_tax'].toString()),
+        taxRateId: json['tax_rate_id'] == null
+            ? null
+            : int.parse(json['tax_rate_id'].toString()).toString(),
+        taxCalculationPercentage: json['tax_calculation_percentage'] == null
+            ? null
+            : double.parse(json['tax_calculation_percentage'].toString()),
+        taxCalculationAmount: json['tax_calculation_amount'] == null
+            ? null
+            : double.parse(json['tax_calculation_amount'].toString()),
+        payment: json['payment'] == null
+            ? null
+            : jsonDecode(json['payment'].toString()) as List<dynamic>,
+        discountTypeModal: json['discount_type_modal'] == null
+            ? "fixed"
+            : json['discount_type_modal'] as String?,
+        discountAmountModal: json['discount_amount_modal'] == null
+            ? null
+            : double.parse(json['discount_amount_modal'].toString()),
+        orderTaxModal: json['order_tax_modal'] == null
+            ? null
+            : int.parse(json['order_tax_modal'].toString()),
+        saleNote:
+            json['sale_note'] == null ? null : json['sale_note'] as String?,
+        staffNote:
+            json['staff_note'] == null ? null : json['staff_note'] as String?,
+        cardString:
+            json['card_string'] == null ? null : json['card_string'] as String?,
+        userLocation: json['user_location'] == null
+            ? null
+            : json['user_location'] as String?,
+        suspendNote: json['suspend_note'] == null
+            ? null
+            : json['suspend_note'] as String?,
+        transactionId: json['transaction_id'] == null
+            ? null
+            : json['transaction_id'] as String?,
+        invoiceNo:
+            json['invoice_no'] == null ? null : json['invoice_no'] as String?,
+        offlineInvoiceNo: json['offline_invoice_no'] == null
+            ? null
+            : json['offline_invoice_no'] as String?,
+        invoiceNoReturned: json['invoice_no_return'] == null
+            ? null
+            : json['invoice_no_return'] as String?,
+        changeReturn: json['change_return'] as String?,
+        enableRp: json['enable_rp'] as String?,
+        amountForUnitRp: json['amount_for_unit_rp'] as String?,
+        rpRedeemed: json['rp_redeemed'] as String?,
+        rpRedeemedDiscountTypes: json['rp_redeemed_discount_types'] as String?,
+        redeemAmountPerUnitRp: json['redeem_amount_per_unit_rp'] as String?,
+        customerId: json['customer_id'] as String?,
+        customerFirstName: json['customer_firstname'] as String?,
+        customerEmail: json['customer_email'] as String?,
+        customerPhone: json['customer_phone'] as String?,
+        transactionPaxDeviceId: json['transaction_pax_device_id'] as String?);
   }
 
   @override
@@ -399,7 +398,6 @@ customerPhone:$customerPhone
       orderTaxModal,
       saleNote,
       staffNote,
-
     );
   }
 }

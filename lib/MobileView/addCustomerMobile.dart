@@ -1,14 +1,14 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/model/user.dart';
-import 'package:opalsystem/services/add_customer.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/widgets/CustomWidgets/CustomIniputField.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
-import 'package:opalsystem/widgets/common/left%20Section/customer_group.dart';
-import 'package:opalsystem/widgets/common/left%20Section/new_customer_form.dart';
-import 'package:opalsystem/widgets/common/left%20Section/user_dropdown.dart';
+import 'package:opalposinc/model/user.dart';
+import 'package:opalposinc/services/add_customer.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/widgets/CustomWidgets/CustomIniputField.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/widgets/common/left%20Section/customer_group.dart';
+import 'package:opalposinc/widgets/common/left%20Section/new_customer_form.dart';
+import 'package:opalposinc/widgets/common/left%20Section/user_dropdown.dart';
 
 class AddCustomerMobile extends StatefulWidget {
   const AddCustomerMobile({super.key});

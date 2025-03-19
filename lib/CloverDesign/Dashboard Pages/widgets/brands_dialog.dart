@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:opalsystem/CloverDesign/Dashboard%20Pages/Add%20Item%20Inventory%20V1/add_inventory.dart';
-import 'package:opalsystem/widgets/CustomWidgets/custom_elevated_button.dart';
-import 'package:opalsystem/widgets/CustomWidgets/custom_text_widgets.dart';
-import 'package:opalsystem/utils/constants.dart';
+import 'package:opalposinc/CloverDesign/Dashboard%20Pages/Add%20Item%20Inventory%20V1/add_inventory.dart';
+import 'package:opalposinc/widgets/CustomWidgets/custom_elevated_button.dart';
+import 'package:opalposinc/widgets/CustomWidgets/custom_text_widgets.dart';
+import 'package:opalposinc/utils/constants.dart';
 
 class BrandsDialog extends StatefulWidget {
   final String title;
@@ -27,12 +27,13 @@ class _BrandsDialogState extends State<BrandsDialog> {
   late TextEditingController brandNameController;
   late TextEditingController descriptionController;
 
-
   @override
   void initState() {
     super.initState();
-    brandNameController = TextEditingController(text: widget.initialData?['Brand'] ?? "");
-    descriptionController = TextEditingController(text: widget.initialData?['Description'] ?? "");
+    brandNameController =
+        TextEditingController(text: widget.initialData?['Brand'] ?? "");
+    descriptionController =
+        TextEditingController(text: widget.initialData?['Description'] ?? "");
   }
 
   @override
@@ -67,7 +68,6 @@ class _BrandsDialogState extends State<BrandsDialog> {
                 fieldText: "Enter description",
               ),
               const Gap(10),
-
             ],
           ),
         ),
@@ -99,5 +99,3 @@ class _BrandsDialogState extends State<BrandsDialog> {
     );
   }
 }
-
-

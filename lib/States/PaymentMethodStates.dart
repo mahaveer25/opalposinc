@@ -1,6 +1,6 @@
-import 'package:opalsystem/model/PaymentModels/CardModel.dart';
-import 'package:opalsystem/model/PaymentModels/CashModel.dart';
-import 'package:opalsystem/model/PaymentModels/OthersPaymentModel.dart';
+import 'package:opalposinc/model/PaymentModels/CardModel.dart';
+import 'package:opalposinc/model/PaymentModels/CashModel.dart';
+import 'package:opalposinc/model/PaymentModels/OthersPaymentModel.dart';
 
 import '../model/PaymentModels/BankTransferModel.dart';
 import '../model/PaymentModels/ChequeModel.dart';

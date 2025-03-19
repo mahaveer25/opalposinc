@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:opalsystem/MobileView/addCustomerMobile.dart';
-import 'package:opalsystem/connection.dart';
-import 'package:opalsystem/model/CustomerModel.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/utils/decorations.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/location.dart';
-import 'package:opalsystem/widgets/common/left%20Section/customerBalance.dart';
-import 'package:opalsystem/widgets/common/left%20Section/new_customer_form.dart';
-import 'package:opalsystem/widgets/common/left%20Section/pricing_group_dropdown.dart';
+import 'package:opalposinc/MobileView/addCustomerMobile.dart';
+import 'package:opalposinc/connection.dart';
+import 'package:opalposinc/model/CustomerModel.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/utils/decorations.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/location.dart';
+import 'package:opalposinc/widgets/common/left%20Section/customerBalance.dart';
+import 'package:opalposinc/widgets/common/left%20Section/new_customer_form.dart';
+import 'package:opalposinc/widgets/common/left%20Section/pricing_group_dropdown.dart';
 
 class LeftSecDropdown extends StatefulWidget {
   const LeftSecDropdown({

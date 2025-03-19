@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:opalsystem/CloverDesign/Bloc/inventory_bloc.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/utils/utils.dart';
-import 'package:opalsystem/widgets/CustomWidgets/custom_elevated_button.dart';
-
+import 'package:opalposinc/CloverDesign/Bloc/inventory_bloc.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/utils/utils.dart';
+import 'package:opalposinc/widgets/CustomWidgets/custom_elevated_button.dart';
 
 class BlueAndWhiteButtons extends StatelessWidget {
-  final  VoidCallback onPressedBlue;
+  final VoidCallback onPressedBlue;
   final VoidCallback onPressedWhite;
   final String blueButtonTitle;
   final String whiteButtonTitle;
@@ -22,7 +21,9 @@ class BlueAndWhiteButtons extends StatelessWidget {
     required this.onPressedBlue,
     required this.onPressedWhite,
     required this.blueButtonTitle,
-    required this.whiteButtonTitle,this.isLoadingCheckBlue, this.isLoadingCheckWhite,
+    required this.whiteButtonTitle,
+    this.isLoadingCheckBlue,
+    this.isLoadingCheckWhite,
     // this.textWidgetBlue, this.textWidgetWhite,
   });
 
@@ -34,25 +35,21 @@ class BlueAndWhiteButtons extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: SaveAndCancelButtons(
           isLoadingCheckBlue: isLoadingCheckBlue,
-          isLoadingCheckWhite:isLoadingCheckWhite ,
+          isLoadingCheckWhite: isLoadingCheckWhite,
           // textWidgetBlue: textWidgetBlue,
           // textWidgetWhite: textWidgetWhite,
           onPressedCancel: onPressedWhite,
-              whiteButtonTitle: whiteButtonTitle,
+          whiteButtonTitle: whiteButtonTitle,
           blueButtonTitle: blueButtonTitle,
           onPressedSave: onPressedBlue,
-
         ),
       ),
     );
   }
 }
 
-
-
-
 class SaveAndCancelButtons extends StatelessWidget {
-  final  VoidCallback onPressedSave;
+  final VoidCallback onPressedSave;
   final VoidCallback onPressedCancel;
   final String blueButtonTitle;
   final String whiteButtonTitle;
@@ -61,10 +58,12 @@ class SaveAndCancelButtons extends StatelessWidget {
   // final Widget? textWidgetBlue;
   // final Widget? textWidgetWhite;
 
-
   const SaveAndCancelButtons({
-    super.key,  required this.onPressedSave, required this.onPressedCancel,
-    required this.blueButtonTitle, required this.whiteButtonTitle,
+    super.key,
+    required this.onPressedSave,
+    required this.onPressedCancel,
+    required this.blueButtonTitle,
+    required this.whiteButtonTitle,
     // this.textWidgetBlue,
     this.isLoadingCheckBlue,
     this.isLoadingCheckWhite,
@@ -84,7 +83,9 @@ class SaveAndCancelButtons extends StatelessWidget {
             // textWidget: textWidgetBlue,
             isLoadingCheck: isLoadingCheckBlue,
 
-            text: blueButtonTitle, onPressed: onPressedSave,backgroundColor: Constant.colorPurple,),
+            text: blueButtonTitle, onPressed: onPressedSave,
+            backgroundColor: Constant.colorPurple,
+          ),
         ),
         Gap(20),
         SizedBox(
@@ -94,7 +95,9 @@ class SaveAndCancelButtons extends StatelessWidget {
               // textWidget: textWidgetWhite,
               isLoadingCheck: isLoadingCheckWhite,
 
-              text: whiteButtonTitle, onPressed: onPressedCancel,backgroundColor: Constant.colorWhite,textColor: Colors.black,)),
+              text: whiteButtonTitle, onPressed: onPressedCancel,
+              backgroundColor: Constant.colorWhite, textColor: Colors.black,
+            )),
       ],
     );
   }

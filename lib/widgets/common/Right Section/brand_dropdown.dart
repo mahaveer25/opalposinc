@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/model/brand.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/model/brand.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
 
 class BrandsDropdown extends StatefulWidget {
- final  Function(Brand?) onBrandChange;
+  final Function(Brand?) onBrandChange;
   const BrandsDropdown({
-    super.key, required this.onBrandChange,
+    super.key,
+    required this.onBrandChange,
   });
 
   @override
@@ -16,8 +17,6 @@ class BrandsDropdown extends StatefulWidget {
 
 class _BrandsDropdownDropdownState extends State<BrandsDropdown> {
   TextEditingController textEditingController = TextEditingController();
-
-
 
   @override
   Widget build(BuildContext context) {

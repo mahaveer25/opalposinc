@@ -1,16 +1,16 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/model/TaxModel.dart';
-import 'package:opalsystem/model/TotalDiscountModel.dart';
-import 'package:opalsystem/model/brand.dart';
-import 'package:opalsystem/model/category.dart';
-import 'package:opalsystem/model/CustomerModel.dart';
-import 'package:opalsystem/model/customer_balance.dart';
-import 'package:opalsystem/model/expense_drop_model.dart';
-import 'package:opalsystem/model/location.dart';
-import 'package:opalsystem/model/loggedInUser.dart';
-import 'package:opalsystem/model/payment_model.dart';
-import 'package:opalsystem/model/pricinggroup.dart';
-import 'package:opalsystem/model/setttings.dart';
+import 'package:opalposinc/model/TaxModel.dart';
+import 'package:opalposinc/model/TotalDiscountModel.dart';
+import 'package:opalposinc/model/brand.dart';
+import 'package:opalposinc/model/category.dart';
+import 'package:opalposinc/model/CustomerModel.dart';
+import 'package:opalposinc/model/customer_balance.dart';
+import 'package:opalposinc/model/expense_drop_model.dart';
+import 'package:opalposinc/model/location.dart';
+import 'package:opalposinc/model/loggedInUser.dart';
+import 'package:opalposinc/model/payment_model.dart';
+import 'package:opalposinc/model/pricinggroup.dart';
+import 'package:opalposinc/model/setttings.dart';
 
 import '../../../../model/product.dart';
 

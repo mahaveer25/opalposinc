@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:opalsystem/utils/constants.dart';
+import 'package:opalposinc/utils/constants.dart';
 
 import '../../CustomWidgets/CustomIniputField.dart';
 

@@ -3,9 +3,9 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/model/loggedInUser.dart';
-import 'package:opalsystem/utils/constant_dialog.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/model/loggedInUser.dart';
+import 'package:opalposinc/utils/constant_dialog.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
 
 import '../model/OrderTaxModel.dart';
 import '../utils/global_variables.dart';

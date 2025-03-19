@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
-import 'package:opalsystem/utils/global_variables.dart';
+import 'package:opalposinc/utils/global_variables.dart';
 
 class CustomerGroupService {
   String storeUrl = GlobalData.storeUrl;

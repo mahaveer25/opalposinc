@@ -4,9 +4,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/utils/global_variables.dart';
+import 'package:opalposinc/utils/global_variables.dart';
 import 'package:http/http.dart' as http;
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
 
 import '../model/payment_model.dart';
 

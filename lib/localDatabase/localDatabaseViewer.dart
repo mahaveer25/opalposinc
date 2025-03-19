@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/localDatabase/PathBuilders%20+%20blocs/databaseTypeSelected.dart';
-import 'package:opalsystem/localDatabase/Transaction/Pages/TransactionsPage.dart';
+import 'package:opalposinc/localDatabase/PathBuilders%20+%20blocs/databaseTypeSelected.dart';
+import 'package:opalposinc/localDatabase/Transaction/Pages/TransactionsPage.dart';
 
 import 'Transaction/Pages/DraftPage.dart';
 

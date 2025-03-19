@@ -1,5 +1,5 @@
-import 'package:opalsystem/localDatabase/Transaction/Pages/LocalDraftdb.dart';
-import 'package:opalsystem/localDatabase/Transaction/localTransaction.dart';
+import 'package:opalposinc/localDatabase/Transaction/Pages/LocalDraftdb.dart';
+import 'package:opalposinc/localDatabase/Transaction/localTransaction.dart';
 
 class LocalDatabaseInit {
   static Future<void> initialize() async {

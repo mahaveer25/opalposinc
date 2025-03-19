@@ -2,9 +2,9 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:intl/intl.dart';
-import 'package:opalsystem/Functions/FunctionsProduct.dart';
-import 'package:opalsystem/invoices/InvoiceModel.dart';
-import 'package:opalsystem/printing.dart';
+import 'package:opalposinc/Functions/FunctionsProduct.dart';
+import 'package:opalposinc/invoices/InvoiceModel.dart';
+import 'package:opalposinc/printing.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 

@@ -3,10 +3,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
-import 'package:opalsystem/model/product.dart';
-import 'package:opalsystem/utils/api_constants.dart';
-import 'package:opalsystem/utils/global_variables.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/model/product.dart';
+import 'package:opalposinc/utils/api_constants.dart';
+import 'package:opalposinc/utils/global_variables.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
 
 class NotificationService {
   static String storeUrl = GlobalData.storeUrl;
@@ -28,10 +28,11 @@ class NotificationService {
     required String taxAmount,
     required String total,
   }) async {
-    LoggedInUserBloc loggedInUserBloc = BlocProvider.of<LoggedInUserBloc>(context);
+    LoggedInUserBloc loggedInUserBloc =
+        BlocProvider.of<LoggedInUserBloc>(context);
 
-   final url= 'https://$storeUrl.opalpay.us/public/api/api/send_sms_email_api';
-
+    final url =
+        'https://$storeUrl.opalpay.us/public/api/api/send_sms_email_api';
 
     final headers = {'OPAL-PAY-API-KEY': apiKey};
 
@@ -57,7 +58,8 @@ class NotificationService {
 
     log('Request Body: $body');
     try {
-      final response = await http.post(Uri.parse(url), headers: headers, body: body);
+      final response =
+          await http.post(Uri.parse(url), headers: headers, body: body);
       log('Response Status: ${response.statusCode}');
       log('Response Body of sms: ${response.body}');
 

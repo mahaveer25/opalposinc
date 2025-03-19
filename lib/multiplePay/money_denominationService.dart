@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
-import 'package:opalsystem/utils/constant_dialog.dart';
+import 'package:opalposinc/utils/constant_dialog.dart';
 import 'package:http/http.dart' as http;
-import 'package:opalsystem/utils/global_variables.dart';
+import 'package:opalposinc/utils/global_variables.dart';
 
 class GetCashDenominationsService {
   String storeUrl = GlobalData

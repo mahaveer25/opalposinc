@@ -1,13 +1,13 @@
-
 import 'package:flutter/material.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/widgets/CustomWidgets/CustomIniputField.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/widgets/CustomWidgets/CustomIniputField.dart';
 
 class InvoiceReturnPopup extends StatelessWidget {
   final void Function() onPressed;
   const InvoiceReturnPopup({
     super.key,
-    required this.returnInvoiceController, required this.onPressed,
+    required this.returnInvoiceController,
+    required this.onPressed,
   });
 
   final TextEditingController returnInvoiceController;
@@ -15,8 +15,7 @@ class InvoiceReturnPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       contentPadding: const EdgeInsets.all(10.0),
       clipBehavior: Clip.hardEdge,
       children: [
@@ -51,7 +50,7 @@ class InvoiceReturnPopup extends StatelessWidget {
         const SizedBox(
           height: 10.0,
         ),
-        ElevatedButton(onPressed:onPressed, child: const Text('Send')),
+        ElevatedButton(onPressed: onPressed, child: const Text('Send')),
       ],
     );
   }

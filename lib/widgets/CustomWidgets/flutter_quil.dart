@@ -1,7 +1,7 @@
 // import 'package:flutter/material.dart';
 // import 'package:flutter_quill/flutter_quill.dart' as quill;
 // import 'package:get/get.dart';
-// import 'package:opalsystem/utils/constants.dart';
+// import 'package:opalposinc/utils/constants.dart';
 //
 // class RichTextEditor extends StatefulWidget {
 //   @override

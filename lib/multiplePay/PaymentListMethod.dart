@@ -1,4 +1,4 @@
-import 'package:opalsystem/model/payment_model.dart';
+import 'package:opalposinc/model/payment_model.dart';
 
 class PaymentListMethod {
   PaymentMethod? methodType;

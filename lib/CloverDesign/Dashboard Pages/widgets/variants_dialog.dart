@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:opalsystem/CloverDesign/Dashboard%20Pages/Add%20Item%20Inventory%20V1/add_inventory.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/widgets/CustomWidgets/custom_elevated_button.dart';
-import 'package:opalsystem/widgets/CustomWidgets/custom_text_widgets.dart';
+import 'package:opalposinc/CloverDesign/Dashboard%20Pages/Add%20Item%20Inventory%20V1/add_inventory.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/widgets/CustomWidgets/custom_elevated_button.dart';
+import 'package:opalposinc/widgets/CustomWidgets/custom_text_widgets.dart';
 
 class VariationsDialog extends StatefulWidget {
   final String title;
@@ -30,8 +30,8 @@ class _VariationsDialogState extends State<VariationsDialog> {
   @override
   void initState() {
     super.initState();
-    variationNameController = TextEditingController(
-        text: widget.initialData?["Variations"] ?? "");
+    variationNameController =
+        TextEditingController(text: widget.initialData?["Variations"] ?? "");
     valueControllers = (widget.initialData?["Values"] ?? "")
         .split(", ")
         .where((value) => value.isNotEmpty)
@@ -119,19 +119,13 @@ class _VariationsDialogState extends State<VariationsDialog> {
               const Gap(10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-
-                ],
+                children: [],
               ),
-
-
             ],
           ),
         ),
       ),
-     actionsPadding: EdgeInsets.symmetric(horizontal: 18,vertical: 6),
-
-
+      actionsPadding: EdgeInsets.symmetric(horizontal: 18, vertical: 6),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
@@ -158,7 +152,6 @@ class _VariationsDialogState extends State<VariationsDialog> {
           ),
         ),
       ],
-
     );
   }
 }

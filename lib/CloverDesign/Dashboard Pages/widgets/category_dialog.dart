@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:opalsystem/CloverDesign/Dashboard%20Pages/Add%20Item%20Inventory%20V1/add_inventory.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/widgets/CustomWidgets/custom_elevated_button.dart';
-import 'package:opalsystem/widgets/CustomWidgets/custom_text_widgets.dart';
+import 'package:opalposinc/CloverDesign/Dashboard%20Pages/Add%20Item%20Inventory%20V1/add_inventory.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/widgets/CustomWidgets/custom_elevated_button.dart';
+import 'package:opalposinc/widgets/CustomWidgets/custom_text_widgets.dart';
 
 class CategoryDialog extends StatefulWidget {
   final String title;
@@ -15,7 +15,8 @@ class CategoryDialog extends StatefulWidget {
     Key? key,
     required this.title,
     this.initialData,
-    required this.onSubmit, required this.blueButton,
+    required this.onSubmit,
+    required this.blueButton,
   }) : super(key: key);
 
   @override
@@ -29,9 +30,12 @@ class _CategoryDialogState extends State<CategoryDialog> {
   void initState() {
     super.initState();
     controllers = {
-      "Category": TextEditingController(text: widget.initialData?["Category"] ?? ""),
-      "Category code": TextEditingController(text: widget.initialData?["Category code"] ?? ""),
-      "Description": TextEditingController(text: widget.initialData?["Description"] ?? ""),
+      "Category":
+          TextEditingController(text: widget.initialData?["Category"] ?? ""),
+      "Category code": TextEditingController(
+          text: widget.initialData?["Category code"] ?? ""),
+      "Description":
+          TextEditingController(text: widget.initialData?["Description"] ?? ""),
     };
   }
 

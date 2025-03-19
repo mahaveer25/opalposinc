@@ -2,13 +2,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/NewUi/Widgets/CustomButton.dart';
-import 'package:opalsystem/auth/login.dart';
-import 'package:opalsystem/auth/remember_login.dart';
-import 'package:opalsystem/connection.dart';
-import 'package:opalsystem/services/resetPasswordService.dart';
-import 'package:opalsystem/widgets/CustomWidgets/CustomIniputField.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/nav_button.dart';
+import 'package:opalposinc/NewUi/Widgets/CustomButton.dart';
+import 'package:opalposinc/auth/login.dart';
+import 'package:opalposinc/auth/remember_login.dart';
+import 'package:opalposinc/connection.dart';
+import 'package:opalposinc/services/resetPasswordService.dart';
+import 'package:opalposinc/widgets/CustomWidgets/CustomIniputField.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/nav_button.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({super.key});

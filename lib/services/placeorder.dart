@@ -8,12 +8,12 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:opalsystem/CustomFuncs.dart';
-import 'package:opalsystem/invoices/InvoiceModel.dart';
-import 'package:opalsystem/invoices/transaction.dart';
-import 'package:opalsystem/localDatabase/Transaction/localTransaction.dart';
-import 'package:opalsystem/utils/api_constants.dart';
-import 'package:opalsystem/utils/global_variables.dart';
+import 'package:opalposinc/CustomFuncs.dart';
+import 'package:opalposinc/invoices/InvoiceModel.dart';
+import 'package:opalposinc/invoices/transaction.dart';
+import 'package:opalposinc/localDatabase/Transaction/localTransaction.dart';
+import 'package:opalposinc/utils/api_constants.dart';
+import 'package:opalposinc/utils/global_variables.dart';
 
 class PlaceOrder {
   String storeUrl = GlobalData.storeUrl;

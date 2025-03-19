@@ -7,11 +7,11 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:opalsystem/CustomFuncs.dart';
-import 'package:opalsystem/invoices/InvoiceModel.dart';
-import 'package:opalsystem/invoices/transaction.dart';
-import 'package:opalsystem/utils/api_constants.dart';
-import 'package:opalsystem/utils/global_variables.dart';
+import 'package:opalposinc/CustomFuncs.dart';
+import 'package:opalposinc/invoices/InvoiceModel.dart';
+import 'package:opalposinc/invoices/transaction.dart';
+import 'package:opalposinc/utils/api_constants.dart';
+import 'package:opalposinc/utils/global_variables.dart';
 
 class PostSellReturn {
   String storeUrl = GlobalData.storeUrl;
@@ -19,12 +19,16 @@ class PostSellReturn {
   Future<Either<InvoiceModel, String>> postSellReturn(
       BuildContext context, Transaction sellPost) async {
     try {
-      final response = await http.post(Uri.parse(ApiConstants.getBaseUrl(storeUrl)+ApiConstants.postSell),
-          headers: {ApiConstants.headerAuthorizationKey:  ApiConstants.headerAuthorizationValue,},
+      final response = await http.post(
+          Uri.parse(ApiConstants.getBaseUrl(storeUrl) + ApiConstants.postSell),
+          headers: {
+            ApiConstants.headerAuthorizationKey:
+                ApiConstants.headerAuthorizationValue,
+          },
           body: sellPost.toJson());
       // 'https://$storeUrl.opalpay.us/public/api/sell_return'
       // 'http://localhost/project/opal_pos/public/api/sell_return'
-      log("This is url for postSellReturn: ${ApiConstants.getBaseUrl(storeUrl)+ApiConstants.postSell} ");
+      log("This is url for postSellReturn: ${ApiConstants.getBaseUrl(storeUrl) + ApiConstants.postSell} ");
 
       if (response.statusCode == 200) {
         log('response OK');
@@ -39,7 +43,8 @@ class PostSellReturn {
           // log('${model.toJson()}');
           return Left(model);
         } else {
-          ErrorFuncs(context).errRegisterClose(errorInfo: responseData['error']);
+          ErrorFuncs(context)
+              .errRegisterClose(errorInfo: responseData['error']);
           return Right(responseData['error']['info']);
         }
       } else {

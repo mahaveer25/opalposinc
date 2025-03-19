@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:opalsystem/model/brand.dart';
-import 'package:opalsystem/model/location.dart';
+import 'package:opalposinc/model/brand.dart';
+import 'package:opalposinc/model/location.dart';
 
 import '../model/product.dart';
 import '../model/category.dart';

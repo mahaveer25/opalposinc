@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
-import 'package:opalsystem/model/loggedInUser.dart';
-import 'package:opalsystem/utils/api_constants.dart';
-import 'package:opalsystem/utils/global_variables.dart';
+import 'package:opalposinc/model/loggedInUser.dart';
+import 'package:opalposinc/utils/api_constants.dart';
+import 'package:opalposinc/utils/global_variables.dart';
 
 import '../model/product.dart';
 
@@ -19,7 +19,7 @@ class ProductService {
     required LoggedInUser loggedInUser,
   }) async {
     final headers = {'OPAL-PAY-API-KEY': apiKey};
-    final url = ApiConstants.getBaseUrl(storeUrl)+ApiConstants.getProducts;
+    final url = ApiConstants.getBaseUrl(storeUrl) + ApiConstants.getProducts;
 
     final Map<String, dynamic> queryParameters = {
       'category_id': categoryId.toString(),

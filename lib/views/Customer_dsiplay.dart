@@ -6,16 +6,16 @@
 
 // import 'package:carousel_slider/carousel_slider.dart';
 // import 'package:flutter/material.dart';
-// import 'package:opalsystem/Functions/FunctionsProduct.dart';
-// import 'package:opalsystem/invoices/InvoiceModel.dart';
-// import 'package:opalsystem/model/CustomerModel.dart';
-// import 'package:opalsystem/model/TaxModel.dart';
-// import 'package:opalsystem/model/TotalDiscountModel.dart';
-// import 'package:opalsystem/model/location.dart';
-// import 'package:opalsystem/model/loggedInUser.dart';
-// import 'package:opalsystem/model/setttings.dart';
-// import 'package:opalsystem/multiplePay/PaymentListMethod.dart';
-// import 'package:opalsystem/widgets/common/left%20Section/carouselwidget.dart';
+// import 'package:opalposinc/Functions/FunctionsProduct.dart';
+// import 'package:opalposinc/invoices/InvoiceModel.dart';
+// import 'package:opalposinc/model/CustomerModel.dart';
+// import 'package:opalposinc/model/TaxModel.dart';
+// import 'package:opalposinc/model/TotalDiscountModel.dart';
+// import 'package:opalposinc/model/location.dart';
+// import 'package:opalposinc/model/loggedInUser.dart';
+// import 'package:opalposinc/model/setttings.dart';
+// import 'package:opalposinc/multiplePay/PaymentListMethod.dart';
+// import 'package:opalposinc/widgets/common/left%20Section/carouselwidget.dart';
 
 // import 'package:presentation_displays/secondary_display.dart';
 
@@ -1034,16 +1034,16 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:opalsystem/Functions/FunctionsProduct.dart';
-import 'package:opalsystem/invoices/InvoiceModel.dart';
-import 'package:opalsystem/model/CustomerModel.dart';
-import 'package:opalsystem/model/TaxModel.dart';
-import 'package:opalsystem/model/TotalDiscountModel.dart';
-import 'package:opalsystem/model/location.dart';
-import 'package:opalsystem/model/setttings.dart';
-import 'package:opalsystem/multiplePay/PaymentListMethod.dart';
-import 'package:opalsystem/multiplePay/successTransactionBackSceen.dart';
-import 'package:opalsystem/widgets/common/left%20Section/carouselwidget.dart';
+import 'package:opalposinc/Functions/FunctionsProduct.dart';
+import 'package:opalposinc/invoices/InvoiceModel.dart';
+import 'package:opalposinc/model/CustomerModel.dart';
+import 'package:opalposinc/model/TaxModel.dart';
+import 'package:opalposinc/model/TotalDiscountModel.dart';
+import 'package:opalposinc/model/location.dart';
+import 'package:opalposinc/model/setttings.dart';
+import 'package:opalposinc/multiplePay/PaymentListMethod.dart';
+import 'package:opalposinc/multiplePay/successTransactionBackSceen.dart';
+import 'package:opalposinc/widgets/common/left%20Section/carouselwidget.dart';
 
 import 'package:presentation_displays/secondary_display.dart';
 

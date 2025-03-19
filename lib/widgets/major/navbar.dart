@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/utils/constants_string.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/nav_button.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/utils/constants_string.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/nav_button.dart';
 
 class Navbar extends StatefulWidget {
   const Navbar({super.key});

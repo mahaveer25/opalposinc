@@ -4,9 +4,9 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:opalsystem/invoices/InvoiceModel.dart';
-import 'package:opalsystem/utils/api_constants.dart';
-import 'package:opalsystem/utils/global_variables.dart';
+import 'package:opalposinc/invoices/InvoiceModel.dart';
+import 'package:opalposinc/utils/api_constants.dart';
+import 'package:opalposinc/utils/global_variables.dart';
 
 class SellReturnService {
   static String storeUrl = GlobalData.storeUrl;
@@ -16,19 +16,21 @@ class SellReturnService {
       BuildContext context, String? invoiceNumber) async {
     log(invoiceNumber.toString());
 
-    final url = ApiConstants.getBaseUrl(storeUrl)+ApiConstants.generateParametrizedEndpoint(ApiConstants.getSellReturn,{"invoice_no":invoiceNumber??""});
+    final url = ApiConstants.getBaseUrl(storeUrl) +
+        ApiConstants.generateParametrizedEndpoint(
+            ApiConstants.getSellReturn, {"invoice_no": invoiceNumber ?? ""});
     log("This is url for getSellRetrunDetails: $url");
-         // 'http://localhost/project/opal_pos/public/api/get_sale_detail?invoice_no=$invoiceNumber';
-        // 'https://$storeUrl.opalpay.us/public/api/get_sale_detail?invoice_no=$invoiceNumber';
+    // 'http://localhost/project/opal_pos/public/api/get_sale_detail?invoice_no=$invoiceNumber';
+    // 'https://$storeUrl.opalpay.us/public/api/get_sale_detail?invoice_no=$invoiceNumber';
     final headers = {
       // 'OPAL-PAY-API-KEY': apiKey
-      ApiConstants.headerAuthorizationKey:ApiConstants.headerAuthorizationValue
+      ApiConstants.headerAuthorizationKey: ApiConstants.headerAuthorizationValue
     };
 
     try {
       final response = await http.get(Uri.parse(url), headers: headers);
       if (response.statusCode == 200) {
-        log("This is the body of sell_return"+response.body);
+        log("This is the body of sell_return" + response.body);
         final jsonData = json.decode(response.body);
 
         if (jsonData['success']) {

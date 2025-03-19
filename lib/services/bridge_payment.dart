@@ -6,8 +6,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:opalsystem/model/loggedInUser.dart';
-import 'package:opalsystem/utils/constant_dialog.dart';
+import 'package:opalposinc/model/loggedInUser.dart';
+import 'package:opalposinc/utils/constant_dialog.dart';
 
 class BridgePayService {
   static Future<Map<String, dynamic>?> postBridgePay({

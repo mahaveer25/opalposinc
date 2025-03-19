@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/Functions/FunctionsProduct.dart';
-import 'package:opalsystem/NewUi/Widgets/CustomButton.dart';
-import 'package:opalsystem/NewUi/Widgets/ProductCardWidget.dart';
-import 'package:opalsystem/model/product.dart';
-import 'package:opalsystem/model/TaxModel.dart';
-import 'package:opalsystem/model/TotalDiscountModel.dart';
-import 'package:opalsystem/utils/constant_dialog.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CartBloc.dart';
-import 'package:opalsystem/widgets/common/left%20Section/discount_card.dart';
+import 'package:opalposinc/Functions/FunctionsProduct.dart';
+import 'package:opalposinc/NewUi/Widgets/CustomButton.dart';
+import 'package:opalposinc/NewUi/Widgets/ProductCardWidget.dart';
+import 'package:opalposinc/model/product.dart';
+import 'package:opalposinc/model/TaxModel.dart';
+import 'package:opalposinc/model/TotalDiscountModel.dart';
+import 'package:opalposinc/utils/constant_dialog.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CartBloc.dart';
+import 'package:opalposinc/widgets/common/left%20Section/discount_card.dart';
 
 class CartViewWidget extends StatelessWidget {
   final double itemTotal, totalAmountBeforeDisc;

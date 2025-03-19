@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:opalsystem/utils/assets.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/widgets/CustomWidgets/custom_text_widgets.dart';
+import 'package:opalposinc/utils/assets.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/widgets/CustomWidgets/custom_text_widgets.dart';
 
 class CommonAppBarV1 extends StatelessWidget {
   final String title;
-  final String?  imagePath;
+  final String? imagePath;
   final List<Widget>? actionList;
-  const CommonAppBarV1({super.key,required   this.title, this.imagePath,this.actionList});
+  const CommonAppBarV1(
+      {super.key, required this.title, this.imagePath, this.actionList});
 
   @override
   Widget build(BuildContext context) {
-    return  AppBar(
+    return AppBar(
       backgroundColor: Constant.colorWhite,
       surfaceTintColor: Colors.transparent,
       title: Align(
@@ -24,13 +25,13 @@ class CommonAppBarV1 extends StatelessWidget {
               fontSize: 25,
               fontWeight: FontWeight.w700,
             ),
-          const  Gap(12),
-            if(imagePath!=null)
+            const Gap(12),
+            if (imagePath != null)
               Image.asset(
-              imagePath??"",
-              height: 32,
-              width: 32,
-            ),
+                imagePath ?? "",
+                height: 32,
+                width: 32,
+              ),
           ],
         ),
       ),

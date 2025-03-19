@@ -5,30 +5,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:opalsystem/Functions/FunctionsProduct.dart';
-import 'package:opalsystem/NewUi/Pages/CartViewWidget.dart';
-import 'package:opalsystem/NewUi/SideBar.dart';
-import 'package:opalsystem/NewUi/Widgets/CustomContainer.dart';
-import 'package:opalsystem/NewUi/Widgets/CustomPayBar.dart';
-import 'package:opalsystem/NewUi/Widgets/CustomSearchBar.dart';
-import 'package:opalsystem/connection.dart';
-import 'package:opalsystem/invoices/transaction.dart';
-import 'package:opalsystem/model/CustomerModel.dart';
-import 'package:opalsystem/model/TaxModel.dart';
-import 'package:opalsystem/model/TotalDiscountModel.dart';
-import 'package:opalsystem/model/brand.dart';
-import 'package:opalsystem/model/category.dart';
-import 'package:opalsystem/model/location.dart';
-import 'package:opalsystem/model/loggedInUser.dart';
-import 'package:opalsystem/model/pricinggroup.dart';
-import 'package:opalsystem/utils/decorations.dart';
-import 'package:opalsystem/widgets/common/Right%20Section/brand_dropdown.dart';
-import 'package:opalsystem/widgets/common/Right%20Section/category.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CartBloc.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/ProductBloc.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/location.dart';
-import 'package:opalsystem/widgets/common/left%20Section/left_dropdown.dart';
+import 'package:opalposinc/Functions/FunctionsProduct.dart';
+import 'package:opalposinc/NewUi/Pages/CartViewWidget.dart';
+import 'package:opalposinc/NewUi/SideBar.dart';
+import 'package:opalposinc/NewUi/Widgets/CustomContainer.dart';
+import 'package:opalposinc/NewUi/Widgets/CustomPayBar.dart';
+import 'package:opalposinc/NewUi/Widgets/CustomSearchBar.dart';
+import 'package:opalposinc/connection.dart';
+import 'package:opalposinc/invoices/transaction.dart';
+import 'package:opalposinc/model/CustomerModel.dart';
+import 'package:opalposinc/model/TaxModel.dart';
+import 'package:opalposinc/model/TotalDiscountModel.dart';
+import 'package:opalposinc/model/brand.dart';
+import 'package:opalposinc/model/category.dart';
+import 'package:opalposinc/model/location.dart';
+import 'package:opalposinc/model/loggedInUser.dart';
+import 'package:opalposinc/model/pricinggroup.dart';
+import 'package:opalposinc/utils/decorations.dart';
+import 'package:opalposinc/widgets/common/Right%20Section/brand_dropdown.dart';
+import 'package:opalposinc/widgets/common/Right%20Section/category.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CartBloc.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/ProductBloc.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/location.dart';
+import 'package:opalposinc/widgets/common/left%20Section/left_dropdown.dart';
 
 class NewHomePage extends StatefulWidget {
   const NewHomePage({super.key});
@@ -179,12 +179,15 @@ class _NewHomePageState extends State<NewHomePage> {
                         Expanded(
                           child: Material(
                             borderRadius: BorderRadius.circular(10.0),
-                            child:  Padding(
+                            child: Padding(
                               padding: EdgeInsets.all(8.0),
-                              child: BrandsDropdown(      onBrandChange:(brand) {
-                                BrandBloc brandBloc = BlocProvider.of<BrandBloc>(context);
-                                brandBloc.add(brand);
-                              } ,),
+                              child: BrandsDropdown(
+                                onBrandChange: (brand) {
+                                  BrandBloc brandBloc =
+                                      BlocProvider.of<BrandBloc>(context);
+                                  brandBloc.add(brand);
+                                },
+                              ),
                             ),
                           ),
                         ),

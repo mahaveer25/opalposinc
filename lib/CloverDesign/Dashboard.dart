@@ -1,68 +1,67 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/CloverDesign/Dashboard%20Pages/Add%20Item%20Inventory%20V1/add_inventory.dart';
-import 'package:opalsystem/CloverDesign/Dashboard%20Pages/Add%20Item%20Inventory%20V1/add_inventry_v1.dart';
-import 'package:opalsystem/CloverDesign/Dashboard%20Pages/Add%20Item%20Inventory%20V1/transaction/transactionV1.dart';
-import 'package:opalsystem/CloverDesign/Dashboard%20Pages/Close%20out/close_register_v1.dart';
-import 'package:opalsystem/CloverDesign/Dashboard%20Pages/Open%20Register/open_registerV1.dart';
-import 'package:opalsystem/CloverDesign/Dashboard%20Pages/Refund/refundV1.dart';
-import 'package:opalsystem/NewUi/Widgets/CustomButton.dart';
-import 'package:opalsystem/auth/login.dart';
-import 'package:opalsystem/pages/home_page.dart';
-import 'package:opalsystem/utils/constant_dialog.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/utils/route_utlity.dart';
-import 'package:opalsystem/utils/toastification_utility.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/register_details.dart';
+import 'package:opalposinc/CloverDesign/Dashboard%20Pages/Add%20Item%20Inventory%20V1/add_inventory.dart';
+import 'package:opalposinc/CloverDesign/Dashboard%20Pages/Add%20Item%20Inventory%20V1/add_inventry_v1.dart';
+import 'package:opalposinc/CloverDesign/Dashboard%20Pages/Add%20Item%20Inventory%20V1/transaction/transactionV1.dart';
+import 'package:opalposinc/CloverDesign/Dashboard%20Pages/Close%20out/close_register_v1.dart';
+import 'package:opalposinc/CloverDesign/Dashboard%20Pages/Open%20Register/open_registerV1.dart';
+import 'package:opalposinc/CloverDesign/Dashboard%20Pages/Refund/refundV1.dart';
+import 'package:opalposinc/NewUi/Widgets/CustomButton.dart';
+import 'package:opalposinc/auth/login.dart';
+import 'package:opalposinc/pages/home_page.dart';
+import 'package:opalposinc/utils/constant_dialog.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/utils/route_utlity.dart';
+import 'package:opalposinc/utils/toastification_utility.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/register_details.dart';
 
 class DashboardScreen extends StatelessWidget {
-   DashboardScreen({Key? key}) : super(key: key);
-
-
-
-
-
-
+  DashboardScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    LoggedInUserBloc loggedInUserBloc = BlocProvider.of<LoggedInUserBloc>(context);
+    LoggedInUserBloc loggedInUserBloc =
+        BlocProvider.of<LoggedInUserBloc>(context);
 
     final List<Map<String, dynamic>> dashboardItems = [
       {
         'image': const AssetImage("assets/images/cash.png"),
         'label': "Cash Log",
-        "onTap":(){
+        "onTap": () {
           // RegisterStatusBloc registerStatus = BlocProvider.of<RegisterStatusBloc>(context);
-          if(loggedInUserBloc.state?.registerStatus=="open"){
-            return ToastificationUtility.showToast(context: context, message: "Register is already open", type:ToastType.info,);
-          }else{
-            RouteUtility.push(context,OpenRegisterv1() );
+          if (loggedInUserBloc.state?.registerStatus == "open") {
+            return ToastificationUtility.showToast(
+              context: context,
+              message: "Register is already open",
+              type: ToastType.info,
+            );
+          } else {
+            RouteUtility.push(context, OpenRegisterv1());
           }
-
         }
       },
       {
         'image': const AssetImage("assets/images/cashout.png"),
         'label': "Closeout",
-        'onTap': (){
-          if(loggedInUserBloc.state?.registerStatus=="close"){
-            return  ConstDialog(context).showErrorDialog(error: "Cash Register is closed \n click ok to open register",ontap: () {
-              RouteUtility.pop(context);
-              RouteUtility.push(context, OpenRegisterv1());
-            },);
-          }else{
-            return RouteUtility.push(context,const CloseRegisterV1());
-
+        'onTap': () {
+          if (loggedInUserBloc.state?.registerStatus == "close") {
+            return ConstDialog(context).showErrorDialog(
+              error: "Cash Register is closed \n click ok to open register",
+              ontap: () {
+                RouteUtility.pop(context);
+                RouteUtility.push(context, OpenRegisterv1());
+              },
+            );
+          } else {
+            return RouteUtility.push(context, const CloseRegisterV1());
           }
         }
-
       },
-      {'image': const AssetImage("assets/images/tips.png"),
+      {
+        'image': const AssetImage("assets/images/tips.png"),
         'label': "Tips",
       },
-
       {
         'image': const AssetImage("assets/images/reward.png"),
         'label': "Rewards"
@@ -70,14 +69,11 @@ class DashboardScreen extends StatelessWidget {
       {
         'image': const AssetImage("assets/images/reporting.png"),
         'label': "Reporting",
-
       },
       {
         'image': const AssetImage("assets/images/addinventory.png"),
         'label': "Add Inventory",
-        'onTap':()=>RouteUtility.push(context,const AddInventoryV1()),
-
-
+        'onTap': () => RouteUtility.push(context, const AddInventoryV1()),
       },
       {
         'image': const AssetImage("assets/images/employees.png"),
@@ -96,7 +92,6 @@ class DashboardScreen extends StatelessWidget {
         'image': const AssetImage("assets/images/printer.png"),
         'label': "Printers"
       },
-
     ];
     return Scaffold(
       backgroundColor: Colors.white, // Matches the dark theme in the image
@@ -109,7 +104,7 @@ class DashboardScreen extends StatelessWidget {
               child: Column(
                 children: [
                   // Top Section
-                   Padding(
+                  Padding(
                     padding: EdgeInsets.all(5.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -120,17 +115,15 @@ class DashboardScreen extends StatelessWidget {
                         QuickAction(
                             image: "assets/images/order.png", label: "Orders"),
                         QuickAction(
-
-                            onTap:() {
+                            onTap: () {
                               RouteUtility.push(context, Refundv1());
-
-                            } ,
-                            image: "assets/images/refund.png", label: "Refund"),
+                            },
+                            image: "assets/images/refund.png",
+                            label: "Refund"),
                         QuickAction(
-                          onTap: () {
-                            RouteUtility.push(context, Transactionv1());
-
-                          },
+                            onTap: () {
+                              RouteUtility.push(context, Transactionv1());
+                            },
                             image: "assets/images/transactions.png",
                             label: "Transactions"),
                       ],
@@ -150,8 +143,7 @@ class DashboardScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final item = dashboardItems[index];
                           return DashboardIcon(
-                            onTap:item['onTap'],
-
+                            onTap: item['onTap'],
                             image: item['image'],
                             label: item['label'],
                           );
@@ -199,10 +191,12 @@ class DashboardScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               const Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         "support@opalpay.us",
@@ -242,7 +236,6 @@ class DashboardScreen extends StatelessWidget {
                               ),
                               CustomButton(
                                 text: "HELP",
-
                                 backgroundColor: Colors.white,
                                 textColor: Constant.colorPurple,
                               )
@@ -298,7 +291,8 @@ class DashboardScreen extends StatelessWidget {
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: [
                                         Text(
                                           "last Order",
@@ -322,10 +316,15 @@ class DashboardScreen extends StatelessWidget {
                                     flex: 2,
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
                                       children: [
                                         GestureDetector(
-                                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage())),
+                                          onTap: () => Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const HomePage())),
                                           child: Text(
                                             "Logged In",
                                             style: TextStyle(
@@ -400,7 +399,6 @@ class DashboardScreen extends StatelessWidget {
                                     alignment: Alignment.center,
                                     child: CustomButton(
                                       text: "This is gcp test messages",
-
                                       backgroundColor: Colors.white,
                                       textColor: Constant.colorPurple,
                                     ),
@@ -428,12 +426,8 @@ class QuickAction extends StatelessWidget {
   final String label;
   final void Function()? onTap;
 
-  const QuickAction({
-    super.key,
-    required this.image,
-    required this.label,
-    this.onTap
-  });
+  const QuickAction(
+      {super.key, required this.image, required this.label, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -468,8 +462,8 @@ class QuickAction extends StatelessWidget {
                   ),
                   color: Colors.white,
                   elevation: 4,
-                  margin:
-                      const EdgeInsets.all(1.5), // For gradient border thickness
+                  margin: const EdgeInsets.all(
+                      1.5), // For gradient border thickness
                   child: Padding(
                     padding: const EdgeInsets.all(25.0),
                     child: Image(

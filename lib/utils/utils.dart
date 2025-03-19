@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get_thumbnail_video/index.dart';
 import 'package:get_thumbnail_video/video_thumbnail.dart';
 import 'package:mime/mime.dart';
-import 'package:opalsystem/widgets/CustomWidgets/custom_text_widgets.dart';
+import 'package:opalposinc/widgets/CustomWidgets/custom_text_widgets.dart';
 
 import '../CloverDesign/Dashboard Pages/Add Item Inventory V1/Add Item/add_item_inventory.dart';
 import '../CloverDesign/Dashboard Pages/Add Item Inventory V1/Brands/brands_new_clover.dart';
@@ -51,9 +51,7 @@ class MyUtility {
     return maxVal;
   }
 
-
- static  double fixedWidthCloverNewDesign=200;
-
+  static double fixedWidthCloverNewDesign = 200;
 
   static const String variants = 'Variants';
   static const String items = 'Items';
@@ -73,16 +71,14 @@ class MyUtility {
     addItem: AddItemInventory(),
   };
 
- static Widget getScreenContent(String menu) {
-   return screens[menu] ??
-       Container(
-         child: Center(
-           child: CustomText(text: "Error state"),
-         ),
-       );
-    }
-
-
+  static Widget getScreenContent(String menu) {
+    return screens[menu] ??
+        Container(
+          child: Center(
+            child: CustomText(text: "Error state"),
+          ),
+        );
+  }
 
   static const Map<String, List<String>> parentChildStates = {
     items: [addItem],
@@ -93,7 +89,6 @@ class MyUtility {
     sellingPriceGroup: [],
   };
 
-
   static String getParentState(String state) {
     for (var entry in parentChildStates.entries) {
       if (entry.key == state || entry.value.contains(state)) {
@@ -102,8 +97,4 @@ class MyUtility {
     }
     return state;
   }
-
 }
-
-
-

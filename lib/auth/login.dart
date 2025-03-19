@@ -6,19 +6,19 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/NewUi/BlocPages/LoggedUserBloc.dart';
-import 'package:opalsystem/NewUi/Widgets/CustomButton.dart';
-import 'package:opalsystem/auth/remember_login.dart';
-import 'package:opalsystem/auth/resetScreen.dart';
-import 'package:opalsystem/connection.dart';
-import 'package:opalsystem/model/loggedInUser.dart';
-import 'package:opalsystem/services/user_authenticate.dart';
-import 'package:opalsystem/utils/commonFunction.dart';
-import 'package:opalsystem/utils/constant_dialog.dart';
-import 'package:opalsystem/utils/global_variables.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/ProductBloc.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/nav_button.dart';
+import 'package:opalposinc/NewUi/BlocPages/LoggedUserBloc.dart';
+import 'package:opalposinc/NewUi/Widgets/CustomButton.dart';
+import 'package:opalposinc/auth/remember_login.dart';
+import 'package:opalposinc/auth/resetScreen.dart';
+import 'package:opalposinc/connection.dart';
+import 'package:opalposinc/model/loggedInUser.dart';
+import 'package:opalposinc/services/user_authenticate.dart';
+import 'package:opalposinc/utils/commonFunction.dart';
+import 'package:opalposinc/utils/constant_dialog.dart';
+import 'package:opalposinc/utils/global_variables.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/ProductBloc.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/nav_button.dart';
 
 import '../widgets/CustomWidgets/CustomIniputField.dart';
 
@@ -78,24 +78,29 @@ class _LoginScreenState extends State<LoginScreen> {
       await RememberLogin.toHiveStorage(storeUrl: url.text);
 
       if (emailaddress.text.isEmpty || password.text.isEmpty) {
-        ConstDialog(context).showErrorDialog(error: 'Please enter both username and password.');
+        ConstDialog(context)
+            .showErrorDialog(error: 'Please enter both username and password.');
       }
 
       try {
-        final result = await _authService.loginUser(context, emailaddress.text.trim(), password.text.trim(), url.text.trim());
+        final result = await _authService.loginUser(context,
+            emailaddress.text.trim(), password.text.trim(), url.text.trim());
         final success = LoggedInUser.fromJson(result);
         ProductBloc productBloc = BlocProvider.of<ProductBloc>(context);
         if (success.businessId != null) {
           productBloc.add(ProductResetEvent());
-          LoggedInUserBloc loggedInUserBloc = BlocProvider.of<LoggedInUserBloc>(context);
+          LoggedInUserBloc loggedInUserBloc =
+              BlocProvider.of<LoggedInUserBloc>(context);
           loggedInUserBloc.add(success);
-          RegisterStatusBloc registerStatusBloc = BlocProvider.of<RegisterStatusBloc>(context);
+          RegisterStatusBloc registerStatusBloc =
+              BlocProvider.of<RegisterStatusBloc>(context);
           registerStatusBloc.add(success.registerStatus ?? "");
 
           String? paxIdFromLocal = await RememberLogin.getPaxId();
           String? locationIdFromLocal = await RememberLogin.getLocationId();
           debugPrint("paxId getting from sharedPreferences ${paxIdFromLocal}");
-          debugPrint("locationId getting from sharedPreferences ${locationIdFromLocal}");
+          debugPrint(
+              "locationId getting from sharedPreferences ${locationIdFromLocal}");
 
           PaxDeviceBloc bloc = BlocProvider.of<PaxDeviceBloc>(context);
           ListPaxDevicesBloc listPaxDevicesBloc =
@@ -105,7 +110,13 @@ class _LoginScreenState extends State<LoginScreen> {
           if (locationIdFromLocal != null || locationIdFromLocal != "") {
             if (paxIdFromLocal != null || paxIdFromLocal != "") {
               if (locationIdFromLocal == locationBloc.state?.id) {
-                List<PaxDevice>? list = success.paxDevices?.where((element) => element.businessLocationId.toString() == locationIdFromLocal.toString(),).toList();
+                List<PaxDevice>? list = success.paxDevices
+                    ?.where(
+                      (element) =>
+                          element.businessLocationId.toString() ==
+                          locationIdFromLocal.toString(),
+                    )
+                    .toList();
                 if (list?.isNotEmpty ?? false) {
                   listPaxDevicesBloc.add(list ?? []);
                   PaxDevice? localDevice = list?.firstWhere(
@@ -115,7 +126,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (localDevice != null) {
                     bloc.add(PaxDeviceEvent(device: localDevice));
                   } else {
-                    debugPrint("No matching device found locally for paxId: $paxIdFromLocal");
+                    debugPrint(
+                        "No matching device found locally for paxId: $paxIdFromLocal");
                   }
                 }
               } else {
@@ -132,10 +144,13 @@ class _LoginScreenState extends State<LoginScreen> {
           } else {
             debugPrint("locationId is not available in sharedPreferences ");
 
-            CommonFunctions.addPaxAndLocationIndexZero(locationBloc, success, listPaxDevicesBloc, bloc);
+            CommonFunctions.addPaxAndLocationIndexZero(
+                locationBloc, success, listPaxDevicesBloc, bloc);
           }
 
-          Navigator.pushReplacement(context,MaterialPageRoute(
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
               builder: (context) => const LoggedInUserBlocBuilder(),
             ),
           );
@@ -165,7 +180,6 @@ class _LoginScreenState extends State<LoginScreen> {
         overlays: [SystemUiOverlay.bottom]);
     // emailaddress.text="Rakesh";
     // password.text="Laptop123";
-
 
     saveUrl();
     super.initState();

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
-import 'package:opalsystem/model/user.dart';
-import 'package:opalsystem/services/users.dart';
-import 'package:opalsystem/utils/constants.dart';
+import 'package:opalposinc/model/user.dart';
+import 'package:opalposinc/services/users.dart';
+import 'package:opalposinc/utils/constants.dart';
 
 class UserDropdown extends StatefulWidget {
   final Function(List<User>) onUsersSelected;

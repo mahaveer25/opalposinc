@@ -1,4 +1,4 @@
-import 'package:opalsystem/model/product.dart';
+import 'package:opalposinc/model/product.dart';
 
 class InvoiceSellReturn {
   final String? invoiceTitle;

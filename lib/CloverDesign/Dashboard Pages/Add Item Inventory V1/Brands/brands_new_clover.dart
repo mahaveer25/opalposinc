@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:opalsystem/CloverDesign/Dashboard%20Pages/widgets/brands_dialog.dart';
-import 'package:opalsystem/CloverDesign/Dashboard%20Pages/widgets/navbar.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/utils/utils.dart';
+import 'package:opalposinc/CloverDesign/Dashboard%20Pages/widgets/brands_dialog.dart';
+import 'package:opalposinc/CloverDesign/Dashboard%20Pages/widgets/navbar.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/utils/utils.dart';
 
 class BrandsNewClover extends StatefulWidget {
   const BrandsNewClover({super.key});
@@ -11,6 +11,7 @@ class BrandsNewClover extends StatefulWidget {
   @override
   State<BrandsNewClover> createState() => _BrandsNewCloverState();
 }
+
 final List<Map<String, String>> brands = [
   {
     "Brand": "Grocery",
@@ -32,10 +33,7 @@ final List<Map<String, String>> brands = [
     "Brand": "Furniture",
     "Description": "Items: Chairs, Tables, Sofas; Quantity: 15"
   },
-  {
-    "Brand": "Toys",
-    "Description": "Items: Dolls, Cars, Puzzles; Quantity: 30"
-  },
+  {"Brand": "Toys", "Description": "Items: Dolls, Cars, Puzzles; Quantity: 30"},
   {
     "Brand": "Beverages",
     "Description": "Items: Juices, Sodas, Water Bottles; Quantity: 25"
@@ -54,13 +52,11 @@ final List<Map<String, String>> brands = [
   },
 ];
 
-
 class _BrandsNewCloverState extends State<BrandsNewClover> {
-
-
-
-
-  List<String> headings=["Brand", "Description",];
+  List<String> headings = [
+    "Brand",
+    "Description",
+  ];
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -78,7 +74,8 @@ class _BrandsNewCloverState extends State<BrandsNewClover> {
                   ),
                   SizedBox(
                     width: MyUtility.fixedWidthCloverNewDesign,
-                    child: Text("Actions", style: const TextStyle(fontWeight: FontWeight.bold)),
+                    child: Text("Actions",
+                        style: const TextStyle(fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
@@ -89,11 +86,11 @@ class _BrandsNewCloverState extends State<BrandsNewClover> {
                 itemBuilder: (context, index) {
                   return Container(
                     height: 60,
-                    margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
                     color: Colors.white,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
                       children: [
                         Container(
                           color: Constant.colorPurple,
@@ -104,13 +101,13 @@ class _BrandsNewCloverState extends State<BrandsNewClover> {
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
                               children: [
                                 SizedBox(
-                                  width:MyUtility.fixedWidthCloverNewDesign,
+                                  width: MyUtility.fixedWidthCloverNewDesign,
                                   child: Text(
                                     brands[index]["Brand"] ?? "",
-                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ),
                                 // Remaining space for Values
@@ -128,7 +125,7 @@ class _BrandsNewCloverState extends State<BrandsNewClover> {
                                   child: Row(
                                     children: [
                                       GestureDetector(
-                                          onTap:() {
+                                          onTap: () {
                                             showDialog(
                                               context: context,
                                               builder: (context) {
@@ -136,7 +133,8 @@ class _BrandsNewCloverState extends State<BrandsNewClover> {
                                                   title: "Edit brand",
                                                   blueButton: "Update",
 
-                                                  initialData: brands[index], // Pass the current variation data
+                                                  initialData: brands[
+                                                      index], // Pass the current variation data
                                                   onSubmit: (data) {
                                                     setState(() {
                                                       brands[index] = data;
@@ -145,16 +143,22 @@ class _BrandsNewCloverState extends State<BrandsNewClover> {
                                                 );
                                               },
                                             );
-                                          } ,
-                                          child: Icon(Icons.edit,color: Constant.colorPurple,)),
+                                          },
+                                          child: Icon(
+                                            Icons.edit,
+                                            color: Constant.colorPurple,
+                                          )),
                                       Gap(15),
                                       GestureDetector(
-                                          onTap:() {
+                                          onTap: () {
                                             setState(() {
                                               brands.removeAt(index);
                                             });
-                                          } ,
-                                          child: Icon(Icons.delete,color: Constant.colorRed,)),
+                                          },
+                                          child: Icon(
+                                            Icons.delete,
+                                            color: Constant.colorRed,
+                                          )),
                                     ],
                                   ),
                                 ),
@@ -181,10 +185,9 @@ class _BrandsNewCloverState extends State<BrandsNewClover> {
                   return BrandsDialog(
                     title: "Add Unit",
                     blueButton: "Save",
-
                     onSubmit: (data) {
                       setState(() {
-                        brands.add(  data);
+                        brands.add(data);
                       });
                     },
                   );

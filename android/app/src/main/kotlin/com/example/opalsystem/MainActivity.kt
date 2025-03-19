@@ -21,7 +21,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import com.example.opalsystem.GlobalContants
+import com.example.opalposinc.GlobalContants
 import com.hcd.hcdpos.cashbox.Cashbox // Import for Cash Drawer functionality
 import com.printer.sdk.PrinterConstants
 import com.printer.sdk.PrinterConstants.Connect

@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:opalsystem/connection.dart';
-import 'package:opalsystem/invoices/transaction.dart';
-import 'package:opalsystem/localDatabase/Invoices/LocalDatabaseInvoices.dart';
-import 'package:opalsystem/localDatabase/Transaction/Bloc/darftBloc/local_draft_bloc.dart';
-import 'package:opalsystem/multiplePay/MultiplePay.dart';
-import 'package:opalsystem/multiplePay/PaymentListMethod.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/utils/decorations.dart';
-import 'package:opalsystem/widgets/CustomWidgets.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/connection.dart';
+import 'package:opalposinc/invoices/transaction.dart';
+import 'package:opalposinc/localDatabase/Invoices/LocalDatabaseInvoices.dart';
+import 'package:opalposinc/localDatabase/Transaction/Bloc/darftBloc/local_draft_bloc.dart';
+import 'package:opalposinc/multiplePay/MultiplePay.dart';
+import 'package:opalposinc/multiplePay/PaymentListMethod.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/utils/decorations.dart';
+import 'package:opalposinc/widgets/CustomWidgets.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
 
 class DraftPage extends StatefulWidget {
   const DraftPage({super.key});

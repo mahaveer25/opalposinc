@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:opalsystem/utils/constant_dialog.dart';
+import 'package:opalposinc/utils/constant_dialog.dart';
 
 class ResetPasswordService {
   static const String apiKey = "#bk_api_opal_v1_1_1@";

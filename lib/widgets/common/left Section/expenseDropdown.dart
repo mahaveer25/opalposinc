@@ -3,10 +3,10 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/FetchingApis/FetchApis.dart';
-import 'package:opalsystem/model/expense_drop_model.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/FetchingApis/FetchApis.dart';
+import 'package:opalposinc/model/expense_drop_model.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
 
 class ExpenseDropdown extends StatefulWidget {
   const ExpenseDropdown({super.key});

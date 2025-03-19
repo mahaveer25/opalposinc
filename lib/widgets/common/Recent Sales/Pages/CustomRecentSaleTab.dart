@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/model/setttings.dart';
-import 'package:opalsystem/widgets/common/Recent%20Sales/draft_sale.dart';
-import 'package:opalsystem/widgets/common/Recent%20Sales/final_sales.dart';
-import 'package:opalsystem/widgets/common/Recent%20Sales/quotation.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/model/setttings.dart';
+import 'package:opalposinc/widgets/common/Recent%20Sales/draft_sale.dart';
+import 'package:opalposinc/widgets/common/Recent%20Sales/final_sales.dart';
+import 'package:opalposinc/widgets/common/Recent%20Sales/quotation.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
 
 class CustomRecentSaleTab extends StatefulWidget {
   const CustomRecentSaleTab({

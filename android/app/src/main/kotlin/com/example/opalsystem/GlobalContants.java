@@ -1,4 +1,4 @@
-package com.example.opalsystem;
+package com.example.opalposinc;
 
 /**
  * 定义全局参数

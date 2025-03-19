@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:opalsystem/utils/decorations.dart';
+import 'package:opalposinc/utils/decorations.dart';
 
 class CustomTextWidget extends StatelessWidget {
   final String text;

@@ -5,27 +5,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:opalsystem/CustomFuncs.dart';
-import 'package:opalsystem/invoices/InvoiceModel.dart';
-import 'package:opalsystem/invoices/SellreturnInvoice.dart';
-import 'package:opalsystem/invoices/transaction.dart';
-import 'package:opalsystem/model/CustomerModel.dart';
-import 'package:opalsystem/model/TaxModel.dart';
-import 'package:opalsystem/model/location.dart';
-import 'package:opalsystem/model/loggedInUser.dart';
-import 'package:opalsystem/model/product.dart';
-import 'package:opalsystem/multiplePay/PaymentListMethod.dart';
-import 'package:opalsystem/printing.dart';
-import 'package:opalsystem/services/bridge_payment.dart';
-import 'package:opalsystem/services/post_sellreturn.dart';
-import 'package:opalsystem/utils/commonFunction.dart';
-import 'package:opalsystem/utils/constant_dialog.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/utils/platform_functions.dart';
-import 'package:opalsystem/utils/toast_message.dart';
-import 'package:opalsystem/widgets/CustomWidgets/custom_text_widgets.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CartBloc.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/CustomFuncs.dart';
+import 'package:opalposinc/invoices/InvoiceModel.dart';
+import 'package:opalposinc/invoices/SellreturnInvoice.dart';
+import 'package:opalposinc/invoices/transaction.dart';
+import 'package:opalposinc/model/CustomerModel.dart';
+import 'package:opalposinc/model/TaxModel.dart';
+import 'package:opalposinc/model/location.dart';
+import 'package:opalposinc/model/loggedInUser.dart';
+import 'package:opalposinc/model/product.dart';
+import 'package:opalposinc/multiplePay/PaymentListMethod.dart';
+import 'package:opalposinc/printing.dart';
+import 'package:opalposinc/services/bridge_payment.dart';
+import 'package:opalposinc/services/post_sellreturn.dart';
+import 'package:opalposinc/utils/commonFunction.dart';
+import 'package:opalposinc/utils/constant_dialog.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/utils/platform_functions.dart';
+import 'package:opalposinc/utils/toast_message.dart';
+import 'package:opalposinc/widgets/CustomWidgets/custom_text_widgets.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CartBloc.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
 import '../widgets/CustomWidgets/CustomIniputField.dart';
 
 class SellReturn extends StatefulWidget {
@@ -59,29 +59,29 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
   double subTotal = 0.0;
   String selectedReturningMethod = "card";
 
-
   double cashApiSend = 0.00;
   double cardApiSend = 0.00;
 
-  bool isLoading=false;
-
+  bool isLoading = false;
 
   @override
   void initState() {
-
     discountType.text = (widget.returnsale.discountType) ?? '';
-    discountController.text = double.parse(widget.returnsale.discountAmount??"0.0").toStringAsFixed(2);
-    cardAmountController.text ="0.00";
-    cashAmountController.text ="0.00";
-    cashTotal=double.parse(CommonFunctions.getCashTotalInReturn(widget.returnsale));
-    cardTotal= double.parse(CommonFunctions.getCardTotalInReturn(widget.returnsale));
+    discountController.text =
+        double.parse(widget.returnsale.discountAmount ?? "0.0")
+            .toStringAsFixed(2);
+    cardAmountController.text = "0.00";
+    cashAmountController.text = "0.00";
+    cashTotal =
+        double.parse(CommonFunctions.getCashTotalInReturn(widget.returnsale));
+    cardTotal =
+        double.parse(CommonFunctions.getCardTotalInReturn(widget.returnsale));
 
     date.text = widget.returnsale.date ?? "";
     widget.returnsale.product?.forEach((_) {
       returnQuantityControllers.add(TextEditingController());
     });
-    
-    
+
     super.initState();
   }
 
@@ -94,66 +94,59 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
     cardAmountController.dispose();
     super.dispose();
   }
-  double cashTotal=0.0 ;
-  double cardTotal =0.0;
+
+  double cashTotal = 0.0;
+  double cardTotal = 0.0;
   String paymentPriority = "Cash";
 
-
   void calculateCashCardReturnAmount() {
-
     setState(() {
-      final sum = sumProduct(productList: widget.returnsale.product??[]);
-      discount = invoiceDiscount(productList: widget.returnsale.product??[]);
-      tax = taxInvoice(
-          discount: discount == 0.0
-              ? sum
-              : sum - discount);
+      final sum = sumProduct(productList: widget.returnsale.product ?? []);
+      discount = invoiceDiscount(productList: widget.returnsale.product ?? []);
+      tax = taxInvoice(discount: discount == 0.0 ? sum : sum - discount);
       total = ((sum - discount) + tax).toString();
 
       final totalAmount = double.parse(total);
-      final cashTotal = double.parse(CommonFunctions.getCashTotalInReturn(widget.returnsale));
-      final cardTotal = double.parse(CommonFunctions.getCardTotalInReturn(widget.returnsale));
+      final cashTotal =
+          double.parse(CommonFunctions.getCashTotalInReturn(widget.returnsale));
+      final cardTotal =
+          double.parse(CommonFunctions.getCardTotalInReturn(widget.returnsale));
 
       if (paymentPriority == "Cash") {
         if (totalAmount <= cashTotal) {
-          cashApiSend=totalAmount;
+          cashApiSend = totalAmount;
           cashAmountController.text = totalAmount.toStringAsFixed(2);
-          cardApiSend=0.00;
+          cardApiSend = 0.00;
           cardAmountController.text = "0.00";
         } else {
           cashAmountController.text = cashTotal.toStringAsFixed(2);
-          cashApiSend=cashTotal;
-          cardAmountController.text = (totalAmount - cashTotal).toStringAsFixed(2);
-          cardApiSend=(totalAmount-cashTotal);
+          cashApiSend = cashTotal;
+          cardAmountController.text =
+              (totalAmount - cashTotal).toStringAsFixed(2);
+          cardApiSend = (totalAmount - cashTotal);
         }
       } else if (paymentPriority == "Card") {
         if (totalAmount <= cardTotal) {
           cardAmountController.text = totalAmount.toStringAsFixed(2);
-          cardApiSend=totalAmount;
+          cardApiSend = totalAmount;
           cashAmountController.text = "0.00";
-          cashApiSend=0.00;
+          cashApiSend = 0.00;
         } else {
           cardAmountController.text = cardTotal.toStringAsFixed(2);
-          cardApiSend=cardTotal;
-          cashAmountController.text = (totalAmount - cardTotal).toStringAsFixed(2);
-          cashApiSend=(totalAmount-cardTotal);
+          cardApiSend = cardTotal;
+          cashAmountController.text =
+              (totalAmount - cardTotal).toStringAsFixed(2);
+          cashApiSend = (totalAmount - cardTotal);
         }
       }
 
-
-
       log('subTotal:$subTotal');
-
     });
-
   }
 
-
-
-
-  setLoading(bool value){
+  setLoading(bool value) {
     setState(() {
-      isLoading=value;
+      isLoading = value;
     });
   }
 
@@ -324,45 +317,104 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                                 ),
                               ),
                               DataColumn(
-                                label: Text('Return Subtotal', style: TextStyle(fontWeight: FontWeight.bold,),),
+                                label: Text(
+                                  'Return Subtotal',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                             ],
                             rows: List<DataRow>.generate(
-                                widget.returnsale.product?.length??0, (index) {
-                              Product product = widget.returnsale.product?[index]??Product();
+                                widget.returnsale.product?.length ?? 0,
+                                (index) {
+                              Product product =
+                                  widget.returnsale.product?[index] ??
+                                      Product();
                               void calculateTotalReturnAmount() {
                                 subtotalProduct(product: product, index: index);
 
                                 calculateCashCardReturnAmount();
-
                               }
 
-
                               return DataRow(cells: [
-                                DataCell(SizedBox(width: 20, child: Text('${index + 1}'))),
-                                DataCell(SizedBox(width: 300, child: Text(product.name ?? '',),),),
-                                DataCell(Center(child: Text(unitPriceDiscount(product: product).toStringAsFixed(2)),)),
-                                DataCell(Center(child: Text('${product.quantity}'))),
-                                DataCell(Center(child: Text('${product.alreadyReturned}'))),
+                                DataCell(SizedBox(
+                                    width: 20, child: Text('${index + 1}'))),
                                 DataCell(
-                                  Center(child: CustomInputField(
-                                    inputType: const TextInputType.numberWithOptions(decimal: false),
-                                    labelText: "Quantity", hintText: "0", controller: returnQuantityControllers[index], onChanged: (value) {
+                                  SizedBox(
+                                    width: 300,
+                                    child: Text(
+                                      product.name ?? '',
+                                    ),
+                                  ),
+                                ),
+                                DataCell(Center(
+                                  child: Text(
+                                      unitPriceDiscount(product: product)
+                                          .toStringAsFixed(2)),
+                                )),
+                                DataCell(
+                                    Center(child: Text('${product.quantity}'))),
+                                DataCell(Center(
+                                    child: Text('${product.alreadyReturned}'))),
+                                DataCell(
+                                  Center(
+                                    child: CustomInputField(
+                                      inputType:
+                                          const TextInputType.numberWithOptions(
+                                              decimal: false),
+                                      labelText: "Quantity",
+                                      hintText: "0",
+                                      controller:
+                                          returnQuantityControllers[index],
+                                      onChanged: (value) {
                                         setState(() {
                                           calculateTotalReturnAmount();
                                           if (value.contains('.')) {
-                                            ConstDialog(context).showErrorDialog(error: 'Decimal points are not allowed', iconData: Icons.error, iconColor: Colors.red, iconText: 'Alert', ontap: () => Navigator.pop(context),);
-                                            final newValue = value.substring(0, value.length - 1);
-                                            returnQuantityControllers[index].text = newValue;
-                                            returnQuantityControllers[index].selection =TextSelection.fromPosition(TextPosition(offset: newValue.length),
+                                            ConstDialog(context)
+                                                .showErrorDialog(
+                                              error:
+                                                  'Decimal points are not allowed',
+                                              iconData: Icons.error,
+                                              iconColor: Colors.red,
+                                              iconText: 'Alert',
+                                              ontap: () =>
+                                                  Navigator.pop(context),
+                                            );
+                                            final newValue = value.substring(
+                                                0, value.length - 1);
+                                            returnQuantityControllers[index]
+                                                .text = newValue;
+                                            returnQuantityControllers[index]
+                                                    .selection =
+                                                TextSelection.fromPosition(
+                                              TextPosition(
+                                                  offset: newValue.length),
                                             );
                                           } else if (value.isNotEmpty) {
-                                            int enteredQuantity = int.parse(value);
-                                            int? sellQuantity = int.parse(product.quantity.toString()) -
-                                                int.parse(product.alreadyReturned.toString());
-                                            if (enteredQuantity > sellQuantity) {
-                                              returnQuantityControllers[index].text = sellQuantity.toString();
-                                              ConstDialog(context).showErrorDialog(error: 'Return quantity cannot exceed available quantity', iconData: Icons.error, iconColor: Colors.red, iconText: 'Alert', ontap: () => Navigator.pop(context),);
+                                            int enteredQuantity =
+                                                int.parse(value);
+                                            int? sellQuantity = int.parse(
+                                                    product.quantity
+                                                        .toString()) -
+                                                int.parse(product
+                                                    .alreadyReturned
+                                                    .toString());
+                                            if (enteredQuantity >
+                                                sellQuantity) {
+                                              returnQuantityControllers[index]
+                                                      .text =
+                                                  sellQuantity.toString();
+                                              ConstDialog(context)
+                                                  .showErrorDialog(
+                                                error:
+                                                    'Return quantity cannot exceed available quantity',
+                                                iconData: Icons.error,
+                                                iconColor: Colors.red,
+                                                iconText: 'Alert',
+                                                ontap: () =>
+                                                    Navigator.pop(context),
+                                              );
                                             }
                                           }
                                         });
@@ -411,180 +463,180 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                           ],
                         ),
                         Gap(6),
-
                         Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-
-
-                            if(cardTotal!=0.0 && cashTotal!=0.00)
+                            if (cardTotal != 0.0 && cashTotal != 0.00)
                               Column(
-                              children: [
-                                Gap(6),
-
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    CustomText(text: "Make return priority based on:"),
-                                    Gap(10),
-                                    Radio<String>(
-                                      value: "Card",
-                                      groupValue: paymentPriority,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          paymentPriority = value!;
-                                          calculateCashCardReturnAmount();
-                                        });
-                                      },
-                                    ),
-                                    const Text("Card"),
-                                    Radio<String>(
-                                      value: "Cash",
-                                      groupValue: paymentPriority,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          paymentPriority = value!;
-                                          calculateCashCardReturnAmount();
-                                        });
-                                      },
-                                    ),
-                                    const Text("Cash"),
-
-                                  ],
-                                ),
-
-                                Row(
-
-                                  children: [
-                                    Expanded(
-
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-
-
-                                        children: [
-                                          Text(
-                                            'Card Return',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          Gap(10),
-                                          CustomInputField(
-                                            labelStyle: TextStyle(color:  Constant.colorBlack),
-
-                                            inputType: TextInputType.numberWithOptions(decimal: true),
-
-                                            hintText: "Card Amount",
-                                            labelText: "Max: "+CommonFunctions.getCardTotalInReturn(widget.returnsale),
-                                            enabled: false,
-                                            controller: cardAmountController,
-                                            onChanged: (value) {
-                                            },
-                                          ),
-                                        ],
+                                children: [
+                                  Gap(6),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      CustomText(
+                                          text:
+                                              "Make return priority based on:"),
+                                      Gap(10),
+                                      Radio<String>(
+                                        value: "Card",
+                                        groupValue: paymentPriority,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            paymentPriority = value!;
+                                            calculateCashCardReturnAmount();
+                                          });
+                                        },
                                       ),
-                                    ),
-
-                                    Gap(6),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-
-                                        children: [
-                                          Text(
-                                            'Cash Return',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          Gap(10),
-
-                                          CustomInputField(
-                                            labelStyle: TextStyle(color:  Constant.colorBlack),
-
-                                            inputType: TextInputType.numberWithOptions(decimal: true),
-                                            hintText: "Cash Amount",
-                                            enabled: false,
-                                            labelText: "Max: "+CommonFunctions.getCashTotalInReturn(widget.returnsale),
-                                            controller: cashAmountController,
-                                            onChanged: (value) {
-
-                                            },
-                                          ),
-                                        ],
+                                      const Text("Card"),
+                                      Radio<String>(
+                                        value: "Cash",
+                                        groupValue: paymentPriority,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            paymentPriority = value!;
+                                            calculateCashCardReturnAmount();
+                                          });
+                                        },
                                       ),
-                                    )
-
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Gap(5),
-                            if(CommonFunctions.getWithDrawnMode(cardTotal, cashTotal)!="")
-                              Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text(
-                                  "Withdrawn mode: ",
-                                  style: const TextStyle(),
-                                  maxLines: 2,
-                                ),
-                                Text(
-                                  CommonFunctions.getWithDrawnMode(cardTotal, cashTotal),
-                                  style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
-                                  maxLines: 2,
-                                )
-                              ],
-                            )
-                            else
-                             const Text(
-                                "No item left for return",
-                                style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold,color: Constant.colorRed),
-
+                                      const Text("Cash"),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Card Return',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Gap(10),
+                                            CustomInputField(
+                                              labelStyle: TextStyle(
+                                                  color: Constant.colorBlack),
+                                              inputType: TextInputType
+                                                  .numberWithOptions(
+                                                      decimal: true),
+                                              hintText: "Card Amount",
+                                              labelText: "Max: " +
+                                                  CommonFunctions
+                                                      .getCardTotalInReturn(
+                                                          widget.returnsale),
+                                              enabled: false,
+                                              controller: cardAmountController,
+                                              onChanged: (value) {},
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Gap(6),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Cash Return',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Gap(10),
+                                            CustomInputField(
+                                              labelStyle: TextStyle(
+                                                  color: Constant.colorBlack),
+                                              inputType: TextInputType
+                                                  .numberWithOptions(
+                                                      decimal: true),
+                                              hintText: "Cash Amount",
+                                              enabled: false,
+                                              labelText: "Max: " +
+                                                  CommonFunctions
+                                                      .getCashTotalInReturn(
+                                                          widget.returnsale),
+                                              controller: cashAmountController,
+                                              onChanged: (value) {},
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
                               ),
-
-                            if(cardTotal!=0.0)
+                            Gap(5),
+                            if (CommonFunctions.getWithDrawnMode(
+                                    cardTotal, cashTotal) !=
+                                "")
                               Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text(
-                                    "Card return limit: "),
-                                Text(
-                                  cardTotal.toString(),
-                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),
-
-                                )
-                              ],
-                            ),
-                            if(cashTotal!=0.0)
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    "Withdrawn mode: ",
+                                    style: const TextStyle(),
+                                    maxLines: 2,
+                                  ),
+                                  Text(
+                                    CommonFunctions.getWithDrawnMode(
+                                        cardTotal, cashTotal),
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                    maxLines: 2,
+                                  )
+                                ],
+                              )
+                            else
+                              const Text(
+                                "No item left for return",
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Constant.colorRed),
+                              ),
+                            if (cardTotal != 0.0)
                               Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text(
-                                    "Cash return limit: "),
-                                Text(
-                                   cashTotal.toString(),
-                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),
-
-                                )
-                              ],
-                            ),
-
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text("Card return limit: "),
+                                  Text(
+                                    cardTotal.toString(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  )
+                                ],
+                              ),
+                            if (cashTotal != 0.0)
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text("Cash return limit: "),
+                                  Text(
+                                    cashTotal.toString(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  )
+                                ],
+                              ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Text(
-                                    "Total Return Discount: "),
+                                Text("Total Return Discount: "),
                                 Text(
                                   " (-) \$ ${discount.toStringAsFixed(2)}",
-                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),
-
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
                                 )
                               ],
                             ),
-
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
@@ -595,21 +647,21 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                                 ),
                                 Text(
                                   " (+) \$ ${tax.toStringAsFixed(2)}",
-                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),
-
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
                                 )
                               ],
                             ),
-
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
+                                Text("Return Total: "),
                                 Text(
-                                    "Return Total: "),
-                                Text(
-                               " \$ ${double.parse(total).toStringAsFixed(2)}",
-                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),
-
+                                  " \$ ${double.parse(total).toStringAsFixed(2)}",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
                                 )
                               ],
                             ),
@@ -619,61 +671,81 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-
                                 BlocBuilder<LoggedInUserBloc, LoggedInUser?>(
                                     builder: (context, loggedInUser) {
-                                      return BlocBuilder<LocationBloc, Location?>(builder: (context, location) {
-                                        return BlocBuilder<CustomerBloc, CustomerModel?>(
-                                            builder: (context, customer) {
-                                              return BlocBuilder<TaxBloc, TaxModel?>(builder: (context, tax) {
-                                                return ElevatedButton(
-                                                    style: ElevatedButton.styleFrom(
-                                                      foregroundColor:Constant.colorWhite,
-                                                      backgroundColor: Constant.colorPurple,
-                                                      elevation: 5,
-                                                      shape: RoundedRectangleBorder(
-                                                        borderRadius: BorderRadius.circular(6),
-                                                      ),
-                                                    ),
-                                                    onPressed: isLoading?
-                                                           null:
-                                                                () async {
-                                                      setLoading(true);
+                                  return BlocBuilder<LocationBloc, Location?>(
+                                      builder: (context, location) {
+                                    return BlocBuilder<CustomerBloc,
+                                            CustomerModel?>(
+                                        builder: (context, customer) {
+                                      return BlocBuilder<TaxBloc, TaxModel?>(
+                                          builder: (context, tax) {
+                                        return ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              foregroundColor:
+                                                  Constant.colorWhite,
+                                              backgroundColor:
+                                                  Constant.colorPurple,
+                                              elevation: 5,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(6),
+                                              ),
+                                            ),
+                                            onPressed: isLoading
+                                                ? null
+                                                : () async {
+                                                    setLoading(true);
 
-                                                        double totalReturnQuantity = calculateTotalReturnQuantity();
-                                                      if (totalReturnQuantity == 0.0) {
-                                                        ConstDialog(context).showErrorDialog(
-                                                          error: 'Return Quantity Should be Greater then "0"',
-                                                          iconData: Icons.error,
-                                                          iconColor: Colors.red,
-                                                          iconText: 'Alert',
-                                                          ontap: () => Navigator.pop(context),
-                                                        );
-                                                      } else {
-                                                      await  onSelltap(
-                                                          loggedInUser: loggedInUser??LoggedInUser(),
-                                                          location: location??Location(),
-                                                          customerModel: customer??CustomerModel(),
-                                                          taxModel: tax??TaxModel(),
-                                                          productList: widget.returnsale.product ?? [],
-                                                        );
-                                                      }
-                                                      setLoading(false);
-                                                    },
-                                                    child:isLoading?
-                                                    const SizedBox(
-                                                      width: 24,
-                                                      height: 24,
-                                                      child:
-                                                      CircularProgressIndicator(
-                                                        color: Colors.white,
-                                                      ),
-                                                    ):
-                                                    const Text('Save'));
-                                              });
-                                            });
+                                                    double totalReturnQuantity =
+                                                        calculateTotalReturnQuantity();
+                                                    if (totalReturnQuantity ==
+                                                        0.0) {
+                                                      ConstDialog(context)
+                                                          .showErrorDialog(
+                                                        error:
+                                                            'Return Quantity Should be Greater then "0"',
+                                                        iconData: Icons.error,
+                                                        iconColor: Colors.red,
+                                                        iconText: 'Alert',
+                                                        ontap: () =>
+                                                            Navigator.pop(
+                                                                context),
+                                                      );
+                                                    } else {
+                                                      await onSelltap(
+                                                        loggedInUser:
+                                                            loggedInUser ??
+                                                                LoggedInUser(),
+                                                        location: location ??
+                                                            Location(),
+                                                        customerModel:
+                                                            customer ??
+                                                                CustomerModel(),
+                                                        taxModel:
+                                                            tax ?? TaxModel(),
+                                                        productList: widget
+                                                                .returnsale
+                                                                .product ??
+                                                            [],
+                                                      );
+                                                    }
+                                                    setLoading(false);
+                                                  },
+                                            child: isLoading
+                                                ? const SizedBox(
+                                                    width: 24,
+                                                    height: 24,
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      color: Colors.white,
+                                                    ),
+                                                  )
+                                                : const Text('Save'));
                                       });
-                                    }) ,
+                                    });
+                                  });
+                                }),
                                 const SizedBox(
                                   width: 5,
                                 ),
@@ -772,7 +844,8 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
   }
 
   double taxInvoice({required double discount}) {
-    String stringTax = (widget.returnsale.taxPercentage.toString()).replaceAll(RegExp(r'[^\d.]'), '');
+    String stringTax = (widget.returnsale.taxPercentage.toString())
+        .replaceAll(RegExp(r'[^\d.]'), '');
     double totalTax = double.parse(stringTax);
     final tax = (discount / 100) * totalTax;
     log(discount.toString());
@@ -789,8 +862,6 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
     }
     return totalReturnQuantity;
   }
-
-
 
   Future<void> onSelltap({
     required LoggedInUser loggedInUser,
@@ -831,12 +902,11 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
           : double.parse(widget.returnsale.invoiceDiscount.toString()),
       userLocation: loggedInUser.locations,
       payment: [
-        PaymentListMethod(method: "Cash", amount: cashApiSend.toString(),),
         PaymentListMethod(
-          amount: cardApiSend.toString(),
-          method: "Card"
-        )
-
+          method: "Cash",
+          amount: cashApiSend.toString(),
+        ),
+        PaymentListMethod(amount: cardApiSend.toString(), method: "Card")
       ],
       saleNote: '',
       staffNote: '',
@@ -863,84 +933,93 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
     //   });
     // });
 
+    if (cardTotal != 0.0 && cardAmountController.text != "0.00") {
+      if (paxDeviceBloc.state != null) {
+        final response = await BridgePayService.postBridgePay(
+            isPrefNumAllowed: true,
+            pnRefNum: widget.returnsale.transactionPaxDeviceId ?? "",
+            context: context,
+            invNum: "",
+            amount: cardApiSend.toStringAsFixed(2),
+            paxDevice: paxDeviceBloc.state ?? PaxDevice(),
+            tenderType:
+                CommonFunctions.getCardType(widget.returnsale) ?? "CREDIT",
+            transType: "REFUND");
+        log("BridgePay response refund: ${response.toString()}");
+        if (response == null) {
+          log("Response is null");
+        } else {
+          if (response["resultCode"] == "000000" ||
+              response["resultCode"] == "0" ||
+              response["resultTxt"] == "OK") {
+            ToastUtility.showToast(
+                message: "Card amount returned successfully");
+            await PostSellReturn()
+                .postSellReturn(context, payload)
+                .then((result) async {
+              result.fold((invoice) async {
+                // log('Response from PostSellReturn: ${invoice.toJson()}');
+                final path = await SellReturnInvoice.printInvoice(
+                    invoiceModel: invoice,
+                    cardTotal: cardAmountController.text,
+                    cashTotal: cashAmountController.text);
 
- if(cardTotal!=0.0 && cardAmountController.text!="0.00"){
-   if (paxDeviceBloc.state != null) {
-     final response = await BridgePayService.postBridgePay(
-         isPrefNumAllowed: true,
-         pnRefNum: widget.returnsale.transactionPaxDeviceId??"",
-         context: context,
-         invNum: "",
-         amount:cardApiSend.toStringAsFixed(2),
-         paxDevice: paxDeviceBloc.state ?? PaxDevice(),
-         tenderType: CommonFunctions.getCardType( widget.returnsale)??"CREDIT",
-         transType: "REFUND"
-     );
-     log("BridgePay response refund: ${response.toString()}");
-     if (response == null) {
-       log("Response is null");
-     } else {
-       if (response["resultCode"] == "000000" || response["resultCode"] == "0" || response["resultTxt"] == "OK") {
-           ToastUtility.showToast(message: "Card amount returned successfully");
-           await PostSellReturn().postSellReturn(context, payload).then((result) async {
-             result.fold((invoice) async {
-               // log('Response from PostSellReturn: ${invoice.toJson()}');
-               final path = await SellReturnInvoice.printInvoice(invoiceModel: invoice,cardTotal: cardAmountController.text,cashTotal: cashAmountController.text);
-
-               log('PDF Path: $path');
-               if(cashApiSend!=0.00){
-                 MyPlatformFunctions.cashDrawerOpen();
-
-               }
-               await printPdf(path: path, context: context).whenComplete(() {
-
-               }).whenComplete((){
-                 if(cashApiSend!=0.00){
-                   ToastUtility.showToast(message: "Cash amount returned successfully");
-
-                 }
-                 Navigator.pop(context);
-               });
-             }, (error) {
-               ErrorFuncs(context).errRegisterClose(errorInfo: {'info': error});
-             });
-           });
-
-
-       } else {
-         if (response["resultCode"] == "2") {
-           ConstDialogNew.showErrorDialogNew(contextNew: context, error: "${paxDeviceBloc.state?.deviceName} is not Connected, Kindly select available device",
-           );
-         } else {
-           ConstDialog(context).showErrorDialog(error: response["resultTxt"]);
-         }
-       }
-     }
-
-   }
-
-   else {
-     ConstDialog(context).showErrorDialog(error: "No device is selected");
-   }
- }else{
-   await PostSellReturn().postSellReturn(context, payload).then((result) async {
-     result.fold((invoice) async {
-       // log('Response from PostSellReturn: ${invoice.toJson()}');
-       final path = await SellReturnInvoice.printInvoice(invoiceModel: invoice,cardTotal: cardAmountController.text,cashTotal: cashAmountController.text);
-       MyPlatformFunctions.cashDrawerOpen();
-       await printPdf(path: path, context: context).whenComplete(() {
-
-
-       }).whenComplete((){
-         ToastUtility.showToast(message: "Cash amount returned successfully");
-         Navigator.pop(context);
-       });
-     }, (error) {
-       ErrorFuncs(context).errRegisterClose(errorInfo: {'info': error});
-     });
-   });
-
- }
-
+                log('PDF Path: $path');
+                if (cashApiSend != 0.00) {
+                  MyPlatformFunctions.cashDrawerOpen();
+                }
+                await printPdf(path: path, context: context)
+                    .whenComplete(() {})
+                    .whenComplete(() {
+                  if (cashApiSend != 0.00) {
+                    ToastUtility.showToast(
+                        message: "Cash amount returned successfully");
+                  }
+                  Navigator.pop(context);
+                });
+              }, (error) {
+                ErrorFuncs(context)
+                    .errRegisterClose(errorInfo: {'info': error});
+              });
+            });
+          } else {
+            if (response["resultCode"] == "2") {
+              ConstDialogNew.showErrorDialogNew(
+                contextNew: context,
+                error:
+                    "${paxDeviceBloc.state?.deviceName} is not Connected, Kindly select available device",
+              );
+            } else {
+              ConstDialog(context)
+                  .showErrorDialog(error: response["resultTxt"]);
+            }
+          }
+        }
+      } else {
+        ConstDialog(context).showErrorDialog(error: "No device is selected");
+      }
+    } else {
+      await PostSellReturn()
+          .postSellReturn(context, payload)
+          .then((result) async {
+        result.fold((invoice) async {
+          // log('Response from PostSellReturn: ${invoice.toJson()}');
+          final path = await SellReturnInvoice.printInvoice(
+              invoiceModel: invoice,
+              cardTotal: cardAmountController.text,
+              cashTotal: cashAmountController.text);
+          MyPlatformFunctions.cashDrawerOpen();
+          await printPdf(path: path, context: context)
+              .whenComplete(() {})
+              .whenComplete(() {
+            ToastUtility.showToast(
+                message: "Cash amount returned successfully");
+            Navigator.pop(context);
+          });
+        }, (error) {
+          ErrorFuncs(context).errRegisterClose(errorInfo: {'info': error});
+        });
+      });
+    }
   }
 }

@@ -1,16 +1,17 @@
-  import 'package:dropdown_button2/dropdown_button2.dart';
-  import 'package:flutter/material.dart';
-  import 'package:get/get.dart';
-  import 'package:opalsystem/utils/constants.dart';
-  import 'package:opalsystem/widgets/CustomWidgets.dart';
-  import 'package:opalsystem/widgets/CustomWidgets/CustomIniputField.dart';
-  import 'package:opalsystem/widgets/CustomWidgets/custom_drop_down_field.dart';
-  import 'package:opalsystem/widgets/CustomWidgets/custom_text_widgets.dart';
-  import 'package:opalsystem/widgets/CustomWidgets/flutter_quil.dart';
-import 'package:opalsystem/widgets/common/Right%20Section/brand_dropdown.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/location.dart';
-  import 'package:opalsystem/widgets/common/left%20Section/customer_group.dart';
-  import 'package:gap/gap.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/widgets/CustomWidgets.dart';
+import 'package:opalposinc/widgets/CustomWidgets/CustomIniputField.dart';
+import 'package:opalposinc/widgets/CustomWidgets/custom_drop_down_field.dart';
+import 'package:opalposinc/widgets/CustomWidgets/custom_text_widgets.dart';
+import 'package:opalposinc/widgets/CustomWidgets/flutter_quil.dart';
+import 'package:opalposinc/widgets/common/Right%20Section/brand_dropdown.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/location.dart';
+import 'package:opalposinc/widgets/common/left%20Section/customer_group.dart';
+import 'package:gap/gap.dart';
+
 //
 //   class AddInventoryNewDesign extends StatefulWidget {
 //
@@ -478,272 +479,263 @@ import 'package:opalsystem/widgets/common/Top%20Section/location.dart';
 //     }
 // }
 //
-  class BlueContainerWidget extends StatelessWidget {
-    final String greenText;
-    final String fieldUpperText;
-    final String hinText;
-    final bool? isIcon;
-    const BlueContainerWidget({
-      super.key,
-      required this.excTaxController,
-      required this.greenText,
-      required this.fieldUpperText,
-      required this.hinText,
-      this.isIcon,
-    });
+class BlueContainerWidget extends StatelessWidget {
+  final String greenText;
+  final String fieldUpperText;
+  final String hinText;
+  final bool? isIcon;
+  const BlueContainerWidget({
+    super.key,
+    required this.excTaxController,
+    required this.greenText,
+    required this.fieldUpperText,
+    required this.hinText,
+    this.isIcon,
+  });
 
-    final TextEditingController excTaxController;
+  final TextEditingController excTaxController;
 
-    @override
-    Widget build(BuildContext context) {
-      return Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-
-          )
-        ),
-        height: context.height*0.26,
-        width: context.width*0.3,
-
-        child: Column(
-          children: [
-            Container(
-              height: 35,
-              width:context.width,
-              padding: EdgeInsets.all(5),
-
-              decoration:  BoxDecoration(
-                color: Constant.colorPurple,
-
-
-              ),
-              child: Row(
-                children: [
-                  Row(
-                    children: [
-                      CustomText(
-                        text:greenText ,
-                        color: Constant.colorWhite,
-                        fontWeight: FontWeight.bold,),
-
-
-                    ],
-                  ),
-                  Gap(10),
-                  if(isIcon??false)
-                  Icon(Icons.info,color: Colors.white,),
-                ],
-              ),
-            ),
-            ReusableTextPlusFieldWidget(
-              padding: 10,
-                fieldText: hinText, upperText: fieldUpperText, productNameController: excTaxController),
-
-          ],
-        ),
-      );
-    }
-  }
-
-  class TextWithTwoIcons extends StatelessWidget {
-    final String title;
-    final String? lowerText;
-    final bool value;
-    final void Function(bool?) onChange;
-    const TextWithTwoIcons({
-      super.key, required this.title,
-      this.lowerText,
-      required this.onChange,
-      this.value=false
-    });
-
-
-
-    @override
-    Widget build(BuildContext context) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(border: Border.all()),
+      height: context.height * 0.26,
+      width: context.width * 0.3,
+      child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Checkbox(
-                activeColor: Constant.colorPurple,
-                value: value,
-                tristate: false,
-                onChanged: onChange
-              ),
-              Expanded( // Ensures Row content doesn't overflow
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Container(
+            height: 35,
+            width: context.width,
+            padding: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              color: Constant.colorPurple,
+            ),
+            child: Row(
+              children: [
+                Row(
                   children: [
-                    Flexible(
-                      child: CustomText(
-                        text: title,
-                        fontWeight: FontWeight.bold,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                    CustomText(
+                      text: greenText,
+                      color: Constant.colorWhite,
+                      fontWeight: FontWeight.bold,
                     ),
                   ],
                 ),
-              ),
-            ],
-          ),
-          CustomText(
-            text: lowerText ?? "",
-            fontWeight: FontWeight.bold,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            fontSize: 12,
-            color: Constant.colorGrey,
-          ),
-        ],
-      );
-
-    }
-  }
-
-  class ReusableDropdownNoTextfield extends StatelessWidget {
-
-    final List<String> items;
-    final String? hinText;
-    final String upperText;
-    final String selectedValue;
-    final bool isStaricValue;
-
-    const   ReusableDropdownNoTextfield({
-      super.key, required this.items,
-      this.hinText,
-      required this.upperText,
-      required this.selectedValue,  this.isStaricValue=false
-    });
-
-    @override
-    Widget build(BuildContext context) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-
-        children: [
-          Row(
-            children: [
-              Text(
-                upperText,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              if(isStaricValue)
-                CustomText(
-                  text:"*" ,
-                  color: Constant.colorRed,
-                  fontWeight: FontWeight.bold,),
-            ],
-          ),
-
-           Gap(10),
-
-          DropDownNoTextField(
-            items:items,
-            displayText: (item) =>item,
-            onChanged: (value) {},
-            selectedValue: selectedValue,),
-        ],
-      );
-    }
-  }
-
-  class ReusableDropdownWidget extends StatelessWidget {
-    final List<String> items;
-    final String? hinText;
-    final String upperText;
-
-    const ReusableDropdownWidget({
-      super.key,
-      required this.items,
-      this.hinText,
-      required this.upperText,
-    });
-
-    @override
-    Widget build(BuildContext context) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            upperText,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Gap(10),
-          CustomDropdownWithField(
-            items: items,
-            onChanged: (value) {},
-            hintText: hinText ?? "",
-          ),
-        ],
-      );
-    }
-  }
-
-  class ReusableTextPlusFieldWidget extends StatelessWidget {
-
-    const ReusableTextPlusFieldWidget({
-      super.key,
-      required this.productNameController,
-      required this.upperText,
-      required this.fieldText,
-      this.padding=0.0,
-      this.contentPadding,
-
-      this.isIcon,
-      this.maxLines=1,
-      this.isStaricValue=false
-    });
-
-    final TextEditingController productNameController;
-    final String upperText;
-    final String fieldText;
-    final bool? isIcon;
-    final double? padding;
-    final int? maxLines;
-    final bool isStaricValue;
-    final double? contentPadding;
-
-    @override
-    Widget build(BuildContext context) {
-      return Padding(
-        padding:  EdgeInsets.all(padding??0.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-
-          children: [
-              Row(
-                children: [
-                   CustomText(text: upperText,
-                    fontWeight: FontWeight.bold,
-
+                Gap(10),
+                if (isIcon ?? false)
+                  Icon(
+                    Icons.info,
+                    color: Colors.white,
                   ),
-                  if(isStaricValue)
-                    CustomText(
-                    text:"*" ,
-                    color: Constant.colorRed,
-                    fontWeight: FontWeight.bold,),
+              ],
+            ),
+          ),
+          ReusableTextPlusFieldWidget(
+              padding: 10,
+              fieldText: hinText,
+              upperText: fieldUpperText,
+              productNameController: excTaxController),
+        ],
+      ),
+    );
+  }
+}
 
-                 const Gap(5),
-                 if(isIcon??false)
-                  Icon(Icons.info,color: Constant.colorPurple,size: 15,),
+class TextWithTwoIcons extends StatelessWidget {
+  final String title;
+  final String? lowerText;
+  final bool value;
+  final void Function(bool?) onChange;
+  const TextWithTwoIcons(
+      {super.key,
+      required this.title,
+      this.lowerText,
+      required this.onChange,
+      this.value = false});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Checkbox(
+                activeColor: Constant.colorPurple,
+                value: value,
+                tristate: false,
+                onChanged: onChange),
+            Expanded(
+              // Ensures Row content doesn't overflow
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    child: CustomText(
+                      text: title,
+                      fontWeight: FontWeight.bold,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ],
               ),
-            Gap(10),
-            CustomInputField(
-              contentPadding: contentPadding,
-              controller:productNameController,
-              labelText: "",
-              hintText: fieldText,
-              toHide: false,
-              maxLines: maxLines??1,
             ),
           ],
         ),
-      );
-    }
+        CustomText(
+          text: lowerText ?? "",
+          fontWeight: FontWeight.bold,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          fontSize: 12,
+          color: Constant.colorGrey,
+        ),
+      ],
+    );
   }
+}
+
+class ReusableDropdownNoTextfield extends StatelessWidget {
+  final List<String> items;
+  final String? hinText;
+  final String upperText;
+  final String selectedValue;
+  final bool isStaricValue;
+
+  const ReusableDropdownNoTextfield(
+      {super.key,
+      required this.items,
+      this.hinText,
+      required this.upperText,
+      required this.selectedValue,
+      this.isStaricValue = false});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              upperText,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            if (isStaricValue)
+              CustomText(
+                text: "*",
+                color: Constant.colorRed,
+                fontWeight: FontWeight.bold,
+              ),
+          ],
+        ),
+        Gap(10),
+        DropDownNoTextField(
+          items: items,
+          displayText: (item) => item,
+          onChanged: (value) {},
+          selectedValue: selectedValue,
+        ),
+      ],
+    );
+  }
+}
+
+class ReusableDropdownWidget extends StatelessWidget {
+  final List<String> items;
+  final String? hinText;
+  final String upperText;
+
+  const ReusableDropdownWidget({
+    super.key,
+    required this.items,
+    this.hinText,
+    required this.upperText,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          upperText,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+        Gap(10),
+        CustomDropdownWithField(
+          items: items,
+          onChanged: (value) {},
+          hintText: hinText ?? "",
+        ),
+      ],
+    );
+  }
+}
+
+class ReusableTextPlusFieldWidget extends StatelessWidget {
+  const ReusableTextPlusFieldWidget(
+      {super.key,
+      required this.productNameController,
+      required this.upperText,
+      required this.fieldText,
+      this.padding = 0.0,
+      this.contentPadding,
+      this.isIcon,
+      this.maxLines = 1,
+      this.isStaricValue = false});
+
+  final TextEditingController productNameController;
+  final String upperText;
+  final String fieldText;
+  final bool? isIcon;
+  final double? padding;
+  final int? maxLines;
+  final bool isStaricValue;
+  final double? contentPadding;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(padding ?? 0.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              CustomText(
+                text: upperText,
+                fontWeight: FontWeight.bold,
+              ),
+              if (isStaricValue)
+                CustomText(
+                  text: "*",
+                  color: Constant.colorRed,
+                  fontWeight: FontWeight.bold,
+                ),
+              const Gap(5),
+              if (isIcon ?? false)
+                Icon(
+                  Icons.info,
+                  color: Constant.colorPurple,
+                  size: 15,
+                ),
+            ],
+          ),
+          Gap(10),
+          CustomInputField(
+            contentPadding: contentPadding,
+            controller: productNameController,
+            labelText: "",
+            hintText: fieldText,
+            toHide: false,
+            maxLines: maxLines ?? 1,
+          ),
+        ],
+      ),
+    );
+  }
+}

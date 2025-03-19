@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/FetchingApis/FetchApis.dart';
-import 'package:opalsystem/auth/remember_login.dart';
-import 'package:opalsystem/main.dart';
-import 'package:opalsystem/model/location.dart';
-import 'package:opalsystem/model/loggedInUser.dart';
-import 'package:opalsystem/views/paxDevice.dart';
+import 'package:opalposinc/FetchingApis/FetchApis.dart';
+import 'package:opalposinc/auth/remember_login.dart';
+import 'package:opalposinc/main.dart';
+import 'package:opalposinc/model/location.dart';
+import 'package:opalposinc/model/loggedInUser.dart';
+import 'package:opalposinc/views/paxDevice.dart';
 import 'Bloc/CartBloc.dart';
 import 'Bloc/CustomBloc.dart';
 
@@ -79,19 +79,29 @@ class _LocationDropdownState extends State<LocationDropdown> {
           // debugPrint("value  in Location ${value.toJson()}");
 
           PaxDeviceBloc paxDeviceBloc = BlocProvider.of<PaxDeviceBloc>(context);
-          ListPaxDevicesBloc listPaxDevicesBloc = BlocProvider.of<ListPaxDevicesBloc>(context);
-          LoggedInUserBloc loggedInUserBloc = BlocProvider.of<LoggedInUserBloc>(context);
-          RegisterStatusBloc registerStatusBloc = BlocProvider.of<RegisterStatusBloc>(context);
+          ListPaxDevicesBloc listPaxDevicesBloc =
+              BlocProvider.of<ListPaxDevicesBloc>(context);
+          LoggedInUserBloc loggedInUserBloc =
+              BlocProvider.of<LoggedInUserBloc>(context);
+          RegisterStatusBloc registerStatusBloc =
+              BlocProvider.of<RegisterStatusBloc>(context);
 
           // debugPrint("from registerStatusBloc.state${registerStatusBloc.state}");
 
-          List<PaxDevice>? list = loggedInUserBloc.state?.paxDevices?.where((element) => element.businessLocationId.toString() == value.id.toString(),).toList();
+          List<PaxDevice>? list = loggedInUserBloc.state?.paxDevices
+              ?.where(
+                (element) =>
+                    element.businessLocationId.toString() ==
+                    value.id.toString(),
+              )
+              .toList();
           // debugPrint("coming in this dialog ${loggedInUserBloc.state?.registerStatus}");
           listPaxDevicesBloc.add(list ?? []);
-          if ((list?.isNotEmpty ?? false) && locations.length>1 ) {
+          if ((list?.isNotEmpty ?? false) && locations.length > 1) {
             paxDeviceBloc.add(PaxDeviceEvent(device: null));
 
-            debugPrint("from registerStatusBloc.state${registerStatusBloc.state}");
+            debugPrint(
+                "from registerStatusBloc.state${registerStatusBloc.state}");
             debugPrint("locations length.... ${locations.length}");
 
             if (registerStatusBloc.state == "open") {

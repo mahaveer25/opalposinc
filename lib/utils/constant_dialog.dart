@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/views/paxDevice.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/views/paxDevice.dart';
 
 class ConstDialog {
   final BuildContext context;
@@ -33,16 +33,12 @@ class ConstDialog {
           ),
           content: Text(error),
           actions: [
-            if(ontap!=null)
-              TextButton(
-              onPressed: ontap,
-              child: const Text("OK")
-            )
+            if (ontap != null)
+              TextButton(onPressed: ontap, child: const Text("OK"))
             else
               TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text("OK")
-              )
+                  child: const Text("OK"))
           ],
         );
       },

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:get/get.dart';
-import 'package:opalsystem/utils/constants.dart';
+import 'package:opalposinc/utils/constants.dart';
 
 class CustomDropdownWithField extends StatelessWidget {
   final List<String> items;
@@ -25,7 +25,7 @@ class CustomDropdownWithField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 54,
-      width:context.width,
+      width: context.width,
       padding: const EdgeInsets.only(top: 4, bottom: 4),
       margin: const EdgeInsets.only(top: 6, bottom: 6),
       decoration: BoxDecoration(
@@ -35,19 +35,21 @@ class CustomDropdownWithField extends StatelessWidget {
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton2<String>(
-
           isExpanded: true,
-          hint: Text(hintText??"",style: TextStyle(fontSize:12 ),),
+          hint: Text(
+            hintText ?? "",
+            style: TextStyle(fontSize: 12),
+          ),
           items: items
               .map((item) => DropdownMenuItem(
-            value: item,
-            child: Text(
-              item,
-              style: const TextStyle(
-                fontSize: 14,
-              ),
-            ),
-          ))
+                    value: item,
+                    child: Text(
+                      item,
+                      style: const TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                  ))
               .toList(),
           value: selectedValue,
           onChanged: (value) {
@@ -109,8 +111,6 @@ class CustomDropdownWithField extends StatelessWidget {
   }
 }
 
-
-
 class DropDownNoTextField<T> extends StatelessWidget {
   final T? selectedValue;
   final List<T> items;
@@ -124,7 +124,7 @@ class DropDownNoTextField<T> extends StatelessWidget {
 
   const DropDownNoTextField({
     Key? key,
-     this.selectedValue,
+    this.selectedValue,
     required this.items,
     required this.displayText,
     required this.onChanged,
@@ -132,7 +132,7 @@ class DropDownNoTextField<T> extends StatelessWidget {
     this.buttonWidth = 150,
     this.dropdownMaxHeight = 200,
     this.menuItemHeight = 40,
-     this.hintText,
+    this.hintText,
   }) : super(key: key);
 
   @override
@@ -147,32 +147,32 @@ class DropDownNoTextField<T> extends StatelessWidget {
         borderRadius: BorderRadius.circular(5.0),
       ),
       child: DropdownButtonHideUnderline(
-
         child: DropdownButton2<T>(
-          hint: Text(hintText??"",style: TextStyle(fontSize:12 ),),
+          hint: Text(
+            hintText ?? "",
+            style: TextStyle(fontSize: 12),
+          ),
           value: selectedValue,
           isExpanded: true,
           items: items
               .map(
                 (item) => DropdownMenuItem(
-              value: item,
-              child: Text(
-                displayText(item),
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(fontSize: 14),
-              ),
-            ),
-          )
+                  value: item,
+                  child: Text(
+                    displayText(item),
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontSize: 14),
+                  ),
+                ),
+              )
               .toList(),
           onChanged: onChanged,
           buttonStyleData: ButtonStyleData(
-
             padding: const EdgeInsets.symmetric(horizontal: 14),
             height: buttonHeight,
             width: buttonWidth,
           ),
           dropdownStyleData: DropdownStyleData(
-
             maxHeight: dropdownMaxHeight,
           ),
           menuItemStyleData: MenuItemStyleData(

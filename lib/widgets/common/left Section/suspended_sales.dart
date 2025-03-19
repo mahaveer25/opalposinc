@@ -4,14 +4,14 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/model/suspended_model.dart';
-import 'package:opalsystem/model/suspended_sales_details.dart';
-import 'package:opalsystem/services/delete_suspended_order.dart';
-import 'package:opalsystem/services/suspended_order.dart';
-import 'package:opalsystem/services/suspended_order_details.dart';
-import 'package:opalsystem/utils/constant_dialog.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CartBloc.dart';
+import 'package:opalposinc/model/suspended_model.dart';
+import 'package:opalposinc/model/suspended_sales_details.dart';
+import 'package:opalposinc/services/delete_suspended_order.dart';
+import 'package:opalposinc/services/suspended_order.dart';
+import 'package:opalposinc/services/suspended_order_details.dart';
+import 'package:opalposinc/utils/constant_dialog.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CartBloc.dart';
 
 import '../../../model/product.dart';
 import '../Top Section/Bloc/CustomBloc.dart';

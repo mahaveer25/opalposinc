@@ -1,25 +1,25 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/model/CustomerModel.dart';
-import 'package:opalsystem/model/TaxModel.dart';
-import 'package:opalsystem/model/addExpenseModal.dart';
-import 'package:opalsystem/model/expense_drop_model.dart';
-import 'package:opalsystem/model/location.dart';
-import 'package:opalsystem/model/loggedInUser.dart';
-import 'package:opalsystem/model/payment_model.dart';
-import 'package:opalsystem/model/user.dart';
-import 'package:opalsystem/multiplePay/MultiplePay.dart';
-import 'package:opalsystem/multiplePay/PaymentListMethod.dart';
+import 'package:opalposinc/model/CustomerModel.dart';
+import 'package:opalposinc/model/TaxModel.dart';
+import 'package:opalposinc/model/addExpenseModal.dart';
+import 'package:opalposinc/model/expense_drop_model.dart';
+import 'package:opalposinc/model/location.dart';
+import 'package:opalposinc/model/loggedInUser.dart';
+import 'package:opalposinc/model/payment_model.dart';
+import 'package:opalposinc/model/user.dart';
+import 'package:opalposinc/multiplePay/MultiplePay.dart';
+import 'package:opalposinc/multiplePay/PaymentListMethod.dart';
 
-import 'package:opalsystem/services/add_expense.dart';
-import 'package:opalsystem/services/users.dart';
-import 'package:opalsystem/utils/constant_dialog.dart';
-import 'package:opalsystem/utils/constants.dart';
-import 'package:opalsystem/widgets/CustomWidgets/CustomIniputField.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/location.dart';
-import 'package:opalsystem/widgets/common/left%20Section/expenseDropdown.dart';
+import 'package:opalposinc/services/add_expense.dart';
+import 'package:opalposinc/services/users.dart';
+import 'package:opalposinc/utils/constant_dialog.dart';
+import 'package:opalposinc/utils/constants.dart';
+import 'package:opalposinc/widgets/CustomWidgets/CustomIniputField.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/location.dart';
+import 'package:opalposinc/widgets/common/left%20Section/expenseDropdown.dart';
 
 import 'date_widget.dart';
 

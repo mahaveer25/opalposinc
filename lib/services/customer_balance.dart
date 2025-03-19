@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:opalsystem/model/customer_balance.dart';
-import 'package:opalsystem/utils/global_variables.dart';
+import 'package:opalposinc/model/customer_balance.dart';
+import 'package:opalposinc/utils/global_variables.dart';
 
 class CustomerBalanceService {
   static String storeUrl = GlobalData.storeUrl;

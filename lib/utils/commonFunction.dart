@@ -2,10 +2,10 @@ import 'dart:developer';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:opalsystem/invoices/InvoiceModel.dart';
-import 'package:opalsystem/model/loggedInUser.dart';
-import 'package:opalsystem/multiplePay/PaymentListMethod.dart';
-import 'package:opalsystem/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
+import 'package:opalposinc/invoices/InvoiceModel.dart';
+import 'package:opalposinc/model/loggedInUser.dart';
+import 'package:opalposinc/multiplePay/PaymentListMethod.dart';
+import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
 
 class CommonFunctions {
   static void addPaxAndLocationIndexZero(
@@ -30,58 +30,75 @@ class CommonFunctions {
     }
   }
 
+  static String getCardTotalInReturn(InvoiceModel returnSale) {
+    String? total = returnSale.paymentMethod
+        ?.firstWhere((element) => element.method == "Card",
+            orElse: () => PaymentListMethod(amount: "0.0"))
+        .amount
+        .toString();
+    // log("This is card total"+total.toString());
 
- static String getCardTotalInReturn(InvoiceModel returnSale){
-   String? total= returnSale.paymentMethod?.firstWhere((element) => element.method=="Card", orElse: () => PaymentListMethod(amount: "0.0")).amount.toString();
-   // log("This is card total"+total.toString());
+    String? returnedAmount = returnSale.previousSaleReturnPaymentMethod
+        ?.firstWhere((element) => element.method == "Card",
+            orElse: () => PaymentListMethod(amount: "0.0"))
+        .amount
+        .toString();
+    // log("This is card returnedAmount"+returnedAmount.toString());
 
-   String? returnedAmount= returnSale.previousSaleReturnPaymentMethod?.firstWhere((element) => element.method=="Card", orElse: () => PaymentListMethod(amount: "0.0")).amount.toString();
-   // log("This is card returnedAmount"+returnedAmount.toString());
+    double finalResult =
+        double.parse(total ?? "0.0") - double.parse(returnedAmount ?? "0.0");
+    log("This is finalResult card " + finalResult.toStringAsFixed(2));
 
-   double  finalResult   =double.parse(total??"0.0")-double.parse(returnedAmount??"0.0");
-   log("This is finalResult card "+finalResult.toStringAsFixed(2));
-
-   // debugPrint("This is cardTotal: ${finalResult.toStringAsFixed(2)}");
-   return finalResult.toStringAsFixed(2);
+    // debugPrint("This is cardTotal: ${finalResult.toStringAsFixed(2)}");
+    return finalResult.toStringAsFixed(2);
   }
 
- static String getCashTotalInReturn(InvoiceModel returnSale){
-    String? total= returnSale.paymentMethod?.firstWhere((element) => element.method=="Cash", orElse: () => PaymentListMethod(amount: "0.0")).amount.toString();
-    String? returnedAmount= returnSale.previousSaleReturnPaymentMethod?.firstWhere((element) => element.method=="Cash", orElse: () => PaymentListMethod(amount: "0.0")).amount.toString();
+  static String getCashTotalInReturn(InvoiceModel returnSale) {
+    String? total = returnSale.paymentMethod
+        ?.firstWhere((element) => element.method == "Cash",
+            orElse: () => PaymentListMethod(amount: "0.0"))
+        .amount
+        .toString();
+    String? returnedAmount = returnSale.previousSaleReturnPaymentMethod
+        ?.firstWhere((element) => element.method == "Cash",
+            orElse: () => PaymentListMethod(amount: "0.0"))
+        .amount
+        .toString();
 
-    double  finalResult   =double.parse(total??"0.0")-double.parse(returnedAmount??"0.0");
-    log("This is finalResult cash "+finalResult.toStringAsFixed(2));
+    double finalResult =
+        double.parse(total ?? "0.0") - double.parse(returnedAmount ?? "0.0");
+    log("This is finalResult cash " + finalResult.toStringAsFixed(2));
 
     return finalResult.toStringAsFixed(2);
   }
 
-  static String getWithDrawnMode(double cardTotal,double cashTotal){
-    if( cardTotal==0.00 && cashTotal!=0.00){
+  static String getWithDrawnMode(double cardTotal, double cashTotal) {
+    if (cardTotal == 0.00 && cashTotal != 0.00) {
       return "Cash";
-
-    }
-    else if( cashTotal!=0.00 && cardTotal!=0.00){
+    } else if (cashTotal != 0.00 && cardTotal != 0.00) {
       return "Cash and Card";
-    }else if(cashTotal==0.00 && cardTotal!=0.00){
+    } else if (cashTotal == 0.00 && cardTotal != 0.00) {
       return "Card";
-    }else{
+    } else {
       return "";
     }
-
   }
 
- static  double roundNumber(double value, int places) {
-    num val =math. pow(10.0, places);
+  static double roundNumber(double value, int places) {
+    num val = math.pow(10.0, places);
     return ((value * val).round().toDouble() / val);
   }
 
+  static String? getCardType(InvoiceModel returnSale) {
+    String? cardType = returnSale.paymentMethod
+        ?.firstWhere(
+          (element) => element.method == "Card",
+        )
+        .cardType
+        ?.toUpperCase();
+    log("This is cardType: " + cardType.toString());
 
-  static String? getCardType(InvoiceModel returnSale){
-  String? cardType=returnSale.paymentMethod?.firstWhere((element) => element.method=="Card",).cardType?.toUpperCase();
-  log("This is cardType: "+cardType.toString());
-
-  return  cardType;
-
+    return cardType;
   }
   // static double getRemainingCashReturn({required double cashTotal, required double returnTotal,required String selectedMethod}){
   //
@@ -108,7 +125,4 @@ class CommonFunctions {
   //
   //   }
   // }
-
-
-
 }

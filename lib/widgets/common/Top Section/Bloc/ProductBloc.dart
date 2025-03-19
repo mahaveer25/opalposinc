@@ -5,11 +5,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:opalsystem/model/brand.dart';
-import 'package:opalsystem/model/category.dart';
-import 'package:opalsystem/model/location.dart';
-import 'package:opalsystem/model/loggedInUser.dart';
-import 'package:opalsystem/services/product.dart';
+import 'package:opalposinc/model/brand.dart';
+import 'package:opalposinc/model/category.dart';
+import 'package:opalposinc/model/location.dart';
+import 'package:opalposinc/model/loggedInUser.dart';
+import 'package:opalposinc/services/product.dart';
 
 import '../../../../model/product.dart';
 

@@ -1,7 +1,7 @@
 // ignore_for_file: unused_local_variable
 
 import 'dart:typed_data';
-import 'package:opalsystem/invoices/chargeInvoiceModel.dart';
+import 'package:opalposinc/invoices/chargeInvoiceModel.dart';
 
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';

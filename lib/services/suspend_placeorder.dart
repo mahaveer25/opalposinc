@@ -4,9 +4,9 @@ import 'dart:convert';
 import 'dart:developer';
 // import 'dart:js_interop';
 import 'package:http/http.dart' as http;
-import 'package:opalsystem/invoices/InvoiceModel.dart';
-import 'package:opalsystem/invoices/transaction.dart';
-import 'package:opalsystem/utils/global_variables.dart';
+import 'package:opalposinc/invoices/InvoiceModel.dart';
+import 'package:opalposinc/invoices/transaction.dart';
+import 'package:opalposinc/utils/global_variables.dart';
 
 class SuspendPlaceOrder {
   String storeUrl = GlobalData.storeUrl;

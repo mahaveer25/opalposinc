@@ -1,8 +1,8 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:opalsystem/model/user.dart';
-import 'package:opalsystem/services/users.dart';
-import 'package:opalsystem/utils/constants.dart';
+import 'package:opalposinc/model/user.dart';
+import 'package:opalposinc/services/users.dart';
+import 'package:opalposinc/utils/constants.dart';
 
 class ExpenseUser extends StatefulWidget {
   const ExpenseUser({super.key});

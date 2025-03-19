@@ -5,10 +5,10 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:opalsystem/CustomFuncs.dart';
-import 'package:opalsystem/invoices/InvoiceModel.dart';
-import 'package:opalsystem/invoices/transaction.dart';
-import 'package:opalsystem/utils/global_variables.dart';
+import 'package:opalposinc/CustomFuncs.dart';
+import 'package:opalposinc/invoices/InvoiceModel.dart';
+import 'package:opalposinc/invoices/transaction.dart';
+import 'package:opalposinc/utils/global_variables.dart';
 
 class Suspendorder {
   String storeUrl = GlobalData.storeUrl;

@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:opalsystem/utils/constants.dart';
+import 'package:opalposinc/utils/constants.dart';
 
 class CustomInputField extends StatelessWidget {
   final Widget? icon;
@@ -27,7 +27,8 @@ class CustomInputField extends StatelessWidget {
     this.enabled,
     this.noFill,
     this.labelStyle,
-    this.icon, this.contentPadding,
+    this.icon,
+    this.contentPadding,
   });
 
   @override
@@ -39,23 +40,23 @@ class CustomInputField extends StatelessWidget {
       onChanged: onChanged,
       maxLines: maxLines ?? 1,
       autofocus: false,
-      onTapOutside: (event) =>  FocusManager.instance.primaryFocus?.unfocus(),
+      onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
       keyboardType: inputType ?? TextInputType.text,
       decoration: InputDecoration(
-
         isDense: true,
         filled: true,
         fillColor: Colors.white, // Set background color to white
         suffixText: labelText,
         suffixIcon: icon,
-        suffixStyle: labelStyle??TextStyle(color: Colors.grey.withOpacity(0.8)),
+        suffixStyle:
+            labelStyle ?? TextStyle(color: Colors.grey.withOpacity(0.8)),
         hintText: hintText,
-        hintStyle: TextStyle(fontSize: 14,color: Constant.colorGrey),
+        hintStyle: TextStyle(fontSize: 14, color: Constant.colorGrey),
         border: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.grey), // Set border color
           borderRadius: BorderRadius.circular(5.0), // Border radius
         ),
-        contentPadding:  EdgeInsets.all(contentPadding??16),
+        contentPadding: EdgeInsets.all(contentPadding ?? 16),
         focusedBorder: OutlineInputBorder(
           borderSide:
               const BorderSide(color: Colors.blue), // Focused border color
