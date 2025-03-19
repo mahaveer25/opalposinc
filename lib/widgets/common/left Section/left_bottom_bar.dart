@@ -187,9 +187,6 @@ class _LeftBottomBarState extends State<LeftBottomBar> {
             ),
           ),
 
-          const SizedBox(
-            height: 5,
-          ),
           // Padding(
           //     padding:
           //         const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
