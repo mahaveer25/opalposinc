@@ -1,0 +1,38 @@
+{
+  "invoice_title": "EULESS VAPOR & SMOKE",
+  "address": "Bedford, TX, 76021",
+  "mobile": "682 503-6305",
+  "invoice_number": "2024-31984",
+  "date": "2024-24-01 22:22",
+  "customer": "Walk-In Customer",
+  "customer_mobile": "",
+  "products": [
+    {
+      "unit_price": "79.99",
+      "line_discount_type": "fixed",
+      "line_discount_amount": "0.00",
+      "item_tax": "0.00",
+      "product_id": "537",
+      "variationId": "4565",
+      "quantity": "3.00",
+      "unit_price_inc_tax": "79.99"
+    },
+    {
+      "quantity": "1.00",
+      "unit_price_inc_tax": "79.99"
+    },
+    {
+      "unit_price": "19.99",
+      "line_discount_type": "fixed",
+      "line_discount_amount": "0.00",
+      "item_tax": "0.00",
+      "product_id": "211",
+      "variationId": "2045",
+      "quantity": "1.00",
+      "unit_price_inc_tax": "19.99"
+    }
+  ],
+  "payment_method": "card",
+  "tax_percentage": "8.25",
+  "invoice_footer_text": "THANK YOU FOR SHOPPING WITH US !!"
+}
