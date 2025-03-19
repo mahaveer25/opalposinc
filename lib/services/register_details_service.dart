@@ -17,8 +17,10 @@ class RegisterDetailService {
     LoggedInUserBloc loggedInUserBloc =
         BlocProvider.of<LoggedInUserBloc>(context);
 
+    var currentDate = DateTime.now();
+
     final url =
-        'https://$storeUrl.opalpay.us/public/api/get_register_details?business_id=${loggedInUserBloc.state!.businessId}&user_id=${loggedInUserBloc.state!.id}';
+        'https://$storeUrl.opalpay.us/public/api/get_register_details?business_id=${loggedInUserBloc.state!.businessId}&user_id=${loggedInUserBloc.state!.id}&start_date=$currentDate';
     final headers = {'OPAL-PAY-API-KEY': apiKey};
 
     try {
