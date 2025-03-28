@@ -32,9 +32,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool loggingIn = false;
   bool _isObscure = true;
-  TextEditingController emailaddress = TextEditingController();
-  TextEditingController password = TextEditingController();
-  TextEditingController url = TextEditingController();
+  TextEditingController emailaddress = TextEditingController(text: "Admin");
+  TextEditingController password = TextEditingController(text: "Laptop123");
+  TextEditingController url = TextEditingController(text: "staging");
   final AuthService _authService = AuthService();
   late StreamSubscription<bool> streamSubscription;
 

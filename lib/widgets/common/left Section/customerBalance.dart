@@ -46,7 +46,7 @@ class _CustomerBalanceState extends State<CustomerBalance> {
                 builder: (BuildContext context,
                     AsyncSnapshot<CustomerBalanceModel> snapshot) {
                   double customerBalance = CommonFunctions.roundNumber(
-                      double.parse(snapshot.data?.balance ?? "0.0"), 1);
+                      double.parse(snapshot.data?.balance ?? "0"), 1);
                   log("This is customerBalance: ${customerBalance}");
                   if (!snapshot.hasData) {
                     return Container();
