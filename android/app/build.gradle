@@ -89,6 +89,8 @@ flutter {
 
 dependencies {
 
+    implementation 'com.github.Spikeysanju:MotionToast:1.4'
+
     implementation 'androidx.compose.runtime:runtime-android:1.6.8'
     implementation 'androidx.multidex:multidex:2.0.1' // Multidex dependency
     testImplementation("junit:junit:4.13.2")

@@ -411,8 +411,7 @@ class _SuccessTransactionState extends State<SuccessTransaction> with PrintPDF {
                                             BlocProvider.of<
                                                 CustomerBalanceBloc>(context);
                                         balanceBloc.add(customer);
-                                      }).whenComplete(
-                                              () => Navigator.pop(context));
+                                      });
 
                                       setState(() {
                                         isPressed = false;
