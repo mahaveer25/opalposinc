@@ -391,12 +391,12 @@ class _SuccessTransactionState extends State<SuccessTransaction> with PrintPDF {
                                         FunctionProduct
                                             .disappearBackSuccessTransitionScreen();
 
-                                        final customerBalance =
+                                        final customer =
                                             await CustomerBalanceService
                                                 .getCustomerBalance(
                                           context,
                                           int.parse(
-                                              customerModel.id.toString()),
+                                              customerModel!.id.toString()),
                                         );
                                         ListCustomerBloc customerListBloc =
                                             BlocProvider.of<ListCustomerBloc>(
@@ -410,9 +410,8 @@ class _SuccessTransactionState extends State<SuccessTransaction> with PrintPDF {
                                         CustomerBalanceBloc balanceBloc =
                                             BlocProvider.of<
                                                 CustomerBalanceBloc>(context);
-                                        balanceBloc.add(customerBalance);
-                                      }).whenComplete(
-                                              () => Navigator.pop(context));
+                                        balanceBloc.add(customer);
+                                      });
 
                                       setState(() {
                                         isPressed = false;
