@@ -33,12 +33,7 @@ class SellReturn extends StatefulWidget {
   final int? totalItems;
   final String? selectedPay;
   final InvoiceModel returnsale;
-  const SellReturn(
-      {super.key,
-      required this.returnsale,
-      this.totalAmount,
-      this.totalItems,
-      this.selectedPay});
+  const SellReturn({super.key, required this.returnsale, this.totalAmount, this.totalItems, this.selectedPay});
 
   @override
   State<SellReturn> createState() => _SellReturnState();
@@ -67,15 +62,11 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
   @override
   void initState() {
     discountType.text = (widget.returnsale.discountType) ?? '';
-    discountController.text =
-        double.parse(widget.returnsale.discountAmount ?? "0.0")
-            .toStringAsFixed(2);
+    discountController.text = double.parse(widget.returnsale.discountAmount ?? "0.0").toStringAsFixed(2);
     cardAmountController.text = "0.00";
     cashAmountController.text = "0.00";
-    cashTotal =
-        double.parse(CommonFunctions.getCashTotalInReturn(widget.returnsale));
-    cardTotal =
-        double.parse(CommonFunctions.getCardTotalInReturn(widget.returnsale));
+    cashTotal = double.parse(CommonFunctions.getCashTotalInReturn(widget.returnsale));
+    cardTotal = double.parse(CommonFunctions.getCardTotalInReturn(widget.returnsale));
 
     date.text = widget.returnsale.date ?? "";
     widget.returnsale.product?.forEach((_) {
@@ -107,10 +98,8 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
       total = ((sum - discount) + tax).toString();
 
       final totalAmount = double.parse(total);
-      final cashTotal =
-          double.parse(CommonFunctions.getCashTotalInReturn(widget.returnsale));
-      final cardTotal =
-          double.parse(CommonFunctions.getCardTotalInReturn(widget.returnsale));
+      final cashTotal = double.parse(CommonFunctions.getCashTotalInReturn(widget.returnsale));
+      final cardTotal = double.parse(CommonFunctions.getCardTotalInReturn(widget.returnsale));
 
       if (paymentPriority == "Cash") {
         if (totalAmount <= cashTotal) {
@@ -121,8 +110,7 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
         } else {
           cashAmountController.text = cashTotal.toStringAsFixed(2);
           cashApiSend = cashTotal;
-          cardAmountController.text =
-              (totalAmount - cashTotal).toStringAsFixed(2);
+          cardAmountController.text = (totalAmount - cashTotal).toStringAsFixed(2);
           cardApiSend = (totalAmount - cashTotal);
         }
       } else if (paymentPriority == "Card") {
@@ -134,8 +122,7 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
         } else {
           cardAmountController.text = cardTotal.toStringAsFixed(2);
           cardApiSend = cardTotal;
-          cashAmountController.text =
-              (totalAmount - cardTotal).toStringAsFixed(2);
+          cashAmountController.text = (totalAmount - cardTotal).toStringAsFixed(2);
           cashApiSend = (totalAmount - cardTotal);
         }
       }
@@ -166,8 +153,7 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                 // const Padding(padding: EdgeInsets.only(top: 15)),
                 Container(
                   height: 200,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   decoration: BoxDecoration(
                     color: const Color.fromARGB(177, 231, 230, 230),
                     borderRadius: BorderRadius.circular(10),
@@ -213,8 +199,7 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text("Date: ${widget.returnsale.date ?? ''}"),
-                          Text(
-                              "Business Location: ${widget.returnsale.address}"),
+                          Text("Business Location: ${widget.returnsale.address}"),
                         ],
                       ),
                     ],
@@ -325,12 +310,8 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                                 ),
                               ),
                             ],
-                            rows: List<DataRow>.generate(
-                                widget.returnsale.product?.length ?? 0,
-                                (index) {
-                              Product product =
-                                  widget.returnsale.product?[index] ??
-                                      Product();
+                            rows: List<DataRow>.generate(widget.returnsale.product?.length ?? 0, (index) {
+                              Product product = widget.returnsale.product?[index] ?? Product();
                               void calculateTotalReturnAmount() {
                                 subtotalProduct(product: product, index: index);
 
@@ -338,8 +319,7 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                               }
 
                               return DataRow(cells: [
-                                DataCell(SizedBox(
-                                    width: 20, child: Text('${index + 1}'))),
+                                DataCell(SizedBox(width: 20, child: Text('${index + 1}'))),
                                 DataCell(
                                   SizedBox(
                                     width: 300,
@@ -349,71 +329,44 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                                   ),
                                 ),
                                 DataCell(Center(
-                                  child: Text(
-                                      unitPriceDiscount(product: product)
-                                          .toStringAsFixed(2)),
+                                  child: Text(unitPriceDiscount(product: product).toStringAsFixed(2)),
                                 )),
-                                DataCell(
-                                    Center(child: Text('${product.quantity}'))),
-                                DataCell(Center(
-                                    child: Text('${product.alreadyReturned}'))),
+                                DataCell(Center(child: Text('${product.quantity}'))),
+                                DataCell(Center(child: Text('${product.alreadyReturned}'))),
                                 DataCell(
                                   Center(
                                     child: CustomInputField(
-                                      inputType:
-                                          const TextInputType.numberWithOptions(
-                                              decimal: false),
+                                      inputType: const TextInputType.numberWithOptions(decimal: false),
                                       labelText: "Quantity",
                                       hintText: "0",
-                                      controller:
-                                          returnQuantityControllers[index],
+                                      controller: returnQuantityControllers[index],
                                       onChanged: (value) {
                                         setState(() {
                                           calculateTotalReturnAmount();
                                           if (value.contains('.')) {
-                                            ConstDialog(context)
-                                                .showErrorDialog(
-                                              error:
-                                                  'Decimal points are not allowed',
+                                            ConstDialog(context).showErrorDialog(
+                                              error: 'Decimal points are not allowed',
                                               iconData: Icons.error,
                                               iconColor: Colors.red,
                                               iconText: 'Alert',
-                                              ontap: () =>
-                                                  Navigator.pop(context),
+                                              ontap: () => Navigator.pop(context),
                                             );
-                                            final newValue = value.substring(
-                                                0, value.length - 1);
-                                            returnQuantityControllers[index]
-                                                .text = newValue;
-                                            returnQuantityControllers[index]
-                                                    .selection =
-                                                TextSelection.fromPosition(
-                                              TextPosition(
-                                                  offset: newValue.length),
+                                            final newValue = value.substring(0, value.length - 1);
+                                            returnQuantityControllers[index].text = newValue;
+                                            returnQuantityControllers[index].selection = TextSelection.fromPosition(
+                                              TextPosition(offset: newValue.length),
                                             );
                                           } else if (value.isNotEmpty) {
-                                            int enteredQuantity =
-                                                int.parse(value);
-                                            int? sellQuantity = int.parse(
-                                                    product.quantity
-                                                        .toString()) -
-                                                int.parse(product
-                                                    .alreadyReturned
-                                                    .toString());
-                                            if (enteredQuantity >
-                                                sellQuantity) {
-                                              returnQuantityControllers[index]
-                                                      .text =
-                                                  sellQuantity.toString();
-                                              ConstDialog(context)
-                                                  .showErrorDialog(
-                                                error:
-                                                    'Return quantity cannot exceed available quantity',
+                                            int enteredQuantity = int.parse(value);
+                                            int? sellQuantity = int.parse(product.quantity.toString()) - int.parse(product.alreadyReturned.toString());
+                                            if (enteredQuantity > sellQuantity) {
+                                              returnQuantityControllers[index].text = sellQuantity.toString();
+                                              ConstDialog(context).showErrorDialog(
+                                                error: 'Return quantity cannot exceed available quantity',
                                                 iconData: Icons.error,
                                                 iconColor: Colors.red,
                                                 iconText: 'Alert',
-                                                ontap: () =>
-                                                    Navigator.pop(context),
+                                                ontap: () => Navigator.pop(context),
                                               );
                                             }
                                           }
@@ -424,8 +377,7 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                                 ),
                                 DataCell(Center(
                                   child: Text(
-                                    ((product.returnSubtotal ?? 0.0.toString())
-                                        .toString()),
+                                    ((product.returnSubtotal ?? 0.0.toString()).toString()),
                                   ),
                                 )),
                               ]);
@@ -474,9 +426,7 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      CustomText(
-                                          text:
-                                              "Make return priority based on:"),
+                                      CustomText(text: "Make return priority based on:"),
                                       Gap(10),
                                       Radio<String>(
                                         value: "Card",
@@ -506,8 +456,7 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                                     children: [
                                       Expanded(
                                         child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               'Card Return',
@@ -517,16 +466,10 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                                             ),
                                             Gap(10),
                                             CustomInputField(
-                                              labelStyle: TextStyle(
-                                                  color: Constant.colorBlack),
-                                              inputType: TextInputType
-                                                  .numberWithOptions(
-                                                      decimal: true),
+                                              labelStyle: TextStyle(color: Constant.colorBlack),
+                                              inputType: TextInputType.numberWithOptions(decimal: true),
                                               hintText: "Card Amount",
-                                              labelText: "Max: " +
-                                                  CommonFunctions
-                                                      .getCardTotalInReturn(
-                                                          widget.returnsale),
+                                              labelText: "Max: " + CommonFunctions.getCardTotalInReturn(widget.returnsale),
                                               enabled: false,
                                               controller: cardAmountController,
                                               onChanged: (value) {},
@@ -537,8 +480,7 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                                       Gap(6),
                                       Expanded(
                                         child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               'Cash Return',
@@ -548,17 +490,11 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                                             ),
                                             Gap(10),
                                             CustomInputField(
-                                              labelStyle: TextStyle(
-                                                  color: Constant.colorBlack),
-                                              inputType: TextInputType
-                                                  .numberWithOptions(
-                                                      decimal: true),
+                                              labelStyle: TextStyle(color: Constant.colorBlack),
+                                              inputType: TextInputType.numberWithOptions(decimal: true),
                                               hintText: "Cash Amount",
                                               enabled: false,
-                                              labelText: "Max: " +
-                                                  CommonFunctions
-                                                      .getCashTotalInReturn(
-                                                          widget.returnsale),
+                                              labelText: "Max: " + CommonFunctions.getCashTotalInReturn(widget.returnsale),
                                               controller: cashAmountController,
                                               onChanged: (value) {},
                                             ),
@@ -570,9 +506,7 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                                 ],
                               ),
                             Gap(5),
-                            if (CommonFunctions.getWithDrawnMode(
-                                    cardTotal, cashTotal) !=
-                                "")
+                            if (CommonFunctions.getWithDrawnMode(cardTotal, cashTotal) != "")
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
@@ -582,11 +516,8 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                                     maxLines: 2,
                                   ),
                                   Text(
-                                    CommonFunctions.getWithDrawnMode(
-                                        cardTotal, cashTotal),
-                                    style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
+                                    CommonFunctions.getWithDrawnMode(cardTotal, cashTotal),
+                                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                                     maxLines: 2,
                                   )
                                 ],
@@ -594,10 +525,7 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                             else
                               const Text(
                                 "No item left for return",
-                                style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Constant.colorRed),
+                                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Constant.colorRed),
                               ),
                             if (cardTotal != 0.0)
                               Row(
@@ -606,9 +534,7 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                                   Text("Card return limit: "),
                                   Text(
                                     cardTotal.toString(),
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16),
+                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                                   )
                                 ],
                               ),
@@ -619,9 +545,7 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                                   Text("Cash return limit: "),
                                   Text(
                                     cashTotal.toString(),
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16),
+                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                                   )
                                 ],
                               ),
@@ -631,9 +555,7 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                                 Text("Total Return Discount: "),
                                 Text(
                                   " (-) \$ ${discount.toStringAsFixed(2)}",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                                 )
                               ],
                             ),
@@ -647,9 +569,7 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                                 ),
                                 Text(
                                   " (+) \$ ${tax.toStringAsFixed(2)}",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                                 )
                               ],
                             ),
@@ -659,9 +579,7 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                                 Text("Return Total: "),
                                 Text(
                                   " \$ ${double.parse(total).toStringAsFixed(2)}",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                                 )
                               ],
                             ),
@@ -671,25 +589,17 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                BlocBuilder<LoggedInUserBloc, LoggedInUser?>(
-                                    builder: (context, loggedInUser) {
-                                  return BlocBuilder<LocationBloc, Location?>(
-                                      builder: (context, location) {
-                                    return BlocBuilder<CustomerBloc,
-                                            CustomerModel?>(
-                                        builder: (context, customer) {
-                                      return BlocBuilder<TaxBloc, TaxModel?>(
-                                          builder: (context, tax) {
+                                BlocBuilder<LoggedInUserBloc, LoggedInUser?>(builder: (context, loggedInUser) {
+                                  return BlocBuilder<LocationBloc, Location?>(builder: (context, location) {
+                                    return BlocBuilder<CustomerBloc, CustomerModel?>(builder: (context, customer) {
+                                      return BlocBuilder<TaxBloc, TaxModel?>(builder: (context, tax) {
                                         return ElevatedButton(
                                             style: ElevatedButton.styleFrom(
-                                              foregroundColor:
-                                                  Constant.colorWhite,
-                                              backgroundColor:
-                                                  Constant.colorPurple,
+                                              foregroundColor: Constant.colorWhite,
+                                              backgroundColor: Constant.colorPurple,
                                               elevation: 5,
                                               shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(6),
+                                                borderRadius: BorderRadius.circular(6),
                                               ),
                                             ),
                                             onPressed: isLoading
@@ -697,37 +607,22 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                                                 : () async {
                                                     setLoading(true);
 
-                                                    double totalReturnQuantity =
-                                                        calculateTotalReturnQuantity();
-                                                    if (totalReturnQuantity ==
-                                                        0.0) {
-                                                      ConstDialog(context)
-                                                          .showErrorDialog(
-                                                        error:
-                                                            'Return Quantity Should be Greater then "0"',
+                                                    double totalReturnQuantity = calculateTotalReturnQuantity();
+                                                    if (totalReturnQuantity == 0.0) {
+                                                      ConstDialog(context).showErrorDialog(
+                                                        error: 'Return Quantity Should be Greater then "0"',
                                                         iconData: Icons.error,
                                                         iconColor: Colors.red,
                                                         iconText: 'Alert',
-                                                        ontap: () =>
-                                                            Navigator.pop(
-                                                                context),
+                                                        ontap: () => Navigator.pop(context),
                                                       );
                                                     } else {
                                                       await onSelltap(
-                                                        loggedInUser:
-                                                            loggedInUser ??
-                                                                LoggedInUser(),
-                                                        location: location ??
-                                                            Location(),
-                                                        customerModel:
-                                                            customer ??
-                                                                CustomerModel(),
-                                                        taxModel:
-                                                            tax ?? TaxModel(),
-                                                        productList: widget
-                                                                .returnsale
-                                                                .product ??
-                                                            [],
+                                                        loggedInUser: loggedInUser ?? LoggedInUser(),
+                                                        location: location ?? Location(),
+                                                        customerModel: customer ?? CustomerModel(),
+                                                        taxModel: tax ?? TaxModel(),
+                                                        productList: widget.returnsale.product ?? [],
                                                       );
                                                     }
                                                     setLoading(false);
@@ -736,8 +631,7 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                                                 ? const SizedBox(
                                                     width: 24,
                                                     height: 24,
-                                                    child:
-                                                        CircularProgressIndicator(
+                                                    child: CircularProgressIndicator(
                                                       color: Colors.white,
                                                     ),
                                                   )
@@ -799,28 +693,19 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
 
   subtotalProduct({required Product product, required int index}) {
     if (returnQuantityControllers[index].text.isNotEmpty) {
-      product.returnQuantity =
-          double.parse(returnQuantityControllers[index].text)
-              .toStringAsFixed(2);
-      final returnQuantity = product.returnQuantity == null
-          ? 0.00
-          : double.parse(product.returnQuantity ?? '0.0');
-      final quantity = (int.parse(product.quantity.toString()) -
-          int.parse(product.alreadyReturned.toString()));
-      final total = returnQuantity > quantity
-          ? quantity * unitPriceDiscount(product: product)
-          : returnQuantity * unitPriceDiscount(product: product);
+      product.returnQuantity = double.parse(returnQuantityControllers[index].text).toStringAsFixed(2);
+      final returnQuantity = product.returnQuantity == null ? 0.00 : double.parse(product.returnQuantity ?? '0.0');
+      final quantity = (int.parse(product.quantity.toString()) - int.parse(product.alreadyReturned.toString()));
+      final total = returnQuantity > quantity ? quantity * unitPriceDiscount(product: product) : returnQuantity * unitPriceDiscount(product: product);
 
-      product.returnSubtotal =
-          double.parse(double.parse(total.toString()).toStringAsFixed(2));
+      product.returnSubtotal = double.parse(double.parse(total.toString()).toStringAsFixed(2));
     } else {
       product.returnSubtotal = 0.0;
     }
   }
 
   double sumProduct({required List<Product> productList}) {
-    final sum = productList.map((e) => e.returnSubtotal ?? 0.00).fold(
-        0.0, (previousValue, element) => previousValue + element.toDouble());
+    final sum = productList.map((e) => e.returnSubtotal ?? 0.00).fold(0.0, (previousValue, element) => previousValue + element.toDouble());
 
     subTotal = sum;
 
@@ -844,8 +729,7 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
   }
 
   double taxInvoice({required double discount}) {
-    String stringTax = (widget.returnsale.taxPercentage.toString())
-        .replaceAll(RegExp(r'[^\d.]'), '');
+    String stringTax = (widget.returnsale.taxPercentage.toString()).replaceAll(RegExp(r'[^\d.]'), '');
     double totalTax = double.parse(stringTax);
     final tax = (discount / 100) * totalTax;
     log(discount.toString());
@@ -871,11 +755,8 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
     required List<Product> productList,
   }) async {
     for (int i = 0; i < productList.length; i++) {
-      final inputQuantity = returnQuantityControllers[i].text.isNotEmpty
-          ? double.parse(returnQuantityControllers[i].text)
-          : 0.0; // Default to 0.0 if empty
-      productList[i].returnQuantity =
-          inputQuantity.toStringAsFixed(2); // Update the product list
+      final inputQuantity = returnQuantityControllers[i].text.isNotEmpty ? double.parse(returnQuantityControllers[i].text) : 0.0; // Default to 0.0 if empty
+      productList[i].returnQuantity = inputQuantity.toStringAsFixed(2); // Update the product list
     }
     Transaction payload = Transaction(
       invoiceNo: widget.returnsale.invoiceNumber,
@@ -891,15 +772,11 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
       discountAmount: discount,
       totalAmountBeforeTax: subTotal,
       taxRateId: taxModel.taxId,
-      taxCalculationPercentage: taxModel.amount == null
-          ? 0.0
-          : double.parse(taxModel.amount.toString()),
+      taxCalculationPercentage: taxModel.amount == null ? 0.0 : double.parse(taxModel.amount.toString()),
       taxCalculationAmount: tax,
       orderTaxModal: int.parse(taxModel.taxId.toString()),
       discountTypeModal: widget.returnsale.discountType,
-      discountAmountModal: widget.returnsale.invoiceDiscount == null
-          ? 0.0
-          : double.parse(widget.returnsale.invoiceDiscount.toString()),
+      discountAmountModal: widget.returnsale.invoiceDiscount == null ? 0.0 : double.parse(widget.returnsale.invoiceDiscount.toString()),
       userLocation: loggedInUser.locations,
       payment: [
         PaymentListMethod(
@@ -942,56 +819,41 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
             invNum: "",
             amount: cardApiSend.toStringAsFixed(2),
             paxDevice: paxDeviceBloc.state ?? PaxDevice(),
-            tenderType:
-                CommonFunctions.getCardType(widget.returnsale) ?? "CREDIT",
+            tenderType: CommonFunctions.getCardType(widget.returnsale) ?? "CREDIT",
             transType: "REFUND");
         log("BridgePay response refund: ${response.toString()}");
         if (response == null) {
           log("Response is null");
         } else {
-          if (response["resultCode"] == "000000" ||
-              response["resultCode"] == "0" ||
-              response["resultTxt"] == "OK") {
-            ToastUtility.showToast(
-                message: "Card amount returned successfully");
-            await PostSellReturn()
-                .postSellReturn(context, payload)
-                .then((result) async {
+          if (response["resultCode"] == "000000" || response["resultCode"] == "0" || response["resultTxt"] == "OK") {
+            ToastUtility.showToast(message: "Card amount returned successfully");
+            await PostSellReturn().postSellReturn(context, payload).then((result) async {
               result.fold((invoice) async {
                 // log('Response from PostSellReturn: ${invoice.toJson()}');
-                final path = await SellReturnInvoice.printInvoice(
-                    invoiceModel: invoice,
-                    cardTotal: cardAmountController.text,
-                    cashTotal: cashAmountController.text);
+                final path = await SellReturnInvoice.printInvoice(invoiceModel: invoice, cardTotal: cardAmountController.text, cashTotal: cashAmountController.text);
 
                 log('PDF Path: $path');
                 if (cashApiSend != 0.00) {
                   MyPlatformFunctions.cashDrawerOpen();
                 }
-                await printPdf(path: path, context: context)
-                    .whenComplete(() {})
-                    .whenComplete(() {
+                await printPdf(path: path, context: context).whenComplete(() {}).whenComplete(() {
                   if (cashApiSend != 0.00) {
-                    ToastUtility.showToast(
-                        message: "Cash amount returned successfully");
+                    ToastUtility.showToast(message: "Cash amount returned successfully");
                   }
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
                 });
               }, (error) {
-                ErrorFuncs(context)
-                    .errRegisterClose(errorInfo: {'info': error});
+                ErrorFuncs(context).errRegisterClose(errorInfo: {'info': error});
               });
             });
           } else {
             if (response["resultCode"] == "2") {
               ConstDialogNew.showErrorDialogNew(
                 contextNew: context,
-                error:
-                    "${paxDeviceBloc.state?.deviceName} is not Connected, Kindly select available device",
+                error: "${paxDeviceBloc.state?.deviceName} is not Connected, Kindly select available device",
               );
             } else {
-              ConstDialog(context)
-                  .showErrorDialog(error: response["resultTxt"]);
+              ConstDialog(context).showErrorDialog(error: response["resultTxt"]);
             }
           }
         }
@@ -999,22 +861,14 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
         ConstDialog(context).showErrorDialog(error: "No device is selected");
       }
     } else {
-      await PostSellReturn()
-          .postSellReturn(context, payload)
-          .then((result) async {
+      await PostSellReturn().postSellReturn(context, payload).then((result) async {
         result.fold((invoice) async {
           // log('Response from PostSellReturn: ${invoice.toJson()}');
-          final path = await SellReturnInvoice.printInvoice(
-              invoiceModel: invoice,
-              cardTotal: cardAmountController.text,
-              cashTotal: cashAmountController.text);
+          final path = await SellReturnInvoice.printInvoice(invoiceModel: invoice, cardTotal: cardAmountController.text, cashTotal: cashAmountController.text);
           MyPlatformFunctions.cashDrawerOpen();
-          await printPdf(path: path, context: context)
-              .whenComplete(() {})
-              .whenComplete(() {
-            ToastUtility.showToast(
-                message: "Cash amount returned successfully");
-            Navigator.pop(context);
+          await printPdf(path: path, context: context).whenComplete(() {}).whenComplete(() {
+            ToastUtility.showToast(message: "Cash amount returned successfully");
+            // Navigator.pop(context);
           });
         }, (error) {
           ErrorFuncs(context).errRegisterClose(errorInfo: {'info': error});
