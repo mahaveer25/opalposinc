@@ -103,19 +103,6 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
   void initState() {
     super.initState();
     remainingBalance = widget.totalAmount ?? 0.0;
-    // setState(() {
-    //   final currentCustomer = context.read<CustomerBloc>().state;
-    //   if (currentCustomer != null) {
-    //     _updateCustomerData(currentCustomer);
-    //   }
-    //   context.read<CustomerBloc>().stream.listen((customer) {
-    //     if (customer != null) {
-    //       _updateCustomerData(customer);
-    //       log("Customer Data: ${customer.name}");
-    //     }
-    //   });
-    // });
-
     setState(() {
       if (widget.selectedPay == 'Card') {
         methodListWidget.add(PaymentListMethod(amount: widget.totalAmount.toString(), method: 'card', methodType: PaymentMethod(type: 'card', name: 'Card')));
@@ -240,10 +227,6 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
                                       const SizedBox(
                                         height: 15.0,
                                       ),
-                                      // customerInformation(),
-                                      // const SizedBox(
-                                      //   height: 5.0,
-                                      // ),
                                       addMethodButton(),
                                       const SizedBox(
                                         height: 15.0,
@@ -286,201 +269,18 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
     return total;
   }
 
-  // Widget paymentDetails({required bool isMobile}) {
-  //   const textStyle = TextStyle(fontSize: 20, color: Colors.white);
-  //   const textStyleMobile = TextStyle(fontSize: 14, color: Colors.black);
-  //   final densed = isMobile ? true : false;
-  //
-  //   final returnChanges = widget.totalAmount!.toDouble() < total() ? total() - widget.totalAmount!.toDouble() : 0.0;
-  //   // final balance = widget.totalAmount!.toDouble() > total() ? widget.totalAmount!.toDouble() - total() : 0.0;
-  //   final balance = remainingBalance - total();
-  //
-  //
-  //   print("widget balamce: $balance");
-  //
-  //   List<Widget> childs = [
-  //     const SizedBox(
-  //       height: 20,
-  //     ),
-  //     ConstrainedBox(
-  //       constraints: const BoxConstraints(maxWidth: 320),
-  //       child: ListTile(
-  //         dense: densed,
-  //         title: Text(
-  //           'Total Items',
-  //           style: isMobile ? textStyleMobile : textStyle,
-  //         ),
-  //         subtitle: Text(widget.totalItems.toString(), style: isMobile ? textStyleMobile : textStyle),
-  //       ),
-  //     ),
-  //     if (!isMobile)
-  //       const Divider(
-  //         color: Colors.white,
-  //       ),
-  //     ConstrainedBox(
-  //       constraints: const BoxConstraints(maxWidth: 320), // Constrain the width
-  //       child: ListTile(
-  //         dense: densed,
-  //         title: Text('Total Payable', style: isMobile ? textStyleMobile : textStyle),
-  //         subtitle: Text('\$${widget.totalAmount!.toStringAsFixed(2)}', style: isMobile ? textStyleMobile : textStyle),
-  //       ),
-  //     ),
-  //     if (!isMobile)
-  //       const Divider(
-  //         color: Colors.white,
-  //       ),
-  //     ConstrainedBox(
-  //       constraints: const BoxConstraints(maxWidth: 320), // Constrain the width
-  //       child: ListTile(
-  //         dense: densed,
-  //         title: Text('Total Paying', style: isMobile ? textStyleMobile : textStyle),
-  //         subtitle: Text('\$${total().toStringAsFixed(2)}', style: isMobile ? textStyleMobile : textStyle),
-  //       ),
-  //     ),
-  //     if (!isMobile)
-  //       const Divider(
-  //         color: Colors.white,
-  //       ),
-  //
-  //     ConstrainedBox(
-  //       constraints: const BoxConstraints(maxWidth: 320), // Constrain the width
-  //       child: ListTile(
-  //         dense: densed,
-  //         title: Text('Paid Amount', style: isMobile ? textStyleMobile : textStyle),
-  //         subtitle: Text('0.0', style: isMobile ? textStyleMobile : textStyle),
-  //       ),
-  //     ),
-  //     if (!isMobile)
-  //       const Divider(
-  //         color: Colors.white,
-  //       ),
-  //     ConstrainedBox(
-  //       constraints: const BoxConstraints(maxWidth: 320), // Constrain the width
-  //       child: ListTile(
-  //         dense: densed,
-  //         title: Text('Change Return:', style: isMobile ? textStyleMobile : textStyle),
-  //         subtitle: Text('\$${returnChanges.toStringAsFixed(2)}', style: isMobile ? textStyleMobile : textStyle),
-  //       ),
-  //     ),
-  //     if (!isMobile)
-  //       const Divider(
-  //         color: Colors.white,
-  //       ),
-  //     ConstrainedBox(
-  //       constraints: const BoxConstraints(maxWidth: 320), // Constrain the width
-  //       child: ListTile(
-  //         dense: densed,
-  //         title: Text('Balance', style: isMobile ? textStyleMobile : textStyle),
-  //         subtitle: Text('\$${balance.toStringAsFixed(2)}', style: isMobile ? textStyleMobile : textStyle),
-  //       ),
-  //     ),
-  //   ];
-  //   List<Widget> childsMobile = [
-  //     ConstrainedBox(
-  //       constraints: const BoxConstraints(maxWidth: 400), // Constrain the width
-  //       child: ListTile(
-  //         dense: densed,
-  //         title: Text(
-  //           'Total items',
-  //           style: isMobile ? textStyle : textStyleMobile,
-  //         ),
-  //         trailing: Text(widget.totalItems.toString(), style: isMobile ? textStyle : textStyleMobile),
-  //       ),
-  //     ),
-  //     if (!isMobile)
-  //       const Divider(
-  //         color: Colors.white,
-  //       ),
-  //     ConstrainedBox(
-  //       constraints: const BoxConstraints(maxWidth: 400), // Constrain the width
-  //       child: ListTile(
-  //         dense: densed,
-  //         title: Text('Total payable', style: isMobile ? textStyle : textStyleMobile),
-  //         trailing: Text('\$${widget.totalAmount!.toStringAsFixed(2)}', style: isMobile ? textStyle : textStyleMobile),
-  //       ),
-  //     ),
-  //     if (!isMobile)
-  //       const Divider(
-  //         color: Colors.white,
-  //       ),
-  //     ConstrainedBox(
-  //       constraints: const BoxConstraints(maxWidth: 400), // Constrain the width
-  //       child: ListTile(
-  //         dense: densed,
-  //         title: Text('Total paying', style: isMobile ? textStyle : textStyleMobile),
-  //         trailing: Text('\$${total().toStringAsFixed(2)}', style: isMobile ? textStyle : textStyleMobile),
-  //       ),
-  //     ),
-  //     if (!isMobile)
-  //       const Divider(
-  //         color: Colors.white,
-  //       ),
-  //     ConstrainedBox(
-  //       constraints: const BoxConstraints(maxWidth: 400), // Constrain the width
-  //       child: Expanded(
-  //         child: ListTile(
-  //           dense: densed,
-  //           title: Text('Change Return:', style: isMobile ? textStyle : textStyleMobile),
-  //           trailing: Text('\$${returnChanges.toStringAsFixed(2)}', style: isMobile ? textStyle : textStyleMobile),
-  //         ),
-  //       ),
-  //     ),
-  //     if (!isMobile)
-  //       const Divider(
-  //         color: Colors.white,
-  //       ),
-  //     ConstrainedBox(
-  //       constraints: const BoxConstraints(maxWidth: 400), // Constrain the width
-  //       child: ListTile(
-  //         dense: densed,
-  //         title: Text('Balance', style: isMobile ? textStyle : textStyleMobile),
-  //         trailing: Text('\$${balance.toStringAsFixed(2)}', style: isMobile ? textStyle : textStyleMobile),
-  //       ),
-  //     ),
-  //   ];
-  //
-  //   if (isMobile) {
-  //     return SingleChildScrollView(
-  //       child: Column(
-  //         children: childsMobile
-  //             .map((e) => Padding(
-  //                   padding: const EdgeInsets.symmetric(vertical: 1.0),
-  //                   child: e,
-  //                 ))
-  //             .toList(),
-  //       ),
-  //     );
-  //   }
-  //
-  //   return Padding(
-  //       padding: const EdgeInsets.only(
-  //         left: 20.0,
-  //         bottom: 20.0,
-  //         top: 15.0,
-  //       ),
-  //       child: Material(
-  //           borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-  //           color: Constant.colorPurple,
-  //           child: Padding(
-  //               padding: isMobile ? const EdgeInsets.all(0.0) : const EdgeInsets.all(5.0),
-  //               child: Center(
-  //                 child: SingleChildScrollView(
-  //                   child: Column(
-  //                     crossAxisAlignment: CrossAxisAlignment.center,
-  //                     children: childs,
-  //                   ),
-  //                 ),
-  //               ))));
-  // }
-
   Widget paymentDetails({required bool isMobile}) {
     const textStyle = TextStyle(fontSize: 20, color: Colors.white);
     const textStyleMobile = TextStyle(fontSize: 14, color: Colors.black);
     final densed = isMobile ? true : false;
-    final double afterPayChangeReturn = widget.totalAmount!.toDouble() - afterPayPrice;
-    final returnChanges = afterPayChangeReturn < total() ? total() - afterPayChangeReturn : 0.0;
-    // final balance = remainingBalance - total();
-    final balance = imath.max(0.0, remainingBalance - total());
+
+    // final double afterPayChangeReturn = widget.totalAmount!.toDouble() - afterPayPrice;
+    // final returnChanges = afterPayChangeReturn < total() ? total() - afterPayChangeReturn : 0.0;
+    // // final balance = remainingBalance - total();
+    final balance = afterPayPrice == 0 ? imath.max(0.0, remainingBalance - total()) : 0.0;
+
+    final double balanceDue = widget.totalAmount! - (afterPayPrice != 0 ? afterPayPrice : total());
+    final double changeReturn = balanceDue < 0 ? balanceDue.abs() : 0.0;
 
     List<Widget> commonListItems = [
       Expanded(
@@ -522,7 +322,7 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
         child: ListTile(
           dense: densed,
           title: Text('Change Return', style: isMobile ? textStyleMobile : textStyle),
-          trailing: Text('\$${returnChanges.toStringAsFixed(2)}', style: isMobile ? textStyleMobile : textStyle),
+          trailing: Text('\$${changeReturn.toStringAsFixed(2)}', style: isMobile ? textStyleMobile : textStyle),
         ),
       ),
       if (!isMobile) const Divider(color: Colors.white),
@@ -553,7 +353,7 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
   }
 
   Widget paymentListWidget({required bool isMobile}) {
-    final balance = widget.totalAmount!.toDouble() > total() ? widget.totalAmount!.toDouble() - total() : 0.0;
+    var balance = widget.totalAmount!.toDouble() > total() ? widget.totalAmount!.toDouble() - total() : 0.0;
     Future.delayed(const Duration(milliseconds: 500), () => _refreshPaymentDetails());
 
     return ListView.separated(
@@ -563,6 +363,7 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
       itemBuilder: (context, index) {
         final method = methodListWidget[index]; // Define the method here
         return MethodTypeWidget(
+          key: ValueKey(method),
           methodType: widget.selectedPay,
           paymentMethod: method,
           totalAmount: balance,
@@ -570,6 +371,9 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
             setState(() {
               methodListWidget.removeAt(index);
               isCardMethod = true;
+              methodListWidget[index].amount = "";
+              log("on cancel click: ${widget.totalAmount}");
+
               // (method.methodType?.toString().toLowerCase().trim() ==
               //         "card" ||
               //     method.method?.toString().toLowerCase().trim() == "card");
@@ -632,10 +436,6 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
         const SizedBox(
           width: 7.0,
         ),
-        // finalyzeInvoice(),
-        // const SizedBox(
-        //   width: 7,
-        // ),
         finalyzePaymentButton(),
       ]),
     );
@@ -731,266 +531,6 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
     );
   }
 
-  // Widget finalyzeInvoice() {
-  //   return BlocBuilder<LoggedInUserBloc, LoggedInUser?>(
-  //     builder: (context, loggedInUser) {
-  //       return BlocBuilder<LocationBloc, Location?>(
-  //         builder: (context, location) {
-  //           return BlocBuilder<CustomerBloc, CustomerModel?>(
-  //             builder: (context, customer) {
-  //               return BlocBuilder<PricingBloc, PricingGroup?>(
-  //                 builder: (context, pricing) {
-  //                   return BlocBuilder<TotalDiscountBloc, TotalDiscountModel?>(
-  //                     builder: (context, discount) {
-  //                       return BlocBuilder<SettingsBloc, SettingsModel?>(
-  //                         builder: (context, settingsModel) {
-  //                           return BlocBuilder<CartBloc, CartState?>(
-  //                             builder: (context, cart) {
-  //                               if (cart is CartLoadedState) {
-  //                                 return BlocBuilder<TaxBloc, TaxModel?>(
-  //                                   builder: (context, tax) {
-  //                                     return BlocBuilder<CheckConnection, bool>(
-  //                                       builder: (context, isConnected) {
-  //                                         return ElevatedButton(
-  //                                           style: ElevatedButton.styleFrom(
-  //                                             foregroundColor: Colors.white,
-  //                                             backgroundColor:
-  //                                                 Constant.colorPurple,
-  //                                             elevation: 5,
-  //                                             shape: RoundedRectangleBorder(
-  //                                               borderRadius:
-  //                                                   BorderRadius.circular(6),
-  //                                             ),
-  //                                           ),
-  //                                           onPressed: _isLoadingNoPrint
-  //                                               ? null // Disable button while loading
-  //                                               : () async {
-  //                                                   setLoadingPrint(
-  //                                                       true); // Start loading
-  //                                                   // await onFinalizePayment(
-  //                                                   //   loggedInUser:
-  //                                                   //       loggedInUser!,
-  //                                                   //   location: location!,
-  //                                                   //   customerModel: customer!,
-  //                                                   //   pricing: pricing!,
-  //                                                   //   totalDiscountModel:
-  //                                                   //       discount ??
-  //                                                   //           TotalDiscountModel(),
-  //                                                   //   taxModel: tax!,
-  //                                                   //   productList:
-  //                                                   //       cart.listProduct,
-  //                                                   //   settingsModel:
-  //                                                   //       settingsModel!,
-  //                                                   //   isConnected: isConnected,
-  //                                                   // );
-  //                                                   setLoadingPrint(
-  //                                                       false); // End loading
-  //                                                 },
-  //                                           child: _isLoadingNoPrint
-  //                                               ? const SizedBox(
-  //                                                   width: 24,
-  //                                                   height: 24,
-  //                                                   child:
-  //                                                       CircularProgressIndicator(
-  //                                                     color: Colors.white,
-  //                                                   ),
-  //                                                 )
-  //                                               : const Text('Print'),
-  //                                         );
-  //                                       },
-  //                                     );
-  //                                   },
-  //                                 );
-  //                               }
-  //                               return Container();
-  //                             },
-  //                           );
-  //                         },
-  //                       );
-  //                     },
-  //                   );
-  //                 },
-  //               );
-  //             },
-  //           );
-  //         },
-  //       );
-  //     },
-  //   );
-  // }
-
-  // onFinalizeInvoice(
-  //     {required LoggedInUser loggedInUser,
-  //     required Location location,
-  //     required CustomerModel customerModel,
-  //     required PricingGroup pricing,
-  //     required TotalDiscountModel totalDiscountModel,
-  //     required TaxModel taxModel,
-  //     required SettingsModel settingsModel,
-  //     required List<Product> productList,
-  //     required bool isConnected}) async {
-  //   log("Logged In User business data: ${loggedInUser.business?.bridgePayUrl}");
-  //   log("Logged In User business details: ${loggedInUser.business?.bridgePayDetails?.username}");
-
-  //   Transaction payload = Transaction(
-  //       userId: loggedInUser.id,
-  //       businessId: loggedInUser.businessId,
-  //       locationId: location.id,
-  //       contactId: customerModel.id,
-  //       transactionDate: DateFormat('yyyy-MM-dd hh:mm').format(DateTime.now()),
-  //       priceGroup: int.parse(pricing.id.toString()),
-  //       product: productList,
-  //       discountType: totalDiscountModel.type,
-  //       discountAmount: totalDiscountModel.amount == null
-  //           ? 0.0
-  //           : double.parse(totalDiscountModel.amount.toString()),
-  //       totalAmountBeforeTax: widget.totalAmountBeforeDisc,
-  //       taxRateId: taxModel.taxId,
-  //       taxCalculationPercentage: taxModel.amount == null
-  //           ? 0.0
-  //           : double.parse(taxModel.amount.toString()),
-  //       taxCalculationAmount: widget.totalAmount!.toDouble() -
-  //           widget.amountWithOutTax!.toDouble(),
-  //       orderTaxModal: int.parse(taxModel.taxId.toString()),
-  //       discountTypeModal: totalDiscountModel.type,
-  //       discountAmountModal: totalDiscountModel.amount == null
-  //           ? 0.0
-  //           : double.parse(totalDiscountModel.amount.toString()),
-  //       enableRp: settingsModel.enableRp,
-  //       amountForUnitRp: settingsModel.amountForUnitRp,
-  //       redeemAmountPerUnitRp: settingsModel.redeemAmountPerUnitRp.toString(),
-  //       saleNote: sellController.text,
-  //       staffNote: staffController.text,
-  //       userLocation: loggedInUser.locations,
-  //       payment: methodListWidget.map((e) => e.toJson()).toList(),
-  //       changeReturn: (widget.totalAmount!.toDouble() < total()
-  //               ? total() - widget.totalAmount!.toDouble()
-  //               : 0.0)
-  //           .toString(),
-  //       rpRedeemed: loggedInUser.business?.bridgePayUrl.toString(),
-  //       rpRedeemedDiscountTypes: "Fixed",
-  //       customerId: customerModel.id == '1' ? '0' : customerModel.id,
-  //       customerEmail: emailAddressController.text,
-  //       customerFirstName: firstNameController.text,
-  //       customerPhone: phoneController.text);
-
-  //   log("totalamount : ${widget.totalAmount!.toDouble()}");
-  //   log('${payload.toJson()}');
-
-  //   if (!isConnected) {
-  //     final uuid = const Uuid().v1().substring(1, 6);
-  //     final uniqueKey = '$uuid-${loggedInUser.id}';
-  //     Transaction transaction = payload..offlineInvoiceNo = uniqueKey;
-
-  //     final invoice = await LocalTransaction()
-  //         .addToLocal(transaction: transaction, context: context);
-  //     CartBloc cartBloc = BlocProvider.of<CartBloc>(context);
-  //     // CustomerBloc customerBloc = BlocProvider.of<CustomerBloc>(context);
-  //     cartBloc.add(CartClearProductEvent());
-  //     await displayManager.transferDataToPresentation({'type': 'delete'});
-
-  //     TotalDiscountBloc bloc = BlocProvider.of<TotalDiscountBloc>(context);
-  //     bloc.add(null);
-  //     Navigator.push(
-  //         context,
-  //         MaterialPageRoute(
-  //             builder: (context) => SuccessTransaction(invoice: invoice)));
-  //     var isCashMethod = methodListWidget
-  //         .any((method) => method.method.toString().toLowerCase() == "cash");
-
-  //     if (isCashMethod) {
-  //       log("Card method found in methodListWidget.");
-  //       MyPlatformFunctions.cashDrawerOpen();
-  //     } else {
-  //       log("No card method found in methodListWidget.");
-  //     }
-
-  //     if (invoice.offlineInvoiceNo != null) {
-  //       // Navigator.of(context)
-  //       //     .push(MaterialPageRoute(
-  //       //         builder: (context) => PdfPreviewPage(
-  //       //               invoice: invoice,
-  //       //               openFrom: 'invoice',
-  //       //             )))
-  //       // .whenComplete(() =>);
-  //     }
-  //   } else {
-  //     if (FunctionProduct.checkAllPaymentMethodsSelected(methodListWidget)) {
-  //       CartBloc cartBloc = BlocProvider.of<CartBloc>(context);
-  //       cartBloc.add(CartClearProductEvent());
-
-  //       TotalDiscountBloc bloc = BlocProvider.of<TotalDiscountBloc>(context);
-  //       bloc.add(null);
-  //       await PlaceOrder().placeOrder(context, payload).then((result) async {
-  //         result.fold((invoice) async {
-  //           // final path =
-  //           //     await GenerateInvoice.printInvoice(invoiceModel: invoice);
-
-  //           // Navigator.push(
-  //           //     context,
-  //           //     MaterialPageRoute(
-  //           //         builder: (context) => PdfPreviewPage(
-  //           //               openFrom: 'invoice',
-  //           //               invoice: invoice,
-  //           //             )));
-  //           // log('PDF Path: $path');
-
-  //           // await printPdf(path: path, context: context).whenComplete(() async {
-  //           Navigator.push(
-  //               context,
-  //               MaterialPageRoute(
-  //                   builder: (context) =>
-  //                       SuccessTransaction(invoice: invoice)));
-
-  //           await displayManager.transferDataToPresentation({
-  //             'type': 'successTransaction',
-  //             'successTransaction': invoice.toJson(),
-  //           });
-
-  //           await displayManager.transferDataToPresentation({
-  //             'type': 'customerData',
-  //             'customerData': customerModel.toJson(),
-  //           });
-
-  //           await displayManager.transferDataToPresentation({
-  //             'type': 'settingsData',
-  //             'settingsData': settingsModel.toJson(),
-  //           });
-
-  //           log("method list $methodListWidget");
-
-  //           var isCashMethod = methodListWidget.any(
-  //               (method) => method.method.toString().toLowerCase() == "cash");
-
-  //           if (isCashMethod) {
-  //             log("Card method found in methodListWidget.");
-  //             MyPlatformFunctions.cashDrawerOpen();
-  //           } else {
-  //             log("No card method found in methodListWidget.");
-  //           }
-
-  //           if (mounted) {
-  //             final customer = await CustomerBalanceService.getCustomerBalance(
-  //                 context, int.parse(customerModel.id.toString()));
-  //             // log('PDF Path: $path'); // Added for debugging
-  //             await displayManager.transferDataToPresentation({
-  //               'type': 'discount',
-  //               'discount': TotalDiscountModel().toJson()
-  //             });
-  //             CustomerBalanceBloc balanceBloc =
-  //                 BlocProvider.of<CustomerBalanceBloc>(context);
-  //             balanceBloc.add(customer);
-  //           }
-  //         }, (error) {
-  //           ErrorFuncs(context).errRegisterClose(errorInfo: {'info': error});
-  //         });
-  //       });
-  //     } else {
-  //       ConstDialog(context)
-  //           .showErrorDialog(error: "Please select payment method");
-  //     }
-  //   }
-  // }
   onFinalizeInvoice(
       {required LoggedInUser loggedInUser,
       required Location location,
@@ -1072,252 +612,201 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
       } else {
         ConstDialog(context).showErrorDialog(error: "Please select payment method");
       }
-
-      // CustomerBloc customerBloc = BlocProvider.of<CustomerBloc>(context);
-      // cartBloc.add(CartClearProductEvent());
     } else {
       if (FunctionProduct.checkAllPaymentMethodsSelected(methodListWidget)) {
-        var cardContain = methodListWidget.any((method) => method.method.toString().toLowerCase() == "card");
+        try {
+          // Create a DEEP COPY of card methods to process
+          final cardMethodsToProcess = methodListWidget.where((element) => element.method == "card").map((e) => PaymentListMethod.fromJson(e.toJson())).toList();
 
-        var cardMethod = methodListWidget.where((element) => element.method == "card").toList();
+          int successfulTransactions = 0;
+          double totalPaid = 0.0;
+          bool hasErrors = false;
+          List<PaymentListMethod> successfullyProcessed = [];
+          double tempPaidAmount = 0.0;
 
-        int successfulTransactions = 0;
-        for (int i = cardMethod.length - 1; i >= 0; i--) {
-          double amount = double.parse(cardMethod[i].amount ?? "0.0");
-          print("amount nooo: $amount");
-          String res = await perFormCardTransaction(
-            cardAmount: amount,
-            loggedInUser: loggedInUser,
-            payload: payload,
-            customerModel: customerModel,
-            pnRefNum: pnRefNum,
-            settingsModel: settingsModel,
-          );
+          // Process each transaction in the independent copy
+          for (var method in cardMethodsToProcess) {
+            try {
+              // Validate amount exists and is valid
+              if (method.amount == null || method.amount!.isEmpty) {
+                log("Empty amount for card transaction - skipping");
+                hasErrors = true;
+                continue;
+              }
 
-          if (res == "000000" || res == "0" || res == "OK") {
-            afterPayPrice += amount;
-            setState(() {
-              methodListWidget.remove(cardMethod[i]);
-              remainingBalance -= amount;
-              successfulTransactions++;
-            });
-            _refreshPaymentDetails();
-          } else {
-            ConstDialog(context).showErrorDialog(error: "Transaction failed for amount: \$${amount.toStringAsFixed(2)}. Please try again.");
-            setLoading(false);
-            return;
-          }
-        }
-        if (remainingBalance <= 0.0) {
-          setState(() {
-            remainingBalance = 0.0;
-          });
-        }
+              double amount;
+              try {
+                amount = double.parse(method.amount!);
+                if (amount <= 0) {
+                  throw FormatException("Amount must be positive");
+                }
+              } catch (e) {
+                log("Invalid amount format: ${method.amount}");
+                hasErrors = true;
+                continue;
+              }
 
-        if (successfulTransactions == cardMethod.length) {
-          CartBloc cartBloc = BlocProvider.of<CartBloc>(context);
-          // cartBloc.add(CartClearProductEvent());
-          payload.transactionPaxDeviceId = "0";
+              log("Processing transaction with amount: ${amount.toStringAsFixed(2)}");
 
-          TotalDiscountBloc bloc = BlocProvider.of<TotalDiscountBloc>(context);
-          // bloc.add(null);
-          await PlaceOrder().placeOrder(context, payload).then((result) async {
-            cartBloc.add(CartClearProductEvent());
-            bloc.add(null);
+              // Process the transaction with timeout
+              String res = await perFormCardTransaction(
+                cardAmount: amount,
+                loggedInUser: loggedInUser,
+                payload: payload,
+                customerModel: customerModel,
+                pnRefNum: pnRefNum,
+                settingsModel: settingsModel,
+              ).timeout(const Duration(seconds: 30));
 
-            result.fold((invoice) async {
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SuccessTransaction(invoice: invoice)));
-
-              await displayManager.transferDataToPresentation({'type': 'discount', 'discount': TotalDiscountModel().toJson()});
-              await displayManager.transferDataToPresentation({
-                'type': 'successTransaction',
-                'successTransaction': invoice.toJson(),
-              });
-
-              await displayManager.transferDataToPresentation({
-                'type': 'customerData',
-                'customerData': customerModel.toJson(),
-              });
-
-              await displayManager.transferDataToPresentation({
-                'type': 'settingsData',
-                'settingsData': settingsModel.toJson(),
-              });
-
-              log("method list $methodListWidget");
-
-              var isCashMethod = methodListWidget.any((method) => method.method.toString().toLowerCase() == "cash");
-
-              if (isCashMethod) {
-                log("Card method found in methodListWidget.");
-                MyPlatformFunctions.cashDrawerOpen();
+              if (res == "000000" || res == "0" || res == "OK") {
+                remainingBalance = 0.0;
+                successfulTransactions++;
+                // totalPaid += amount;
+                tempPaidAmount += double.parse(method.amount!);
+                successfullyProcessed.add(method); // Track successful transactions
+                if (mounted) {
+                  setState(() {
+                    // afterPayPrice = totalPaid; // Update paid amount in UI
+                    afterPayPrice = tempPaidAmount;
+                    remainingBalance = widget.totalAmount! - totalPaid;
+                    if (remainingBalance <= 0.0) {
+                      remainingBalance = 0.0;
+                    }
+                  });
+                }
+                log("Transaction successful: $amount");
               } else {
-                log("No card method found in methodListWidget.");
-              }
+                remainingBalance = 0.0;
+                setState(() {
 
-              if (mounted) {
-                final customer = await CustomerBalanceService.getCustomerBalance(context, int.parse(customerModel.id.toString()));
-                // log('PDF Path: $path'); // Added for debugging
-                await displayManager.transferDataToPresentation({'type': 'discount', 'discount': TotalDiscountModel().toJson()});
-                CustomerBalanceBloc balanceBloc = BlocProvider.of<CustomerBalanceBloc>(context);
-                balanceBloc.add(customer);
+                });
+                log("Transaction failed with response: $res");
+                hasErrors = true;
+                // Don't process further transactions if one fails
+                break;
               }
-            }, (error) {
-              ErrorFuncs(context).errRegisterClose(errorInfo: {'info': error});
+            } catch (e) {
+              remainingBalance = 0.0;
+              setState(() {
+
+              });
+              log("Transaction processing error: $e");
+              hasErrors = true;
+              if (e is TimeoutException && mounted) {
+                await ConstDialog(context).showErrorDialog(error: "Transaction timed out");
+              }
+              // Don't process further transactions if one fails
+              break;
+            }
+          }
+
+          // Update UI only after all transactions are processed
+          if (mounted) {
+            setState(() {
+              // Remove only successfully processed transactions
+              for (var method in successfullyProcessed) {
+                methodListWidget.removeWhere((m) => m.method == method.method && m.amount == method.amount && m.cardType == method.cardType);
+              }
+              afterPayPrice = tempPaidAmount;
+              remainingBalance = widget.totalAmount! - tempPaidAmount;
+              if (remainingBalance <= 0.0) {
+                remainingBalance = 0.0;
+              }
             });
-          });
-        } else {
-          print("One or more transactions failed. Navigation aborted.");
-          ConstDialog(context).showErrorDialog(error: "Transaction failed. Please try again.");
+          }
+
+          // Handle completion only if all transactions succeeded
+          if (!hasErrors && successfullyProcessed.length == cardMethodsToProcess.length) {
+            CartBloc cartBloc = BlocProvider.of<CartBloc>(context);
+            payload.transactionPaxDeviceId = "0";
+
+            if (mounted) {
+              {
+                // setState(() {
+                //   // afterPayPrice = tempPaidAmount;
+                //   // Remove successful transactions
+                //   methodListWidget.removeWhere((m) => successfullyProcessed.contains(m));
+                //   remainingBalance = widget.totalAmount! - tempPaidAmount;
+                //   if (remainingBalance <= 0.0) {
+                //     remainingBalance = 0.0;
+                //   }
+                // });
+
+                CartBloc cartBloc = BlocProvider.of<CartBloc>(context);
+                // cartBloc.add(CartClearProductEvent());
+                payload.transactionPaxDeviceId = "0";
+
+                TotalDiscountBloc bloc = BlocProvider.of<TotalDiscountBloc>(context);
+                // bloc.add(null);
+                await PlaceOrder().placeOrder(context, payload).then((result) async {
+                  cartBloc.add(CartClearProductEvent());
+                  bloc.add(null);
+
+                  result.fold((invoice) async {
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SuccessTransaction(invoice: invoice)));
+
+                    await displayManager.transferDataToPresentation({'type': 'discount', 'discount': TotalDiscountModel().toJson()});
+                    await displayManager.transferDataToPresentation({
+                      'type': 'successTransaction',
+                      'successTransaction': invoice.toJson(),
+                    });
+
+                    await displayManager.transferDataToPresentation({
+                      'type': 'customerData',
+                      'customerData': customerModel.toJson(),
+                    });
+
+                    await displayManager.transferDataToPresentation({
+                      'type': 'settingsData',
+                      'settingsData': settingsModel.toJson(),
+                    });
+
+                    log("method list $methodListWidget");
+
+                    var isCashMethod = methodListWidget.any((method) => method.method.toString().toLowerCase() == "cash");
+
+                    if (isCashMethod) {
+                      log("Card method found in methodListWidget.");
+                      MyPlatformFunctions.cashDrawerOpen();
+                    } else {
+                      log("No card method found in methodListWidget.");
+                    }
+
+                    if (mounted) {
+                      final customer = await CustomerBalanceService.getCustomerBalance(context, int.parse(customerModel.id.toString()));
+                      // log('PDF Path: $path'); // Added for debugging
+                      await displayManager.transferDataToPresentation({'type': 'discount', 'discount': TotalDiscountModel().toJson()});
+                      CustomerBalanceBloc balanceBloc = BlocProvider.of<CustomerBalanceBloc>(context);
+                      balanceBloc.add(customer);
+                    }
+                  }, (error) {
+                    ErrorFuncs(context).errRegisterClose(errorInfo: {'info': error});
+                  });
+                });
+              }
+            }
+          } else if (hasErrors && mounted) {
+            remainingBalance = 0.0;
+            setState(() {
+
+            });
+            await ConstDialog(context).showErrorDialog(error: "Could not complete all transactions. Please check payments.");
+          }
+        } catch (e) {
+          log("Fatal error in transaction processing: $e");
+          if (mounted) {
+            await ConstDialog(context).showErrorDialog(error: "A system error occurred. Please restart the process.");
+          }
+        } finally {
+          if (mounted) {
+            setLoading(false);
+          }
         }
       } else {
         ConstDialog(context).showErrorDialog(error: "Please select payment method");
       }
     }
   }
-
-//   onFinalizePayment(
-//       {required LoggedInUser loggedInUser,
-//       required Location location,
-//       required CustomerModel customerModel,
-//       required PricingGroup pricing,
-//       required TotalDiscountModel totalDiscountModel,
-//       required TaxModel taxModel,
-//       required SettingsModel settingsModel,
-//       required List<Product> productList,
-//       required bool isConnected}) async {
-//     Transaction payload = Transaction(
-//         userId: loggedInUser.id,
-//         businessId: loggedInUser.businessId,
-//         locationId: location.id,
-//         contactId: customerModel.id,
-//         transactionDate: DateFormat('yyyy-MM-dd hh:mm').format(DateTime.now()),
-//         priceGroup: int.parse(pricing.id.toString()),
-//         product: productList,
-//         discountType: totalDiscountModel.type,
-//         discountAmount: totalDiscountModel.amount == null
-//             ? 0.0
-//             : double.parse(totalDiscountModel.amount.toString()),
-//         totalAmountBeforeTax: widget.totalAmountBeforeDisc,
-//         taxRateId: taxModel.taxId,
-//         taxCalculationPercentage: taxModel.amount == null
-//             ? 0.0
-//             : double.parse(taxModel.amount.toString()),
-//         taxCalculationAmount: widget.totalAmount!.toDouble() -
-//             widget.amountWithOutTax!.toDouble(),
-//         orderTaxModal: int.parse(taxModel.taxId.toString()),
-//         discountTypeModal: totalDiscountModel.type,
-//         discountAmountModal: totalDiscountModel.amount == null
-//             ? 0.0
-//             : double.parse(totalDiscountModel.amount.toString()),
-//         enableRp: settingsModel.enableRp,
-//         amountForUnitRp: settingsModel.amountForUnitRp,
-//         redeemAmountPerUnitRp: settingsModel.redeemAmountPerUnitRp.toString(),
-//         saleNote: sellController.text,
-//         staffNote: staffController.text,
-//         userLocation: loggedInUser.locations,
-//         payment: methodListWidget.map((e) => e.toJson()).toList(),
-//         changeReturn: (widget.totalAmount!.toDouble() < total()
-//                 ? total() - widget.totalAmount!.toDouble()
-//                 : 0.0)
-//             .toString(),
-//         rpRedeemed: totalDiscountModel.points.toString(),
-//         rpRedeemedDiscountTypes: "Fixed",
-//         customerId:
-//             customerModel.id == '1' && firstNameController.text.isNotEmpty
-//                 ? '0'
-//                 : customerModel.id,
-//         customerEmail: emailAddressController.text,
-//         customerFirstName: firstNameController.text,
-//         customerPhone: phoneController.text);
-
-//     log("totalamount : ${widget.totalAmount?.toDouble()}");
-//     log('${payload.toJson()}');
-// if(FunctionProduct.checkAllPaymentMethodsSelected(methodListWidget)){}else{}
-//     if (!isConnected) {
-//       final uuid = const Uuid().v1().substring(1, 6);
-//       final uniqueKey = '$uuid-${loggedInUser.id}';
-//       Transaction transaction = payload..offlineInvoiceNo = uniqueKey;
-
-//       final invoice = await LocalTransaction()
-//           .addToLocal(transaction: transaction, context: context);
-
-//       if (invoice.offlineInvoiceNo != null) {
-//         CartBloc cartBloc = BlocProvider.of<CartBloc>(context);
-//         cartBloc.add(CartClearProductEvent());
-//         var isCardMethod = methodListWidget
-//             .any((method) => method.method.toString().toLowerCase() == "cash");
-
-//         if (isCardMethod) {
-//           log("Card method found in methodListWidget.");
-//           await MyPlatformFunctions.cashDrawerOpen();
-//         } else {
-//           log("No card method found in methodListWidget.");
-//         }
-
-//         TotalDiscountBloc bloc = BlocProvider.of<TotalDiscountBloc>(context);
-//         bloc.add(null);
-//         // Navigator.of(context)
-//         //     .push(MaterialPageRoute(
-//         //         builder: (context) => PdfPreviewPage(
-//         //               invoice: invoice,
-//         //               openFrom: 'invoice',
-//         //             )))
-//         //     .whenComplete(() =>);
-//         Navigator.of(context).pop();
-//         Future.delayed(const Duration(seconds: 1), () {});
-//       }
-//     } else {
-//       CartBloc cartBloc = BlocProvider.of<CartBloc>(context);
-//       cartBloc.add(CartClearProductEvent());
-
-//       TotalDiscountBloc bloc = BlocProvider.of<TotalDiscountBloc>(context);
-//       bloc.add(null);
-
-//       await PlaceOrder().placeOrder(context, payload).then((result) async {
-//         result.fold((invoice) async {
-//           final path =
-//               await GenerateInvoice.printInvoice(invoiceModel: invoice);
-
-//           // Navigator.push(
-//           //         context,
-//           //         MaterialPageRoute(
-//           //             builder: (context) => PdfPreviewPage(
-//           //                   openFrom: 'invoice',
-//           //                   invoice: invoice,
-//           //                 )))
-//           log('PDF Path: $path');
-//           var isCardMethod = methodListWidget.any(
-//               (method) => method.method.toString().toLowerCase() == "cash");
-
-//           if (isCardMethod) {
-//             log("Card method found in methodListWidget.");
-//             await openCashDrawer(context);
-//           } else {
-//             log("No card method found in methodListWidget.");
-//           }
-
-//           if (mounted) {
-//             await printPdf(path: path, context: context).whenComplete(() async {
-//               final customer = await CustomerBalanceService.getCustomerBalance(
-//                   context, int.parse(customerModel.id.toString()));
-//               // log('PDF Path: $path'); // Added for debugging
-//               ListCustomerBloc customerListBloc =
-//                   BlocProvider.of<ListCustomerBloc>(context);
-//               CustomerBloc customerBloc =
-//                   BlocProvider.of<CustomerBloc>(context);
-//               customerBloc.add(customerListBloc.state.first);
-//               CustomerBalanceBloc balanceBloc =
-//                   BlocProvider.of<CustomerBalanceBloc>(context);
-//               balanceBloc.add(customer);
-//             }).whenComplete(() => Navigator.of(context).pop());
-//           }
-//         }, (error) {
-//           ErrorFuncs(context).errRegisterClose(errorInfo: {'info': error});
-//         });
-//       });
-//     }
-//   }
 
   Widget addMethodButton() {
     return BlocBuilder<PaymentListBloc, List<PaymentMethod>>(
@@ -1344,28 +833,6 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
     );
   }
 
-  // void onAddPaymentMethod(List<PaymentMethod> listMethods) {
-  //   print("list method jai: ${listMethods.length}");
-  //   setState(() {
-  //     for (var i in listMethods) {
-  //       print("list method name hai: ${i.name} | ${i.type}");
-  //       bool available = methodListWidget.any(
-  //         (element) => element.methodType?.type == i.type,
-  //       );
-  //       if (available) {
-  //         continue;
-  //       } else {
-  //         methodListWidget.add(PaymentListMethod(method: i.type, methodType: PaymentMethod(type: i.type, name: i.type)));
-  //       }
-  //     }
-  //     // methodListWidget.add();
-  //   });
-  //   Future.delayed(const Duration(milliseconds: 100), () {
-  //     _refreshPaymentDetails();
-  //   });
-  // }
-
-  //new
   void onAddPaymentMethod(List<PaymentMethod> listMethods) {
     setState(() {
       // double remainingBalance = widget.totalAmount! - total();
@@ -1464,8 +931,8 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
 
           CartBloc cartBloc = BlocProvider.of<CartBloc>(context);
           TotalDiscountBloc bloc = BlocProvider.of<TotalDiscountBloc>(context);
-          // cartBloc.add(CartClearProductEvent());
-          // bloc.add(null);
+// cartBloc.add(CartClearProductEvent());
+// bloc.add(null);
           log('This is payload while sending place order: ${payload.toJson()}');
           setLoading(true);
           return response["resultCode"];
@@ -1555,7 +1022,7 @@ class _MethodTypeWidget extends State<MethodTypeWidget> {
 
   void _refreshPaymentDetails() {
     setState(() {
-      // Force the widget to rebuild
+// Force the widget to rebuild
       log('Payment Details Refreshed');
     });
   }
@@ -1568,59 +1035,68 @@ class _MethodTypeWidget extends State<MethodTypeWidget> {
     widget.methodType = null;
     getCashDenominations();
 
-    // Initialize the amountController.text with default value
+// Initialize the amountController.text with default value
     String amountText = '0.00';
 
-    // Check if totalAmount is 0.0 or not
+    log('Initial values - totalAmount: ${widget.totalAmount}, afterPayPrice: ${widget.afterPayPrice}, paymentMethod.amount: ${widget.paymentMethod.amount}');
+
+// Check if totalAmount is 0.0 or not
     if (widget.totalAmount != null && widget.totalAmount == 0.0) {
-      // Use paymentMethod.amount when totalAmount is 0.0
+// Use paymentMethod.amount when totalAmount is 0.0
       if (widget.paymentMethod.amount != null) {
         try {
           amountText = (double.parse(widget.paymentMethod.amount.toString()) - widget.afterPayPrice).toStringAsFixed(2);
         } catch (e) {
-          // Handle parsing error, use default value
+// Handle parsing error, use default value
           log('Error parsing paymentMethod.amount: $e');
         }
       }
     } else if (widget.totalAmount != null) {
-      // Use totalAmount when it's greater than 0.0
+// Use totalAmount when it's greater than 0.0
       try {
-        amountText = (double.parse(widget.totalAmount.toString()) - widget.afterPayPrice).toStringAsFixed(2);
-        widget.paymentMethod.amount = amountText.toString(); // Update amoun+t in paymentMethod
+        log('after cancel: totalAmount: ${widget.totalAmount.toString()} & afterPayPrice: ${widget.afterPayPrice}');
+
+        if (widget.afterPayPrice > 0) {
+          log("afterPayPrice is greater then zero");
+          // amountText = (double.parse(widget.totalAmount.toString()) - widget.afterPayPrice).toStringAsFixed(2);
+          amountText = widget.afterPayPrice == 0 ? (double.parse(widget.totalAmount.toString()) - widget.afterPayPrice).toStringAsFixed(2) : widget.paymentMethod.amount.toString();
+        } else if (widget.paymentMethod.amount != null && widget.paymentMethod.amount!.isNotEmpty) {
+          log("paymentMethod aount is not null | ${widget.paymentMethod.amount!.toString()}");
+          amountText = widget.paymentMethod.amount!.toString();
+        } else if (widget.totalAmount != null) {
+          log("totalAmount is not null | ${widget.totalAmount!.toStringAsFixed(2)}");
+          amountText = widget.totalAmount!.toStringAsFixed(2);
+        }
       } catch (e) {
-        // Handle parsing error, use default value
+// Handle parsing error, use default value
         log('Error parsing totalAmount: $e');
       }
     }
     amountController.text = amountText;
+    widget.paymentMethod.amount = amountText.toString();
+
     setState(() {
       widget.paymentMethod.cardType = selectedCardType;
     });
 
     log('amount of Balance ${amountController.text}');
+    log('Final amount in paymentMethod: ${widget.paymentMethod.amount}');
   }
 
   void _onDenominationPressed(double denomination) {
     setState(() {
-      // Add the clicked denomination to the current amount
+// Add the clicked denomination to the current amount
       currentAmount = denomination;
-      // Update the amountController with the new amount
+// Update the amountController with the new amount
       amountController.text = currentAmount.toStringAsFixed(2);
       widget.paymentMethod.amount = double.parse(currentAmount.toString()).toStringAsFixed(2);
 
-      // Debugging output
+// Debugging output
       log('Current Amount: $currentAmount');
       log('Amount Controller Text: ${amountController.text}');
       log('Payment Method Amount: ${widget.paymentMethod.amount}');
     });
   }
-
-  // void _refreshPaymentDetails() {
-  //   setState(() {
-  //     // Force the widget to rebuild
-  //     log('Payment Details Refreshed');
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -1769,11 +1245,11 @@ class _MethodTypeWidget extends State<MethodTypeWidget> {
             Expanded(
               child: Row(
                 children: paymentList.map((e) {
-                  // Check if this method is already in use elsewhere in the list
+// Check if this method is already in use elsewhere in the list
                   bool isSelectedInList =
                       widget.methodList != null && widget.methodList!.any((selected) => selected.methodType?.type == e.type && selected != widget.paymentMethod);
 
-                  // Check if this specific method is selected for this widget
+// Check if this specific method is selected for this widget
                   bool isSelected = widget.paymentMethod.methodType?.type == e.type;
 
                   return Expanded(
@@ -1794,17 +1270,17 @@ class _MethodTypeWidget extends State<MethodTypeWidget> {
                         ),
                         onPressed: () {
                           if (isSelectedInList && isSelected) {
-                            // Show error if method is already selected elsewhere
+// Show error if method is already selected elsewhere
                             ConstDialog(context).showErrorDialog(
                               error: "${e.type} already selected",
                             );
                           } else {
                             setState(() {
                               if (isSelected) {
-                                // Unselect if already selected
+// Unselect if already selected
                                 onMethodChanged(paymentList, null);
                               } else {
-                                // Select the new method
+// Select the new method
                                 onMethodChanged(paymentList, e.type);
                               }
                             });
@@ -1932,7 +1408,7 @@ class _MethodTypeWidget extends State<MethodTypeWidget> {
           height: 5.0,
         ),
         CustomInputField(
-            // enabled: true,
+// enabled: true,
             hintText: 'CVV2',
             labelText: '*',
             controller: cardSecurity,
@@ -1968,7 +1444,7 @@ class _MethodTypeWidget extends State<MethodTypeWidget> {
       SizedBox(
         width: 120,
         child: CustomInputField(
-            // enabled: true,
+// enabled: true,
             hintText: 'CVV2',
             labelText: '*',
             controller: cardSecurity,
@@ -2007,7 +1483,7 @@ class _MethodTypeWidget extends State<MethodTypeWidget> {
               hintText: 'Note',
               controller: paymentNoteController,
               onChanged: onPaymentControllerChanged,
-              // maxLines: 3,
+// maxLines: 3,
             ))
           ],
         ),
@@ -2035,9 +1511,9 @@ class _MethodTypeWidget extends State<MethodTypeWidget> {
                                 setState(() {
                                   double denominationValue = double.tryParse(denomination) ?? 0.0;
                                   _onDenominationPressed(denominationValue);
-                                  // denominationCounts[denomination] =
-                                  //     (denominationCounts[denomination] ?? 0) +
-                                  //         1;
+// denominationCounts[denomination] =
+//     (denominationCounts[denomination] ?? 0) +
+//         1;
                                 });
                               },
                               icon: const FaIcon(FontAwesomeIcons.moneyBill1),
@@ -2056,24 +1532,6 @@ class _MethodTypeWidget extends State<MethodTypeWidget> {
                             ),
                           ),
                         ),
-                        // Display the count in the top-right corner
-                        // if (denominationCounts[denomination] != null)
-                        //   Positioned(
-                        //     top: 2.5,
-                        //     right: 2.5,
-                        //     child: CircleAvatar(
-                        //       radius: 10.0,
-                        //       backgroundColor: Colors.red,
-                        //       child: Text(
-                        //         denominationCounts[denomination]?.toString() ??
-                        //             '0',
-                        //         style: const TextStyle(
-                        //           color: Colors.white,
-                        //           fontSize: 12.0,
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ),
                       ],
                     ),
                   );
@@ -2105,7 +1563,7 @@ class _MethodTypeWidget extends State<MethodTypeWidget> {
 
   void onAmountChanged(String? value) {
     setState(() {
-      // Update the amount in the current payment method
+// Update the amount in the current payment method
       widget.paymentMethod.amount = value;
     });
   }
@@ -2195,12 +1653,12 @@ class _MethodTypeWidget extends State<MethodTypeWidget> {
   void onMethodChanged(List<PaymentMethod> paymentList, String? value) {
     setState(() {
       if (value == null) {
-        // Deselect case
+// Deselect case
         widget.paymentMethod.method = null;
         widget.paymentMethod.methodType = null;
         widget.methodType = null;
       } else {
-        // Select a method from paymentList
+// Select a method from paymentList
         final selectedMethod = paymentList.firstWhere(
           (method) => method.type == value,
           orElse: () => PaymentMethod(type: value), // Fallback
