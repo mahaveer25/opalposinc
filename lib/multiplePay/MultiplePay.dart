@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'dart:math' as imath;
 import 'dart:typed_data';
 
+import 'package:dartz/dartz_unsafe.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -368,16 +369,18 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
           paymentMethod: method,
           totalAmount: balance,
           onTap: () {
-            setState(() {
-              methodListWidget.removeAt(index);
-              isCardMethod = true;
-              methodListWidget[index].amount = "";
-              log("on cancel click: ${widget.totalAmount}");
+            if(methodListWidget.length != 1){
+              setState(() {
+                methodListWidget.removeAt(index);
+                isCardMethod = true;
+                methodListWidget[index].amount = "";
+                log("on cancel click: ${widget.totalAmount}");
 
-              // (method.methodType?.toString().toLowerCase().trim() ==
-              //         "card" ||
-              //     method.method?.toString().toLowerCase().trim() == "card");
-            });
+                // (method.methodType?.toString().toLowerCase().trim() ==
+                //         "card" ||
+                //     method.method?.toString().toLowerCase().trim() == "card");
+              });
+            }
           },
           methodList: methodListWidget,
           afterPayPrice: afterPayPrice,
@@ -476,26 +479,28 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
                                                 fixedSize: const Size(300, 60)),
                                             onPressed: _isLoading
                                                 ? null
-                                                : () async {
-                                                    setLoading(true); // Start loading
-                                                    // TotalDiscountBloc bloc = BlocProvider.of<TotalDiscountBloc>(context);
-                                                    // bloc.add(null);
-                                                    // await displayManager.transferDataToPresentation({'type': 'discount', 'discount': TotalDiscountModel().toJson()});
-                                                    FunctionProduct.disappearBackSuccessTransitionScreen();
-                                                    await onFinalizeInvoice(
-                                                      loggedInUser: loggedInUser!,
-                                                      location: location!,
-                                                      customerModel: customer!,
-                                                      pricing: pricing!,
-                                                      totalDiscountModel: discount ?? TotalDiscountModel(),
-                                                      taxModel: tax!,
-                                                      productList: cart.listProduct,
-                                                      settingsModel: settingsModel!,
-                                                      isConnected: isConnected,
-                                                    );
-                                                    setLoading(false);
-                                                    // End loading
-                                                  },
+                                                : total() == 0
+                                                    ? null
+                                                    : () async {
+                                                        setLoading(true); // Start loading
+                                                        // TotalDiscountBloc bloc = BlocProvider.of<TotalDiscountBloc>(context);
+                                                        // bloc.add(null);
+                                                        // await displayManager.transferDataToPresentation({'type': 'discount', 'discount': TotalDiscountModel().toJson()});
+                                                        FunctionProduct.disappearBackSuccessTransitionScreen();
+                                                        await onFinalizeInvoice(
+                                                          loggedInUser: loggedInUser!,
+                                                          location: location!,
+                                                          customerModel: customer!,
+                                                          pricing: pricing!,
+                                                          totalDiscountModel: discount ?? TotalDiscountModel(),
+                                                          taxModel: tax!,
+                                                          productList: cart.listProduct,
+                                                          settingsModel: settingsModel!,
+                                                          isConnected: isConnected,
+                                                        );
+                                                        setLoading(false);
+                                                        // End loading
+                                                      },
                                             child: _isLoading
                                                 ? const SizedBox(
                                                     width: 24,
@@ -677,9 +682,7 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
                 log("Transaction successful: $amount");
               } else {
                 remainingBalance = 0.0;
-                setState(() {
-
-                });
+                setState(() {});
                 log("Transaction failed with response: $res");
                 hasErrors = true;
                 // Don't process further transactions if one fails
@@ -687,9 +690,7 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
               }
             } catch (e) {
               remainingBalance = 0.0;
-              setState(() {
-
-              });
+              setState(() {});
               log("Transaction processing error: $e");
               hasErrors = true;
               if (e is TimeoutException && mounted) {
@@ -787,9 +788,7 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
             }
           } else if (hasErrors && mounted) {
             remainingBalance = 0.0;
-            setState(() {
-
-            });
+            setState(() {});
             await ConstDialog(context).showErrorDialog(error: "Could not complete all transactions. Please check payments.");
           }
         } catch (e) {
@@ -834,37 +833,83 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
   }
 
   void onAddPaymentMethod(List<PaymentMethod> listMethods) {
+    log("list: ${methodListWidget.length}");
     setState(() {
-      // double remainingBalance = widget.totalAmount! - total();
-      // final balance = imath.max(0.0, remainingBalance - total());
+      // Calculate remaining balance
       final balance = imath.max(0.0, remainingBalance - total());
-      print("balance is: $balance");
-      if (balance >= 1.0) {
-        PaymentMethod? availableMethod;
-        for (var method in listMethods) {
-          bool alreadyExists = methodListWidget.any(
-            (element) => element.methodType?.type == method.type,
-          );
+      log("balance is: $balance");
 
-          if (!alreadyExists) {
-            availableMethod = method;
-            break;
-            // continue;
-          }
-        }
-        if (availableMethod != null) {
-          methodListWidget.add(PaymentListMethod(method: availableMethod.type, methodType: availableMethod));
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('All payment methods already added')));
-        }
+      // Check if balance is sufficient
+      if (balance < 1.0) {
+        _showError('No remaining balance to split');
+        return;
+      }
+
+      // Validate all existing splits
+      if (!_areAmountsValid() || !_areMethodsSelected()) {
+        return;
+      }
+
+      // Ensure at least one method is card or cash
+      if (!_hasCardOrCashMethod() && methodListWidget.isNotEmpty) {
+        _showError('At least one split must use Card or Cash payment');
+        return;
+      }
+
+      // Find the next available payment method
+      PaymentMethod? availableMethod = _findAvailableMethod(listMethods);
+
+      if (availableMethod != null) {
+        methodListWidget.add(
+          PaymentListMethod(
+            method: availableMethod.type,
+            methodType: availableMethod,
+          ),
+        );
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('No remaining balance to split')));
+        _showError('All payment methods already added');
       }
     });
 
-    Future.delayed(const Duration(milliseconds: 100), () {
-      _refreshPaymentDetails();
-    });
+    // Refresh payment details
+    Future.delayed(const Duration(milliseconds: 100), _refreshPaymentDetails);
+  }
+
+  void _showError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  bool _areAmountsValid() {
+    for (var split in methodListWidget) {
+      if (split.amount == null || split.amount!.isEmpty || int.parse(split.amount!) <= 0) {
+        _showError('Please enter valid amounts (>0) for all splits');
+        return false;
+      }
+    }
+    return true;
+  }
+
+  bool _areMethodsSelected() {
+    for (var split in methodListWidget) {
+      if (split.method == null || split.method!.isEmpty) {
+        _showError('Please select payment methods for all existing splits first');
+        return false;
+      }
+    }
+    return true;
+  }
+
+  bool _hasCardOrCashMethod() {
+    return methodListWidget.any((split) => split.method == "card" || split.method == "cash");
+  }
+
+  PaymentMethod? _findAvailableMethod(List<PaymentMethod> listMethods) {
+    for (var method in listMethods) {
+      if (!methodListWidget.any((element) => element.methodType?.type == method.type)) {
+        return method;
+      }
+    }
+    return null;
   }
 
   void showCustomerDetailsDialog(BuildContext context, InvoiceModel invoice) {
@@ -1116,61 +1161,84 @@ class _MethodTypeWidget extends State<MethodTypeWidget> {
               builder: (context, location) {
                 return BlocBuilder<LoggedInUserBloc, LoggedInUser?>(
                   builder: (context, loggedInUser) {
-                    return Material(
-                        color: const Color.fromARGB(73, 174, 174, 174),
-                        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
-                        child: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [IconButton(onPressed: widget.onTap, icon: const Icon(Icons.close))],
-                              ),
-                              selectionMethodRow(
-                                paymentList: listMethods,
-                              ),
-                              const SizedBox(
-                                height: 5.0,
-                              ),
-                              if (widget.paymentMethod.method == 'card') cardState,
-                              const SizedBox(
-                                height: 5.0,
-                              ),
-                              if (widget.paymentMethod.method == 'cheque') chequeWidget(),
-                              if (widget.paymentMethod.method == 'Bank Transfer') bankTransferWidget(),
-                              const SizedBox(
-                                height: 5.0,
-                              ),
-                              paymentNote(),
-                              if (widget.paymentMethod.method == 'card')
-                                Column(
-                                  children: [
-                                    const SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.end,
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Material(
+                            color: const Color.fromARGB(73, 174, 174, 174),
+                            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [IconButton(onPressed: widget.onTap, icon: const Icon(Icons.close))],
+                                  ),
+                                  selectionMethodRow(
+                                    paymentList: listMethods,
+                                  ),
+                                  const SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  if (widget.paymentMethod.method == 'card') cardState,
+                                  const SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  if (widget.paymentMethod.method == 'cheque') chequeWidget(),
+                                  if (widget.paymentMethod.method == 'Bank Transfer') bankTransferWidget(),
+                                  const SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  paymentNote(),
+                                  if (widget.paymentMethod.method == 'card')
+                                    Column(
                                       children: [
-                                        const Spacer(),
-                                        Builder(builder: (context) {
-                                          if (doCharge == true) {
-                                            return const Padding(
-                                              padding: EdgeInsets.all(15.0),
-                                              child: SizedBox(width: 30.0, height: 30.0, child: CircularProgressIndicator()),
-                                            );
-                                          }
+                                        const SizedBox(
+                                          height: 5.0,
+                                        ),
+                                        Row(
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          children: [
+                                            const Spacer(),
+                                            Builder(builder: (context) {
+                                              if (doCharge == true) {
+                                                return const Padding(
+                                                  padding: EdgeInsets.all(15.0),
+                                                  child: SizedBox(width: 30.0, height: 30.0, child: CircularProgressIndicator()),
+                                                );
+                                              }
 
-                                          return OutlinedButton(
-                                              onPressed: () => onChargeCard(location: location ?? Location(), loggedInUser: loggedInUser ?? LoggedInUser()),
-                                              child: const Text('CHARGE'));
-                                        })
+                                              return OutlinedButton(
+                                                  onPressed: () => onChargeCard(location: location ?? Location(), loggedInUser: loggedInUser ?? LoggedInUser()),
+                                                  child: const Text('CHARGE'));
+                                            })
+                                          ],
+                                        )
                                       ],
                                     )
-                                  ],
-                                )
-                            ],
-                          ),
-                        ));
+                                ],
+                              ),
+                            )),
+                        const SizedBox(height: 15),
+                        widget.afterPayPrice > 0
+                            ? ElevatedButton(
+                                onPressed: null,
+                                style: ButtonStyle(
+                                  shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      side: BorderSide(color: Colors.grey.shade400, width: 2),
+                                    ),
+                                  ),
+                                ),
+                                child: Text(
+                                  "SALE RETURN",
+                                  style: TextStyle(color: Constant.colorPurple),
+                                ),
+                              )
+                            : const SizedBox.shrink(),
+                      ],
+                    );
                   },
                 );
               },
@@ -1252,6 +1320,8 @@ class _MethodTypeWidget extends State<MethodTypeWidget> {
 // Check if this specific method is selected for this widget
                   bool isSelected = widget.paymentMethod.methodType?.type == e.type;
 
+                  int cardCount = widget.methodList != null ? widget.methodList!.where((selected) => selected.methodType?.type == "card").length : 0;
+
                   return Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -1273,6 +1343,11 @@ class _MethodTypeWidget extends State<MethodTypeWidget> {
 // Show error if method is already selected elsewhere
                             ConstDialog(context).showErrorDialog(
                               error: "${e.type} already selected",
+                            );
+                          } else if (e.type == "card" && cardCount >= 2 && !isSelected) {
+// Restrict selecting more than 2 cards
+                            ConstDialog(context).showErrorDialog(
+                              error: "Maximum 2 cards can be selected for payment",
                             );
                           } else {
                             setState(() {
