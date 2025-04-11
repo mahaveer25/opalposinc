@@ -39,6 +39,8 @@ import 'package:opalposinc/widgets/common/left%20Section/suspended_sales.dart';
 import 'package:opalposinc/widgets/major/left_section.dart';
 import 'package:opalposinc/widgets/major/right_section.dart';
 
+import '../utils/global_variables.dart';
+
 class MobileHomePage extends StatefulWidget {
   const MobileHomePage({super.key});
 
@@ -775,9 +777,11 @@ class _MobileHomePageState extends State<MobileHomePage> {
   void onReturnInvoiceChanged(String? value) {}
 
   void _onSend() async {
+    String storeUrl = GlobalData.storeUrl;
+
     try {
       InvoiceModel? sellReturn = await SellReturnService.getSellRetrunDetails(
-          context, returnInvoiceController.text);
+          context, returnInvoiceController.text, storeUrl);
 
       if (sellReturn != null) {
         showDialog(

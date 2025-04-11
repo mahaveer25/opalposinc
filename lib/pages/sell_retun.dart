@@ -53,7 +53,9 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
   TextEditingController cashAmountController = TextEditingController();
   TextEditingController discountType = TextEditingController();
   TextEditingController date = TextEditingController();
+  String stringTax = '';
   String total = '0.0';
+  String totalAmountString = '0.0';
   double discount = 0.0;
   double tax = 0.0;
   double subTotal = 0.0;
@@ -66,6 +68,8 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
 
   @override
   void initState() {
+    stringTax = (widget.returnsale.taxPercentage.toString())
+        .replaceAll(RegExp(r'[^\d.]'), '');
     discountType.text = (widget.returnsale.discountType) ?? '';
     discountController.text =
         double.parse(widget.returnsale.discountAmount ?? "0.0")
@@ -105,8 +109,18 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
       discount = invoiceDiscount(productList: widget.returnsale.product ?? []);
       tax = taxInvoice(discount: discount == 0.0 ? sum : sum - discount);
       total = ((sum - discount) + tax).toString();
+      totalAmountString = (((sum - discount) + roundToTwo(tax)).toString());
+      log("sum:$sum");
 
-      final totalAmount = double.parse(total);
+      log("discount:$discount");
+      log("discount round off${double.parse(discount.toString()).toStringAsFixed(2)}");
+
+      log("tax:$tax");
+      log("total after discount:$total");
+
+      final totalAmount = double.parse(totalAmountString);
+      log("total:$totalAmountString");
+
       final cashTotal =
           double.parse(CommonFunctions.getCashTotalInReturn(widget.returnsale));
       final cardTotal =
@@ -462,7 +476,7 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                             )),
                           ],
                         ),
-                        Gap(6),
+                        const Gap(6),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -470,14 +484,14 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                             if (cardTotal != 0.0 && cashTotal != 0.00)
                               Column(
                                 children: [
-                                  Gap(6),
+                                  const Gap(6),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      CustomText(
+                                      const CustomText(
                                           text:
                                               "Make return priority based on:"),
-                                      Gap(10),
+                                      const Gap(10),
                                       Radio<String>(
                                         value: "Card",
                                         groupValue: paymentPriority,
@@ -509,19 +523,19 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(
+                                            const Text(
                                               'Card Return',
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            Gap(10),
+                                            const Gap(10),
                                             CustomInputField(
-                                              labelStyle: TextStyle(
+                                              labelStyle: const TextStyle(
                                                   color: Constant.colorBlack),
-                                              inputType: TextInputType
+                                              inputType: const TextInputType
                                                   .numberWithOptions(
-                                                      decimal: true),
+                                                  decimal: true),
                                               hintText: "Card Amount",
                                               labelText: "Max: " +
                                                   CommonFunctions
@@ -534,25 +548,25 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                                           ],
                                         ),
                                       ),
-                                      Gap(6),
+                                      const Gap(6),
                                       Expanded(
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(
+                                            const Text(
                                               'Cash Return',
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            Gap(10),
+                                            const Gap(10),
                                             CustomInputField(
-                                              labelStyle: TextStyle(
+                                              labelStyle: const TextStyle(
                                                   color: Constant.colorBlack),
-                                              inputType: TextInputType
+                                              inputType: const TextInputType
                                                   .numberWithOptions(
-                                                      decimal: true),
+                                                  decimal: true),
                                               hintText: "Cash Amount",
                                               enabled: false,
                                               labelText: "Max: " +
@@ -569,16 +583,16 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                                   ),
                                 ],
                               ),
-                            Gap(5),
+                            const Gap(5),
                             if (CommonFunctions.getWithDrawnMode(
                                     cardTotal, cashTotal) !=
                                 "")
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Withdrawn mode: ",
-                                    style: const TextStyle(),
+                                    style: TextStyle(),
                                     maxLines: 2,
                                   ),
                                   Text(
@@ -603,10 +617,10 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Text("Card return limit: "),
+                                  const Text("Card return limit: "),
                                   Text(
                                     cardTotal.toString(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16),
                                   )
@@ -616,10 +630,10 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Text("Cash return limit: "),
+                                  const Text("Cash return limit: "),
                                   Text(
                                     cashTotal.toString(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16),
                                   )
@@ -628,10 +642,10 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Text("Total Return Discount: "),
+                                const Text("Total Return Discount: "),
                                 Text(
                                   " (-) \$ ${discount.toStringAsFixed(2)}",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16),
                                 )
@@ -641,13 +655,13 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Text(
-                                  "Total Return Tax - (No Tax - 0.00%) : ",
+                                  "Total Return Tax - (${widget.returnsale.taxType} - ${double.parse(stringTax).toStringAsFixed(2)}%) : ",
                                   style: const TextStyle(),
                                   maxLines: 1,
                                 ),
                                 Text(
-                                  " (+) \$ ${tax.toStringAsFixed(2)}",
-                                  style: TextStyle(
+                                  " (+) \$ ${roundToTwo(tax)}",
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16),
                                 )
@@ -656,10 +670,10 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Text("Return Total: "),
+                                const Text("Return Total: "),
                                 Text(
-                                  " \$ ${double.parse(total).toStringAsFixed(2)}",
-                                  style: TextStyle(
+                                  " \$ ${double.parse(totalAmountString).toStringAsFixed(2)}",
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16),
                                 )
@@ -718,7 +732,7 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                                                             loggedInUser ??
                                                                 LoggedInUser(),
                                                         location: location ??
-                                                            Location(),
+                                                            const Location(),
                                                         customerModel:
                                                             customer ??
                                                                 CustomerModel(),
@@ -797,6 +811,10 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
     }
   }
 
+  double roundToTwo(double value) {
+    return (value * 100).round() / 100;
+  }
+
   subtotalProduct({required Product product, required int index}) {
     if (returnQuantityControllers[index].text.isNotEmpty) {
       product.returnQuantity =
@@ -834,9 +852,9 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
 
     if (discount > 0.0) {
       if (widget.returnsale.discountType == "Percentage") {
-        return (sum * (discount / 100));
+        return double.parse((sum * (discount / 100)).toStringAsFixed(2));
       } else {
-        return (discount / subTotal) * sum;
+        return double.parse(((discount / subTotal) * sum).toStringAsFixed(2));
       }
     } else {
       return 0.0;
@@ -848,9 +866,9 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
         .replaceAll(RegExp(r'[^\d.]'), '');
     double totalTax = double.parse(stringTax);
     final tax = (discount / 100) * totalTax;
-    log(discount.toString());
+    log("sumbefortax${discount.toString()}");
     log(tax.toString());
-    return tax;
+    return double.parse(tax.toStringAsFixed(2));
   }
 
   double calculateTotalReturnQuantity() {
@@ -979,7 +997,7 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                 });
               }, (error) {
                 ErrorFuncs(context)
-                    .errRegisterClose(errorInfo: {'info': error});
+                    .errRegisterClose(errorInfo: {'error': error});
               });
             });
           } else {
@@ -990,8 +1008,9 @@ class _SellReturnState extends State<SellReturn> with PrintPDF {
                     "${paxDeviceBloc.state?.deviceName} is not Connected, Kindly select available device",
               );
             } else {
-              ConstDialog(context)
-                  .showErrorDialog(error: response["resultTxt"]);
+              ConstDialog(context).showErrorDialog(
+                  error:
+                      " ${response["resultTxt"]}: ${response["gatewayMessage"]}");
             }
           }
         }

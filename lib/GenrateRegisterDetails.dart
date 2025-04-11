@@ -126,7 +126,7 @@ class GenerateRegisterPdf with PrintPDF {
         ]),
         _buildTableRow([
           'Other Payments:',
-          registerDetails.cashInHand ?? '',
+          registerDetails.totalOther ?? '',
           registerDetails.totalOtherExpense ?? ''
         ]),
       ],
@@ -146,7 +146,7 @@ class GenerateRegisterPdf with PrintPDF {
         _buildTableRow(['Total Sales:', registerDetails.totalSale ?? '']),
         _buildTableRow(['Total Refund', registerDetails.totalRefund ?? '']),
         _buildTableRow(['Total Cash Payment', registerDetails.totalCash ?? '']),
-        _buildTableRow(['Total Payment', registerDetails.totalRefund ?? '']),
+        _buildTableRow(['Total Payment', registerDetails.totalPayment ?? '']),
       ],
     );
   }

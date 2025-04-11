@@ -29,6 +29,7 @@ class PostSellReturn {
       // 'https://$storeUrl.opalpay.us/public/api/sell_return'
       // 'http://localhost/project/opal_pos/public/api/sell_return'
       log("This is url for postSellReturn: ${ApiConstants.getBaseUrl(storeUrl) + ApiConstants.postSell} ");
+      log("This is body for postSellReturn: ${sellPost.toJson()} ");
 
       if (response.statusCode == 200) {
         log('response OK');
@@ -40,7 +41,7 @@ class PostSellReturn {
 
         if (responseData['success'] == true) {
           final model = InvoiceModel.fromJson(responseData['data']);
-          // log('${model.toJson()}');
+          log('${model.toJson()}');
           return Left(model);
         } else {
           ErrorFuncs(context)

@@ -183,58 +183,61 @@ class _RegisterDetilsState extends State<RegisterDetils> with PrintPDF {
                             textAlign: TextAlign.start,
                           ),
                         ),
-                        ElevatedButton(
-                          onPressed: () async {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: ((context) => PdfPreviewPage(
-                            //               registerDetails: registerDetails,
-                            //               openFrom: 'register',
-                            //             ))));
-                            final path = await GenerateRegisterPdf.printInvoice(
-                                registerDetails: registerDetails);
-                            await printPdf(path: path, context: context);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            foregroundColor: Colors.white,
-                            backgroundColor: Constant.colorPurple,
-                            elevation: 5,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6),
+                        if (!isMobile)
+                          ElevatedButton(
+                            onPressed: () async {
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: ((context) => PdfPreviewPage(
+                              //               registerDetails: registerDetails,
+                              //               openFrom: 'register',
+                              //             ))));
+                              final path =
+                                  await GenerateRegisterPdf.printInvoice(
+                                      registerDetails: registerDetails);
+                              await printPdf(path: path, context: context);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              backgroundColor: Constant.colorPurple,
+                              elevation: 5,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                            ),
+                            child: const Text(
+                              'Print',
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
                             ),
                           ),
-                          child: const Text(
-                            'Print',
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
                         const SizedBox(
                           width: 10,
                         ),
-                        closeprint == true
-                            ? const CircularProgressIndicator()
-                            : ElevatedButton(
-                                onPressed: () {
-                                  _closeCashRegister();
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  foregroundColor: Colors.white,
-                                  backgroundColor: Constant.colorPurple,
-                                  elevation: 5,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(6),
+                        if (!isMobile)
+                          closeprint == true
+                              ? const CircularProgressIndicator()
+                              : ElevatedButton(
+                                  onPressed: () {
+                                    _closeCashRegister();
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    foregroundColor: Colors.white,
+                                    backgroundColor: Constant.colorPurple,
+                                    elevation: 5,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                  ),
+                                  child: const Text(
+                                    'Close Register',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                    ),
                                   ),
                                 ),
-                                child: const Text(
-                                  'Close Register',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
                         const SizedBox(
                           width: 30,
                         ),
@@ -410,7 +413,7 @@ class _RegisterDetilsState extends State<RegisterDetils> with PrintPDF {
                                 overflow: TextOverflow.ellipsis,
                               )),
                               DataCell(Text(
-                                registerDetails.totalRefund ?? '',
+                                registerDetails.totalPayment ?? '',
                               )),
                             ],
                           ),
@@ -422,7 +425,7 @@ class _RegisterDetilsState extends State<RegisterDetils> with PrintPDF {
                                 overflow: TextOverflow.ellipsis,
                               )),
                               DataCell(Text(
-                                registerDetails.totalRefund ?? '',
+                                registerDetails.totalExpense ?? '',
                               )),
                             ],
                           ),

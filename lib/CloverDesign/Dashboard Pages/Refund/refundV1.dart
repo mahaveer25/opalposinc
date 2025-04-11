@@ -35,6 +35,7 @@ import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CartBloc.dart';
 import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
 
 import '../../../model/product.dart';
+import '../../../utils/global_variables.dart';
 
 class Refundv1 extends StatefulWidget {
   Refundv1({super.key});
@@ -107,9 +108,11 @@ class _Refundv1State extends State<Refundv1> with PrintPDF {
   }
 
   Future<void> getSellReturn(TextEditingController controller) async {
+    String storeUrl = GlobalData.storeUrl;
+
     try {
       returnsale = await SellReturnService.getSellRetrunDetails(
-          context, controller.text.trim());
+          context, controller.text.trim(), storeUrl);
 
       if (returnsale != null) {
         setState(() {});

@@ -21,6 +21,7 @@ import 'package:opalposinc/widgets/common/left%20Section/new_customer_form.dart'
 import 'package:opalposinc/widgets/common/left%20Section/recent_sale.dart';
 import 'package:opalposinc/widgets/common/left%20Section/suspended_sales.dart';
 
+import '../utils/global_variables.dart';
 import '../widgets/common/Top Section/Bloc/CartBloc.dart';
 
 class NewSideBar extends StatefulWidget {
@@ -229,9 +230,11 @@ class _NewSideBarState extends State<NewSideBar> {
   void onRecentSales() {}
 
   void _onSend() async {
+    String storeUrl = GlobalData.storeUrl;
+
     try {
       InvoiceModel? sellReturn = await SellReturnService.getSellRetrunDetails(
-          context, returnInvoiceController.text);
+          context, returnInvoiceController.text, storeUrl);
 
       if (sellReturn != null) {
         showDialog(

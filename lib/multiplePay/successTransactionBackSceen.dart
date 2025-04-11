@@ -15,7 +15,6 @@ import 'package:opalposinc/multiplePay/PaymentListMethod.dart';
 import 'package:opalposinc/printing.dart';
 import 'package:opalposinc/services/customer_balance.dart';
 import 'package:opalposinc/services/smsSendingService.dart';
-import 'package:opalposinc/utils/constant_dialog.dart';
 import 'package:opalposinc/utils/constants.dart';
 import 'package:opalposinc/widgets/CustomWidgets/CustomIniputField.dart';
 import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
@@ -490,37 +489,37 @@ class _SuccessTransactionState extends State<SuccessTransactionBackScreen>
                     ],
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    // Close Button
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 8.0, right: 8.0, bottom: 8),
-                        child: SizedBox(
-                          height: 45,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Constant.colorPurple,
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 6.0, horizontal: 15.0),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                            ),
-                            onPressed: () => Navigator.pop(context),
-                            child: const Text(
-                              'CLOSE',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 17),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.end,
+                //   children: [
+                //     // Close Button
+                //     Expanded(
+                //       child: Padding(
+                //         padding: const EdgeInsets.only(
+                //             left: 8.0, right: 8.0, bottom: 8),
+                //         child: SizedBox(
+                //           height: 45,
+                //           child: ElevatedButton(
+                //             style: ElevatedButton.styleFrom(
+                //               backgroundColor: Constant.colorPurple,
+                //               padding: const EdgeInsets.symmetric(
+                //                   vertical: 6.0, horizontal: 15.0),
+                //               shape: RoundedRectangleBorder(
+                //                 borderRadius: BorderRadius.circular(10.0),
+                //               ),
+                //             ),
+                //             onPressed: () => Navigator.pop(context),
+                //             child: const Text(
+                //               'CLOSE',
+                //               style:
+                //                   TextStyle(color: Colors.white, fontSize: 17),
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
               ],
             ),
           )
@@ -551,27 +550,35 @@ class _SuccessTransactionState extends State<SuccessTransactionBackScreen>
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(response['message'])),
       );
-
+      emailAddressController.text = "";
+      phoneController.text = "";
       ListCustomerBloc customerListBloc =
           BlocProvider.of<ListCustomerBloc>(context);
       CustomerBloc customerBloc = BlocProvider.of<CustomerBloc>(context);
       customerBloc.add(customerListBloc.state.first);
-      Navigator.pop(context);
+      // FunctionProduct.disappearBackSuccessTransitionScreen();
+      // Navigator.pop(context);
       if (response['sms_sent'] == true) {
-        ConstDialog(context)
-            .showErrorDialog(error: 'SMS Invoice Sent Successfully');
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text(response['message'])),
+        // );
+        // ConstDialog(context).showErrorDialog(error: 'SMS Invoice Sent Successfully');
       }
       if (response['email_sent'] == true) {
-        ConstDialog(context)
-            .showErrorDialog(error: 'Email Invoice Sent Successfully');
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text(response['message'])),
+        // );
+        // ConstDialog(context).showErrorDialog(error: 'Email Invoice Sent Successfully');
       }
       if (response['sms_sent'] == true && response['email_sent'] == true) {
-        ConstDialog(context)
-            .showErrorDialog(error: 'Email & SMS Invoice Sent Successfully');
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text(response['message'])),
+        // );
+        // ConstDialog(context).showErrorDialog(error: 'Email & SMS Invoice Sent Successfully');
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Errorof SMS: ${response['message']}')),
+        SnackBar(content: Text('Error of SMS: ${response['message']}')),
       );
     }
   }
@@ -747,7 +754,7 @@ class _SuccessTransactionState extends State<SuccessTransactionBackScreen>
                             ),
                           ),
                           onPressed: (isLoad ||
-                                  !(isConnected &&
+                                  (isConnected &&
                                       setting.enableInvoiceEmail == '1' &&
                                       setting.enableInvoiceSMS == '1'))
                               ? null

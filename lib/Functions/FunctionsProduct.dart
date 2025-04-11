@@ -167,8 +167,8 @@ class FunctionProduct {
     } else if (discountType == "Fixed") {
       discountedAmount = amount;
     }
-    log('This is discounted Amount' + discountedAmount.toString());
-    return discountedAmount;
+    log('This is discounted Amount${double.parse(discountedAmount.toStringAsFixed(2))}');
+    return double.parse(discountedAmount.toStringAsFixed(2));
   }
 
   static double getCalculatedTaxAmount(

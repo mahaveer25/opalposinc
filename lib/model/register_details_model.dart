@@ -30,9 +30,11 @@ class RegisterDetails {
   String? totalAdvanceRefund;
   String? totalCheques;
   String? totalCardSlips;
+  String? totalPayment; // ✅ New field added here
   String? userName;
   String? email;
   String? locationName;
+
   RegisterDetails({
     this.openTime,
     this.currentTime,
@@ -65,10 +67,12 @@ class RegisterDetails {
     this.totalAdvanceRefund,
     this.totalCheques,
     this.totalCardSlips,
+    this.totalPayment, // ✅ Include it in the constructor
     this.userName,
     this.email,
     this.locationName,
   });
+
   factory RegisterDetails.fromJson(Map<String, dynamic> json) {
     return RegisterDetails(
       openTime: json['open_time'],
@@ -88,8 +92,7 @@ class RegisterDetails {
       totalCard: formatFloat(json['total_card']),
       totalCardExpense: formatFloat(json['total_card_expense']),
       totalBankTransfer: formatFloat(json['total_bank_transfer']),
-      totalBankTransferExpense:
-          formatFloat(json['total_bank_transfer_expense']),
+      totalBankTransferExpense: formatFloat(json['total_bank_transfer_expense']),
       totalOther: formatFloat(json['total_other']),
       totalOtherExpense: formatFloat(json['total_other_expense']),
       totalAdvance: formatFloat(json['total_advance']),
@@ -103,6 +106,7 @@ class RegisterDetails {
       totalAdvanceRefund: formatFloat(json['total_advance_refund']),
       totalCheques: formatFloat(json['total_cheques']),
       totalCardSlips: formatFloat(json['total_card_slips']),
+      totalPayment: formatFloat(json['total_payment']), // ✅ Parse new field
       userName: json['user_name'],
       email: json['email'],
       locationName: json['location_name'],
@@ -111,8 +115,7 @@ class RegisterDetails {
 
   static String? formatFloat(dynamic value) {
     if (value is double) {
-      return value
-          .toStringAsFixed(2); // Format with two digits after the decimal point
+      return value.toStringAsFixed(2);
     } else if (value is String) {
       double? floatValue = double.tryParse(value);
       if (floatValue != null) {
@@ -155,6 +158,7 @@ class RegisterDetails {
     map['total_advance_refund'] = totalAdvanceRefund;
     map['total_cheques'] = totalCheques;
     map['total_card_slips'] = totalCardSlips;
+    map['total_payment'] = totalPayment; // ✅ Include in toJson
     map['user_name'] = userName;
     map['email'] = email;
     map['location_name'] = locationName;

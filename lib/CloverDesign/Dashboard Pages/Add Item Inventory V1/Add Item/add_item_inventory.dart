@@ -34,7 +34,7 @@ class _AddItemInventoryState extends State<AddItemInventory> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         height: context.height,
         child: IntrinsicHeight(
           child: Row(
@@ -53,10 +53,10 @@ class _AddItemInventoryState extends State<AddItemInventory> {
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
                         ),
-                        Gap(10),
+                        const Gap(10),
                         Row(
                           children: [
-                            Expanded(
+                            const Expanded(
                               child: CustomInputField(
                                 labelText: '',
                                 contentPadding: 10,
@@ -64,8 +64,8 @@ class _AddItemInventoryState extends State<AddItemInventory> {
                                 toHide: false,
                               ),
                             ),
-                            Gap(15),
-                            Expanded(
+                            const Gap(15),
+                            const Expanded(
                               child: CustomInputField(
                                 contentPadding: 10,
                                 hintText: "SKU",
@@ -73,12 +73,16 @@ class _AddItemInventoryState extends State<AddItemInventory> {
                                 labelText: '',
                               ),
                             ),
-                            Gap(15),
+                            const Gap(15),
                             Expanded(
                               child: SizedBox(
                                 height: 43,
                                 child: CustomDropdownWithField(
-                                  items: ["UPC-A", "Option 2", "Option 3"],
+                                  items: const [
+                                    "UPC-A",
+                                    "Option 2",
+                                    "Option 3"
+                                  ],
                                   onChanged: (value) {},
                                   selectedValue: "UPC-A",
                                   hintText: "Please Select Barcode Type",
@@ -87,14 +91,14 @@ class _AddItemInventoryState extends State<AddItemInventory> {
                             ),
                           ],
                         ),
-                        Gap(20),
+                        const Gap(20),
                         Row(
                           children: [
                             Expanded(
                               child: SizedBox(
                                 height: 42,
                                 child: DropDownNoTextField(
-                                  items: ["Pieces", "Pc(Cs)"],
+                                  items: const ["Pieces", "Pc(Cs)"],
                                   displayText: (item) => item,
                                   onChanged: (value) {},
                                   hintText: "Please select units",
@@ -103,12 +107,12 @@ class _AddItemInventoryState extends State<AddItemInventory> {
                                 ),
                               ),
                             ),
-                            Gap(10),
+                            const Gap(10),
                             Expanded(
                               child: SizedBox(
                                 height: 42,
                                 child: DropDownNoTextField(
-                                  items: ["Pieces", "Pc(Cs)"],
+                                  items: const ["Pieces", "Pc(Cs)"],
                                   hintText: "Please select related sub-units",
                                   displayText: (item) => item,
 
@@ -117,12 +121,12 @@ class _AddItemInventoryState extends State<AddItemInventory> {
                                 ),
                               ),
                             ),
-                            Gap(10),
+                            const Gap(10),
                             Expanded(
                               child: SizedBox(
                                 height: 43,
                                 child: CustomDropdownWithField(
-                                  items: ["Elfbar", "Elite", "Looper XL"],
+                                  items: const ["Elfbar", "Elite", "Looper XL"],
                                   onChanged: (value) {},
                                   // selectedValue: "UPC-A",
                                   hintText: "Please select brand",
@@ -131,26 +135,30 @@ class _AddItemInventoryState extends State<AddItemInventory> {
                             ),
                           ],
                         ),
-                        Gap(20),
+                        const Gap(20),
                         Row(
                           children: [
                             Expanded(
                               child: SizedBox(
                                 height: 43,
                                 child: CustomDropdownWithField(
-                                  items: ["Beverages ", "Elite", "Looper XL"],
+                                  items: const [
+                                    "Beverages ",
+                                    "Elite",
+                                    "Looper XL"
+                                  ],
                                   onChanged: (value) {},
                                   // selectedValue: "UPC-A",
                                   hintText: "Please select sub-category",
                                 ),
                               ),
                             ),
-                            Gap(10),
+                            const Gap(10),
                             Expanded(
                               child: SizedBox(
                                 height: 42,
                                 child: DropDownNoTextField(
-                                  items: ["Pieces", "Pc(Cs)"],
+                                  items: const ["Pieces", "Pc(Cs)"],
                                   hintText: "Please select sub-category",
                                   displayText: (item) => item,
 
@@ -159,12 +167,12 @@ class _AddItemInventoryState extends State<AddItemInventory> {
                                 ),
                               ),
                             ),
-                            Gap(10),
+                            const Gap(10),
                             Expanded(
                               child: SizedBox(
                                 height: 42,
                                 child: DropDownNoTextField(
-                                  items: ["Pieces", "Pc(Cs)"],
+                                  items: const ["Pieces", "Pc(Cs)"],
                                   hintText: "Business Locations",
                                   displayText: (item) => item,
 
@@ -175,7 +183,7 @@ class _AddItemInventoryState extends State<AddItemInventory> {
                             ),
                           ],
                         ),
-                        Gap(10),
+                        const Gap(10),
                         Row(
                           children: [
                             Expanded(
@@ -191,7 +199,7 @@ class _AddItemInventoryState extends State<AddItemInventory> {
                                   "Enable stock management at product level",
                             )),
                             manageStocks
-                                ? Expanded(
+                                ? const Expanded(
                                     child: CustomInputField(
                                         contentPadding: 10,
                                         labelText: "",
@@ -199,13 +207,13 @@ class _AddItemInventoryState extends State<AddItemInventory> {
                                         toHide: false,
                                         maxLines: 1),
                                   )
-                                : SizedBox(),
+                                : const SizedBox(),
                           ],
                         ),
-                        Gap(10),
+                        const Gap(10),
                         Row(
                           children: [
-                            Expanded(
+                            const Expanded(
                               flex: 4,
                               child: CustomInputField(
                                   labelText: "",
@@ -214,7 +222,7 @@ class _AddItemInventoryState extends State<AddItemInventory> {
                                   toHide: false,
                                   maxLines: 2),
                             ),
-                            Gap(10),
+                            const Gap(10),
                             Expanded(
                               flex: 2,
                               child: Row(
@@ -230,8 +238,10 @@ class _AddItemInventoryState extends State<AddItemInventory> {
                                             children: [
                                               if (result != null)
                                                 Container(
-                                                  margin: EdgeInsets.all(10),
-                                                  padding: EdgeInsets.all(50),
+                                                  margin:
+                                                      const EdgeInsets.all(10),
+                                                  padding:
+                                                      const EdgeInsets.all(50),
                                                   height: 100,
                                                   decoration: BoxDecoration(
                                                       image: DecorationImage(
@@ -262,7 +272,7 @@ class _AddItemInventoryState extends State<AddItemInventory> {
                                                               fileName != ""
                                                                   ? fileName
                                                                   : 'No file chosen',
-                                                              style: TextStyle(
+                                                              style: const TextStyle(
                                                                   color: Colors
                                                                       .grey,
                                                                   fontSize: 10,
@@ -315,15 +325,17 @@ class _AddItemInventoryState extends State<AddItemInventory> {
                                                                           Container(
                                                                         height:
                                                                             35,
-                                                                        padding:
-                                                                            EdgeInsets.symmetric(horizontal: 16),
+                                                                        padding: const EdgeInsets
+                                                                            .symmetric(
+                                                                            horizontal:
+                                                                                16),
                                                                         decoration:
-                                                                            BoxDecoration(
+                                                                            const BoxDecoration(
                                                                           color:
                                                                               Constant.colorRed,
                                                                         ),
                                                                         child:
-                                                                            Row(
+                                                                            const Row(
                                                                           mainAxisSize:
                                                                               MainAxisSize.min,
                                                                           children: [
@@ -367,16 +379,17 @@ class _AddItemInventoryState extends State<AddItemInventory> {
                                                                 child:
                                                                     Container(
                                                                   height: 35,
-                                                                  padding: EdgeInsets
+                                                                  padding: const EdgeInsets
                                                                       .symmetric(
-                                                                          horizontal:
-                                                                              16),
+                                                                      horizontal:
+                                                                          16),
                                                                   decoration:
                                                                       BoxDecoration(
                                                                     color: Constant
                                                                         .colorPurple,
                                                                   ),
-                                                                  child: Row(
+                                                                  child:
+                                                                      const Row(
                                                                     mainAxisSize:
                                                                         MainAxisSize
                                                                             .min,
@@ -403,8 +416,8 @@ class _AddItemInventoryState extends State<AddItemInventory> {
                                               ),
                                             ],
                                           ),
-                                          SizedBox(height: 5),
-                                          Text(
+                                          const SizedBox(height: 5),
+                                          const Text(
                                             'Max File size: 5MB\nAspect ratio should be 1:1',
                                             style: TextStyle(
                                                 color: Colors.grey,
@@ -419,7 +432,7 @@ class _AddItemInventoryState extends State<AddItemInventory> {
                             )
                           ],
                         ),
-                        Gap(20),
+                        const Gap(20),
                         Container(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -431,7 +444,7 @@ class _AddItemInventoryState extends State<AddItemInventory> {
                                       height: 42,
                                       child: DropDownNoTextField(
                                         selectedValue: applicableTaxVal,
-                                        items: ["Tax", "None"],
+                                        items: const ["Tax", "None"],
                                         hintText:
                                             "Please select applicable tax",
                                         displayText: (item) => item,
@@ -445,13 +458,13 @@ class _AddItemInventoryState extends State<AddItemInventory> {
                                       ),
                                     ),
                                   ),
-                                  Gap(10),
+                                  const Gap(10),
                                   Expanded(
                                     child: SizedBox(
                                       height: 42,
                                       child: DropDownNoTextField(
                                         selectedValue: sellingPriceVal,
-                                        items: ["Exclusive", "Inclusive"],
+                                        items: const ["Exclusive", "Inclusive"],
                                         hintText: "Selling Price Tax Type",
                                         displayText: (item) => item,
 
@@ -463,14 +476,18 @@ class _AddItemInventoryState extends State<AddItemInventory> {
                                       ),
                                     ),
                                   ),
-                                  Gap(10),
+                                  const Gap(10),
                                   Expanded(
                                     flex: 1,
                                     child: SizedBox(
                                       height: 42,
                                       child: DropDownNoTextField(
                                         selectedValue: productTypeVal,
-                                        items: ["Single", "Variable", "Combo"],
+                                        items: const [
+                                          "Single",
+                                          "Variable",
+                                          "Combo"
+                                        ],
                                         hintText: "Please select product type",
                                         displayText: (item) => item,
                                         onChanged: (value) {
@@ -483,7 +500,7 @@ class _AddItemInventoryState extends State<AddItemInventory> {
                                   ),
                                 ],
                               ),
-                              Gap(20),
+                              const Gap(20),
                               if (productTypeVal == "Single")
                                 Align(
                                   alignment: Alignment.center,
@@ -526,14 +543,13 @@ class _AddItemInventoryState extends State<AddItemInventory> {
                                   ),
                                 )
                               else
-                                Container(
+                                SizedBox(
                                     height: 200,
                                     width: context.width,
-                                    child: Column(
+                                    child: const Column(
                                       children: [
-                                        Container(
-                                            child: CustomText(
-                                                text: "Variation values"))
+                                        CustomText(
+                                            text: "Variation values")
                                       ],
                                     ))
                             ],
@@ -542,7 +558,7 @@ class _AddItemInventoryState extends State<AddItemInventory> {
                       ],
                     ),
                   )),
-              VerticalDivider(
+              const VerticalDivider(
                 endIndent: 0,
                 indent: 0,
                 color: Colors.black,

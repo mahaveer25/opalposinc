@@ -22,73 +22,50 @@ class CustomerBalance extends StatefulWidget {
 
 class _CustomerBalanceState extends State<CustomerBalance> {
   final CustomerBalanceService customerService = CustomerBalanceService();
-  List<CustomerBalanceModel>? customerBalance;
-  late String customerbalance;
   PaymentListMethod listMethods = PaymentListMethod();
 
   @override
   Widget build(BuildContext context) {
-    return customerBalanceWidget();
-  }
-
-  Widget customerBalanceWidget() => BlocBuilder<CustomerBloc, CustomerModel?>(
-        builder: (context, selectedCustomer) {
-          if (selectedCustomer == null) {
-            return const Text('No customer selected');
-          }
-          return BlocBuilder<CustomerBalanceBloc, CustomerBalanceModel?>(
-            builder: (context, customerBalance) {
-              return FutureBuilder<CustomerBalanceModel>(
-                future: CustomerBalanceService.getCustomerBalance(
-                  context,
-                  int.parse(selectedCustomer.id ?? ''),
-                ),
-                builder: (BuildContext context,
-                    AsyncSnapshot<CustomerBalanceModel> snapshot) {
-                  double customerBalance = CommonFunctions.roundNumber(
-                      double.parse(snapshot.data?.balance ?? "0.0"), 1);
-                  log("This is customerBalance: ${customerBalance}");
-                  if (!snapshot.hasData) {
-                    return Container();
-                  }
-                  // double Balance = double.parse(snapshot.data!.balance.toString());
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const SizedBox(
-                      width: 0,
-                      height: 0,
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (snapshot.hasError) {
-                    return const Text('');
-                  } else if (
-                      // snapshot.hasData &&
-                      //   snapshot.data != null &&
-                      //   snapshot.data!.name
-
-                      selectedCustomer.id != '1' && customerBalance != 0) {
-                    customerbalance = snapshot.data!.balance!;
-                    return Row(
-                      children: [
-                        Text(double.parse(customerbalance).toStringAsFixed(2),
-                            style: const TextStyle(color: Constant.colorRed)),
-                        // IconButton(
-                        //     padding: const EdgeInsets.all(2.0),
-                        //     onPressed: onCustomerPay,
-                        //     icon: Icon(
-                        //       Icons.price_change,
-                        //       color: Constant.colorPurple,
-                        //     )),
-                      ],
-                    );
-                  } else {
-                    return Container();
-                  }
-                },
+    return BlocBuilder<CustomerBloc, CustomerModel?>(
+      builder: (context, selectedCustomer) {
+        if (selectedCustomer == null) {
+          return const Text('No customer selected');
+        }
+        return FutureBuilder<CustomerBalanceModel>(
+          future: CustomerBalanceService.getCustomerBalance(
+            context,
+            int.tryParse(selectedCustomer.id ?? '') ?? 0,
+          ),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const SizedBox(
+                width: 15,
+                height: 15,
+                child: CircularProgressIndicator(),
               );
-            },
-          );
-        },
-      );
+            }
+            if (!snapshot.hasData || snapshot.hasError) {
+              return const SizedBox();
+            }
+
+            double customerBalance = CommonFunctions.roundNumber(
+              double.tryParse(snapshot.data?.balance ?? "0") ?? 0,
+              1,
+            );
+            log("Customer Balance: \$customerBalance");
+
+            if (selectedCustomer.id != '1' && customerBalance != "0") {
+              return Text(
+                customerBalance.toStringAsFixed(2),
+                style: const TextStyle(color: Constant.colorRed),
+              );
+            }
+            return const SizedBox();
+          },
+        );
+      },
+    );
+  }
 
   void onCustomerPay() {
     showDialog(

@@ -8,6 +8,7 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
 import 'package:opalposinc/CustomFuncs.dart';
 import 'package:opalposinc/invoices/InvoiceModel.dart';
 import 'package:opalposinc/invoices/transaction.dart';
@@ -40,22 +41,22 @@ class PlaceOrder {
       log('abs');
 
       if (response.statusCode == 200) {
-        log('response OK');
+        // log('response OK');
         log('body response place order ${response.body}');
         final responseData = jsonDecode(response.body);
 
         if (responseData['success'] == true) {
           responseData['data']['offline_invoice_no'] == null
-              ? print("offline invoice no: null")
+              ? log("offline invoice no: null")
               : await localTransaction.removeFromLocal(
                   id: responseData['data']['offline_invoice_no'].toString());
-          print(
+          log(
               "offline invoice no: ${responseData['data']['offline_invoice_no']}");
           return Left(InvoiceModel.fromJson(responseData['data']));
         } else {
-          // log(responseData['error']);
+          log(responseData['error']);
           ErrorFuncs(context).errRegisterClose(
-              errorInfo: {'info': responseData['error']['info']});
+              errorInfo: {'error': responseData['error']});
           return Right(responseData['error']['info']);
         }
       } else {

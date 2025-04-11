@@ -51,6 +51,7 @@ class LeftBottomBar extends StatefulWidget {
 }
 
 class _LeftBottomBarState extends State<LeftBottomBar> {
+  double taxPlusAmount = 0.0;
   @override
   void initState() {
     super.initState();
@@ -63,7 +64,8 @@ class _LeftBottomBarState extends State<LeftBottomBar> {
   }
 
   Widget bottomBar(
-      {required List<Product> listProduct,
+      {required bool mobile,
+      required List<Product> listProduct,
       required TaxModel taxModel,
       required TotalDiscountModel discountModel,
       required PricingGroup pricingGroup,
@@ -80,10 +82,13 @@ class _LeftBottomBarState extends State<LeftBottomBar> {
         discountType: discountModel.type ?? "Fixed",
         total: itemTotalBeforeDiscountAndTax);
 
-    double taxPlusAmount = FunctionProduct.getCalculatedTaxAmount(
+    taxPlusAmount = FunctionProduct.getCalculatedTaxAmount(
         amountTotal: itemTotalBeforeDiscountAndTax,
         tax: taxModel.amount ?? "0.0",
         discount: discountTotal);
+    log('itemTotalBeforeDiscountAndTax $itemTotalBeforeDiscountAndTax');
+    log('discountTotal $discountTotal');
+    log('taxPlusAmount $taxPlusAmount');
 
     Transaction transaction = Transaction(
       product: listProduct,
@@ -187,6 +192,9 @@ class _LeftBottomBarState extends State<LeftBottomBar> {
             ),
           ),
 
+          const SizedBox(
+            height: 5,
+          ),
           // Padding(
           //     padding:
           //         const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
@@ -225,8 +233,12 @@ class _LeftBottomBarState extends State<LeftBottomBar> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                    'Tax Applied (${double.parse(taxModel.amount.toString()).toStringAsFixed(2)}%): \$${taxPlusAmount.toStringAsFixed(2)}  '),
+                if (!mobile)
+                  Text(
+                      'Tax Applied (${double.parse(taxModel.amount.toString()).toStringAsFixed(2)}%): \$${taxPlusAmount.toStringAsFixed(2)}  '),
+                if (mobile)
+                  Text(
+                      'Tax(${double.parse(taxModel.amount.toString()).toStringAsFixed(2)}%): \$${taxPlusAmount.toStringAsFixed(2)}  '),
                 // IconButton(
                 //     onPressed: () {
                 //       showDialog(
@@ -260,7 +272,11 @@ class _LeftBottomBarState extends State<LeftBottomBar> {
                         ),
                       );
                     },
-                    icon: const Icon(Icons.add_circle),
+                    icon: Icon(
+                      Icons.add_circle,
+                      color: Constant.colorPurple,
+                      size: 28,
+                    ),
                   ),
 
                 const Spacer(),
@@ -308,6 +324,8 @@ class _LeftBottomBarState extends State<LeftBottomBar> {
                   child: Center(
                     child: IconButton(
                       onPressed: () async {
+                        await FetchApis(context).fetchAll();
+
                         if (isMobile) {
                           await displayManager.transferDataToPresentation({
                             'type': 'discount',
@@ -568,6 +586,7 @@ class _LeftBottomBarState extends State<LeftBottomBar> {
                       totalAmount: totalAmount,
                       totalItems: widget.quantities,
                       selectedPay: 'Card',
+                      taxAmount: taxPlusAmount,
                       totalAmountBeforeDisc: widget.totalAmountBeforeDisc,
                     ),
                   )
@@ -587,6 +606,7 @@ class _LeftBottomBarState extends State<LeftBottomBar> {
                   totalAmount: totalAmount,
                   totalItems: widget.quantities,
                   selectedPay: 'Cash',
+                  taxAmount: taxPlusAmount,
                   totalAmountBeforeDisc: widget.totalAmountBeforeDisc,
                 )));
       } else {
@@ -598,6 +618,7 @@ class _LeftBottomBarState extends State<LeftBottomBar> {
                 totalAmount: totalAmount,
                 totalItems: widget.quantities,
                 selectedPay: 'Cash',
+                taxAmount: taxPlusAmount,
                 totalAmountBeforeDisc: widget.totalAmountBeforeDisc,
               ),
             ));
@@ -606,31 +627,37 @@ class _LeftBottomBarState extends State<LeftBottomBar> {
   }
 
   Widget builderTax() =>
-      BlocBuilder<LocationBloc, Location?>(builder: (context, location) {
-        return BlocBuilder<SettingsBloc, SettingsModel?>(
-            builder: (context, settings) {
-          return BlocBuilder<CustomerBloc, CustomerModel?>(
-              builder: (context, customer) {
-            return BlocBuilder<LoggedInUserBloc, LoggedInUser?>(
-                builder: (context, loggedInUser) {
-              return BlocBuilder<PricingBloc, PricingGroup?>(
-                  builder: (context, pricing) {
-                return BlocBuilder<TotalDiscountBloc, TotalDiscountModel?>(
-                    builder: (context, discount) {
-                  return BlocBuilder<TaxBloc, TaxModel?>(
-                      builder: (context, taxModel) {
-                    return BlocBuilder<CartBloc, CartState>(
-                        builder: (context, cartState) {
-                      return bottomBar(
-                        listProduct: cartState.listProduct,
-                        taxModel: taxModel ?? TaxModel(amount: 0.0.toString()),
-                        discountModel: discount ?? TotalDiscountModel(),
-                        pricingGroup: pricing ?? PricingGroup(id: 0.toString()),
-                        loggedInUser: loggedInUser!,
-                        customer: customer ?? CustomerModel(),
-                        location: location ?? const Location(),
-                        setting: settings ?? const SettingsModel(),
-                      );
+      BlocBuilder<IsMobile, bool>(builder: (context, isMobile) {
+        return BlocBuilder<LocationBloc, Location?>(
+            builder: (context, location) {
+          return BlocBuilder<SettingsBloc, SettingsModel?>(
+              builder: (context, settings) {
+            return BlocBuilder<CustomerBloc, CustomerModel?>(
+                builder: (context, customer) {
+              return BlocBuilder<LoggedInUserBloc, LoggedInUser?>(
+                  builder: (context, loggedInUser) {
+                return BlocBuilder<PricingBloc, PricingGroup?>(
+                    builder: (context, pricing) {
+                  return BlocBuilder<TotalDiscountBloc, TotalDiscountModel?>(
+                      builder: (context, discount) {
+                    return BlocBuilder<TaxBloc, TaxModel?>(
+                        builder: (context, taxModel) {
+                      return BlocBuilder<CartBloc, CartState>(
+                          builder: (context, cartState) {
+                        return bottomBar(
+                          listProduct: cartState.listProduct,
+                          taxModel:
+                              taxModel ?? TaxModel(amount: 0.0.toString()),
+                          discountModel: discount ?? TotalDiscountModel(),
+                          pricingGroup:
+                              pricing ?? PricingGroup(id: 0.toString()),
+                          loggedInUser: loggedInUser!,
+                          customer: customer ?? CustomerModel(),
+                          location: location ?? const Location(),
+                          setting: settings ?? const SettingsModel(),
+                          mobile: isMobile,
+                        );
+                      });
                     });
                   });
                 });

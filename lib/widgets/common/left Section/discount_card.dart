@@ -198,7 +198,9 @@ class _DiscountCardState extends State<DiscountCard> {
                                 TotalDiscountModel(
                               type: selectedValue,
                               amount: productDiscount.text.isNotEmpty
-                                  ? double.parse(productDiscount.text)
+                                  ? double.parse(
+                                      double.parse(productDiscount.text)
+                                          .toStringAsFixed(2))
                                   : 0.0,
                               points: redeemedValueController.text.isNotEmpty
                                   ? double.parse(redeemedValueController.text)

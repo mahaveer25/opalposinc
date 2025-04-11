@@ -19,6 +19,7 @@ import 'package:opalposinc/widgets/common/Top%20Section/Bloc/CustomBloc.dart';
 import 'package:opalposinc/printing.dart';
 
 import '../../../invoices/GenerateInvoice.dart';
+import '../../../utils/global_variables.dart';
 
 class FinalSale extends StatefulWidget {
   const FinalSale({super.key});
@@ -69,9 +70,11 @@ class _FinalSaleState extends State<FinalSale> with PrintPDF {
   }
 
   void _onSend(int index, bool isMobile) async {
+    String storeUrl = GlobalData.storeUrl;
+
     try {
       InvoiceModel? sellReturn = await SellReturnService.getSellRetrunDetails(
-              context, recentModel?[index].invoice)
+              context, recentModel?[index].invoice, storeUrl)
           .whenComplete(() => Navigator.of(context).pop());
 
       if (sellReturn != null) {
@@ -98,7 +101,6 @@ class _FinalSaleState extends State<FinalSale> with PrintPDF {
       });
     }
   }
-
   // void _handleEditIconPress(int index) async {
   //   try {
   //     final SuspendedDetails suspendedDetails =
@@ -155,7 +157,7 @@ class _FinalSaleState extends State<FinalSale> with PrintPDF {
                     openFrom: 'invoice',
                   )));
         }, (error) {
-          ErrorFuncs(context).errRegisterClose(errorInfo: {'info': error});
+          ErrorFuncs(context).errRegisterClose(errorInfo: {'error': error});
         });
       });
     } catch (e) {
@@ -186,7 +188,7 @@ class _FinalSaleState extends State<FinalSale> with PrintPDF {
           //       openFrom: 'invoice',
           //     )));
         }, (error) {
-          ErrorFuncs(context).errRegisterClose(errorInfo: {'info': error});
+          ErrorFuncs(context).errRegisterClose(errorInfo: {'error': error});
         });
       });
     } catch (e) {

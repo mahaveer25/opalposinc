@@ -27,6 +27,7 @@ import 'package:opalposinc/widgets/common/left%20Section/slide_image_pick.dart';
 import 'package:opalposinc/widgets/common/left%20Section/suspended_sales.dart';
 
 import '../model/setttings.dart';
+import '../utils/global_variables.dart';
 import '../widgets/common/Top Section/Bloc/ProductBloc.dart';
 import '../widgets/common/Top Section/register_details.dart';
 
@@ -221,14 +222,16 @@ class _ButtonRails extends State<ButtonRails> {
     if (index == 3) onIndex4();
     if (index == 7) onIndex5();
     if (index == 4) onIndex6();
-    if (index == 5) onIndex7();
+    if (index == 5) onIndex5();
     if (index == 6) onIndex8();
   }
 
   void _onSend() async {
+    String storeUrl = GlobalData.storeUrl;
+
     try {
       InvoiceModel? sellReturn = await SellReturnService.getSellRetrunDetails(
-          context, returnInvoiceController.text);
+          context, returnInvoiceController.text, storeUrl);
 
       if (sellReturn != null) {
         showDialog(
@@ -360,7 +363,7 @@ class _ButtonRails extends State<ButtonRails> {
     );
   }
 
-  void onIndex5() {
+  void onIndex7() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -381,7 +384,7 @@ class _ButtonRails extends State<ButtonRails> {
     );
   }
 
-  void onIndex7() {
+  void onIndex5() {
     showDialog(
       context: context,
       builder: (BuildContext context) {

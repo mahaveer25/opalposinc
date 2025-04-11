@@ -9,6 +9,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+
 import 'package:opalposinc/CustomFuncs.dart';
 import 'package:opalposinc/Functions/FunctionsProduct.dart';
 import 'package:opalposinc/GenrateRegisterDetails.dart';
@@ -57,6 +58,7 @@ class MultiplePayUi extends StatefulWidget {
   final int? totalItems;
   final double totalAmountBeforeDisc;
   final String? selectedPay;
+  final double? taxAmount;
 
   const MultiplePayUi(
       {super.key,
@@ -64,7 +66,8 @@ class MultiplePayUi extends StatefulWidget {
       this.totalItems,
       this.amountWithOutTax,
       this.selectedPay,
-      required this.totalAmountBeforeDisc});
+      required this.totalAmountBeforeDisc,
+      this.taxAmount});
 
   @override
   State<StatefulWidget> createState() => _MultiplePayuI();
@@ -278,7 +281,7 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
                           );
                         },
                       ),
-                      finalyzePayment()
+                      finalyzePayment(isMobile),
                     ],
                   )),
             ),
@@ -306,11 +309,196 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
     return total;
   }
 
-  Widget paymentDetails({required bool isMobile}) {
-    const textStyle = TextStyle(fontSize: 20, color: Colors.white);
-    const textStyleMobile = TextStyle(fontSize: 14, color: Colors.black);
-    final densed = isMobile ? true : false;
+  // Widget paymentDetails({required bool isMobile}) {
+  //   const textStyle = TextStyle(fontSize: 20, color: Colors.white);
+  //   const textStyleMobile =
+  //       TextStyle(fontSize: 14, color: Color.fromARGB(255, 0, 0, 0));
+  //   final densed = isMobile ? true : false;
+  //
+  //   final returnChanges = widget.totalAmount!.toDouble() < total()
+  //       ? total() - widget.totalAmount!.toDouble()
+  //       : 0.0;
+  //   final balance = widget.totalAmount!.toDouble() > total()
+  //       ? widget.totalAmount!.toDouble() - total()
+  //       : 0.0;
+  //
+  //   List<Widget> childs = [
+  //     const SizedBox(
+  //       height: 20,
+  //     ),
+  //     ConstrainedBox(
+  //       constraints: const BoxConstraints(maxWidth: 320),
+  //       child: ListTile(
+  //         dense: densed,
+  //         title: Text(
+  //           'Total Items',
+  //           style: isMobile ? textStyleMobile : textStyle,
+  //         ),
+  //         subtitle: Text(widget.totalItems.toString(),
+  //             style: isMobile ? textStyleMobile : textStyle),
+  //       ),
+  //     ),
+  //     if (!isMobile)
+  //       const Divider(
+  //         color: Colors.white,
+  //       ),
+  //     ConstrainedBox(
+  //       constraints: const BoxConstraints(maxWidth: 320), // Constrain the width
+  //       child: ListTile(
+  //         dense: densed,
+  //         title: Text('Total Payable',
+  //             style: isMobile ? textStyleMobile : textStyle),
+  //         subtitle: Text('\$${widget.totalAmount!.toStringAsFixed(2)}',
+  //             style: isMobile ? textStyleMobile : textStyle),
+  //       ),
+  //     ),
+  //     if (!isMobile)
+  //       const Divider(
+  //         color: Colors.white,
+  //       ),
+  //     ConstrainedBox(
+  //       constraints: const BoxConstraints(maxWidth: 320), // Constrain the width
+  //       child: ListTile(
+  //         dense: densed,
+  //         title: Text('Total Paying',
+  //             style: isMobile ? textStyleMobile : textStyle),
+  //         subtitle: Text('\$${total().toStringAsFixed(2)}',
+  //             style: isMobile ? textStyleMobile : textStyle),
+  //       ),
+  //     ),
+  //     if (!isMobile)
+  //       const Divider(
+  //         color: Colors.white,
+  //       ),
+  //     ConstrainedBox(
+  //       constraints: const BoxConstraints(maxWidth: 320), // Constrain the width
+  //       child: ListTile(
+  //         dense: densed,
+  //         title: Text('Change Return:',
+  //             style: isMobile ? textStyleMobile : textStyle),
+  //         subtitle: Text('\$${returnChanges.toStringAsFixed(2)}',
+  //             style: isMobile ? textStyleMobile : textStyle),
+  //       ),
+  //     ),
+  //     if (!isMobile)
+  //       const Divider(
+  //         color: Colors.white,
+  //       ),
+  //     ConstrainedBox(
+  //       constraints: const BoxConstraints(maxWidth: 320), // Constrain the width
+  //       child: ListTile(
+  //         dense: densed,
+  //         title: Text('Balance', style: isMobile ? textStyleMobile : textStyle),
+  //         subtitle: Text('\$${balance.toStringAsFixed(2)}',
+  //             style: isMobile ? textStyleMobile : textStyle),
+  //       ),
+  //     ),
+  //   ];
+  //   List<Widget> childsMobile = [
+  //     ConstrainedBox(
+  //       constraints: const BoxConstraints(maxWidth: 400), // Constrain the width
+  //       child: ListTile(
+  //         dense: densed,
+  //         title: const Text(
+  //           'Total items',
+  //           style: textStyleMobile,
+  //         ),
+  //         trailing: Text(widget.totalItems.toString(), style: textStyleMobile),
+  //       ),
+  //     ),
+  //     if (!isMobile)
+  //       const Divider(
+  //         color: Colors.white,
+  //       ),
+  //     ConstrainedBox(
+  //       constraints: const BoxConstraints(maxWidth: 400), // Constrain the width
+  //       child: ListTile(
+  //         dense: densed,
+  //         title: const Text('Total payable', style: textStyleMobile),
+  //         trailing: Text('\$${widget.totalAmount!.toStringAsFixed(2)}',
+  //             style: textStyleMobile),
+  //       ),
+  //     ),
+  //     if (!isMobile)
+  //       const Divider(
+  //         color: Colors.white,
+  //       ),
+  //     ConstrainedBox(
+  //       constraints: const BoxConstraints(maxWidth: 400), // Constrain the width
+  //       child: ListTile(
+  //         dense: densed,
+  //         title: const Text('Total paying', style: textStyleMobile),
+  //         trailing:
+  //             Text('\$${total().toStringAsFixed(2)}', style: textStyleMobile),
+  //       ),
+  //     ),
+  //     if (!isMobile)
+  //       const Divider(
+  //         color: Colors.white,
+  //       ),
+  //     ConstrainedBox(
+  //       constraints: const BoxConstraints(maxWidth: 400), // Constrain the width
+  //       child: Expanded(
+  //         child: ListTile(
+  //           dense: densed,
+  //           title: const Text('Change Return:', style: textStyleMobile),
+  //           trailing: Text('\$${returnChanges.toStringAsFixed(2)}',
+  //               style: textStyleMobile),
+  //         ),
+  //       ),
+  //     ),
+  //     if (!isMobile)
+  //       const Divider(
+  //         color: Colors.white,
+  //       ),
+  //     ConstrainedBox(
+  //       constraints: const BoxConstraints(maxWidth: 400), // Constrain the width
+  //       child: ListTile(
+  //         dense: densed,
+  //         title: const Text('Balance', style: textStyleMobile),
+  //         trailing:
+  //             Text('\$${balance.toStringAsFixed(2)}', style: textStyleMobile),
+  //       ),
+  //     ),
+  //   ];
+  //
+  //   if (isMobile) {
+  //     return SingleChildScrollView(
+  //       child: Column(
+  //         children: childsMobile
+  //             .map((e) => Padding(
+  //                   padding: const EdgeInsets.symmetric(vertical: 1.0),
+  //                   child: e,
+  //                 ))
+  //             .toList(),
+  //       ),
+  //     );
+  //   }
+  //
+  //   return Padding(
+  //       padding: const EdgeInsets.only(
+  //         left: 20.0,
+  //         bottom: 20.0,
+  //         top: 15.0,
+  //       ),
+  //       child: Material(
+  //           borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+  //           color: Constant.colorPurple,
+  //           child: Padding(
+  //               padding: isMobile
+  //                   ? const EdgeInsets.all(0.0)
+  //                   : const EdgeInsets.all(5.0),
+  //               child: Center(
+  //                 child: SingleChildScrollView(
+  //                   child: Column(
+  //                     crossAxisAlignment: CrossAxisAlignment.center,
+  //                     children: childs,
+  //                   ),
+  //                 ),
+  //               ))));
+  // }
 
+  Widget paymentDetails({required bool isMobile}) {
     final returnChanges = widget.totalAmount!.toDouble() < total()
         ? total() - widget.totalAmount!.toDouble()
         : 0.0;
@@ -318,191 +506,66 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
         ? widget.totalAmount!.toDouble() - total()
         : 0.0;
 
-    List<Widget> childs = [
-      const SizedBox(
-        height: 20,
+    return Container(
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: Constant.colorPurple,
+        borderRadius: BorderRadius.circular(20),
       ),
-      ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 320),
-        child: ListTile(
-          dense: densed,
-          title: Text(
-            'Total Items',
-            style: isMobile ? textStyleMobile : textStyle,
-          ),
-          subtitle: Text(widget.totalItems.toString(),
-              style: isMobile ? textStyleMobile : textStyle),
-        ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _buildDetailItem(
+              'Total Items', widget.totalItems.toString(), isMobile),
+          if (!isMobile) const Divider(color: Colors.white),
+          _buildDetailItem('Total Payable',
+              '\$${widget.totalAmount!.toStringAsFixed(2)}', isMobile),
+          if (!isMobile) const Divider(color: Colors.white),
+          _buildDetailItem(
+              'Total Paying', '\$${total().toStringAsFixed(2)}', isMobile),
+          if (!isMobile) const Divider(color: Colors.white),
+          _buildDetailItem('Change Return:',
+              '\$${returnChanges.toStringAsFixed(2)}', isMobile),
+          if (!isMobile) const Divider(color: Colors.white),
+          _buildDetailItem(
+              'Balance', '\$${balance.toStringAsFixed(2)}', isMobile),
+        ],
       ),
-      if (!isMobile)
-        const Divider(
-          color: Colors.white,
-        ),
-      ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 320), // Constrain the width
-        child: ListTile(
-          dense: densed,
-          title: Text('Total Payable',
-              style: isMobile ? textStyleMobile : textStyle),
-          subtitle: Text('\$${widget.totalAmount!.toStringAsFixed(2)}',
-              style: isMobile ? textStyleMobile : textStyle),
-        ),
-      ),
-      if (!isMobile)
-        const Divider(
-          color: Colors.white,
-        ),
-      ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 320), // Constrain the width
-        child: ListTile(
-          dense: densed,
-          title: Text('Total Paying',
-              style: isMobile ? textStyleMobile : textStyle),
-          subtitle: Text('\$${total().toStringAsFixed(2)}',
-              style: isMobile ? textStyleMobile : textStyle),
-        ),
-      ),
-      if (!isMobile)
-        const Divider(
-          color: Colors.white,
-        ),
-      ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 320), // Constrain the width
-        child: ListTile(
-          dense: densed,
-          title: Text('Change Return:',
-              style: isMobile ? textStyleMobile : textStyle),
-          subtitle: Text('\$${returnChanges.toStringAsFixed(2)}',
-              style: isMobile ? textStyleMobile : textStyle),
-        ),
-      ),
-      if (!isMobile)
-        const Divider(
-          color: Colors.white,
-        ),
-      ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 320), // Constrain the width
-        child: ListTile(
-          dense: densed,
-          title: Text('Balance', style: isMobile ? textStyleMobile : textStyle),
-          subtitle: Text('\$${balance.toStringAsFixed(2)}',
-              style: isMobile ? textStyleMobile : textStyle),
-        ),
-      ),
-    ];
-    List<Widget> childsMobile = [
-      ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 400), // Constrain the width
-        child: ListTile(
-          dense: densed,
-          title: Text(
-            'Total items',
-            style: isMobile ? textStyle : textStyleMobile,
-          ),
-          trailing: Text(widget.totalItems.toString(),
-              style: isMobile ? textStyle : textStyleMobile),
-        ),
-      ),
-      if (!isMobile)
-        const Divider(
-          color: Colors.white,
-        ),
-      ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 400), // Constrain the width
-        child: ListTile(
-          dense: densed,
-          title: Text('Total payable',
-              style: isMobile ? textStyle : textStyleMobile),
-          trailing: Text('\$${widget.totalAmount!.toStringAsFixed(2)}',
-              style: isMobile ? textStyle : textStyleMobile),
-        ),
-      ),
-      if (!isMobile)
-        const Divider(
-          color: Colors.white,
-        ),
-      ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 400), // Constrain the width
-        child: ListTile(
-          dense: densed,
-          title: Text('Total paying',
-              style: isMobile ? textStyle : textStyleMobile),
-          trailing: Text('\$${total().toStringAsFixed(2)}',
-              style: isMobile ? textStyle : textStyleMobile),
-        ),
-      ),
-      if (!isMobile)
-        const Divider(
-          color: Colors.white,
-        ),
-      ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 400), // Constrain the width
-        child: Expanded(
-          child: ListTile(
-            dense: densed,
-            title: Text('Change Return:',
-                style: isMobile ? textStyle : textStyleMobile),
-            trailing: Text('\$${returnChanges.toStringAsFixed(2)}',
-                style: isMobile ? textStyle : textStyleMobile),
-          ),
-        ),
-      ),
-      if (!isMobile)
-        const Divider(
-          color: Colors.white,
-        ),
-      ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 400), // Constrain the width
-        child: ListTile(
-          dense: densed,
-          title: Text('Balance', style: isMobile ? textStyle : textStyleMobile),
-          trailing: Text('\$${balance.toStringAsFixed(2)}',
-              style: isMobile ? textStyle : textStyleMobile),
-        ),
-      ),
-    ];
+    );
+  }
 
-    if (isMobile) {
-      return SingleChildScrollView(
-        child: Column(
-          children: childsMobile
-              .map((e) => Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 1.0),
-                    child: e,
-                  ))
-              .toList(),
-        ),
-      );
-    }
-
-    return Padding(
-        padding: const EdgeInsets.only(
-          left: 20.0,
-          bottom: 20.0,
-          top: 15.0,
-        ),
-        child: Material(
-            borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-            color: Constant.colorPurple,
-            child: Padding(
-                padding: isMobile
-                    ? const EdgeInsets.all(0.0)
-                    : const EdgeInsets.all(5.0),
-                child: Center(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: childs,
-                    ),
-                  ),
-                ))));
+  Widget _buildDetailItem(String title, String value, bool isMobile) {
+    return Expanded(
+        child: Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: isMobile ? 14 : 18,
+            ),
+          ),
+          Text(
+            value,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: isMobile ? 14 : 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    ));
   }
 
   Widget paymentListWidget({required bool isMobile}) {
     final balance = widget.totalAmount!.toDouble() > total()
         ? widget.totalAmount!.toDouble() - total()
         : 0.0;
-    log('balance log $balance');
+    // log('balance log $balance');
     Future.delayed(
         const Duration(milliseconds: 500), () => _refreshPaymentDetails());
 
@@ -559,12 +622,13 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
     );
   }
 
-  Widget finalyzePayment() {
+  Widget finalyzePayment(bool isMobile) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment:
+              isMobile ? CrossAxisAlignment.center : CrossAxisAlignment.end,
           children: [
             const Spacer(),
             ElevatedButton(
@@ -573,14 +637,17 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
                   foregroundColor: Colors.white,
                   backgroundColor: Constant.colorPurple,
                   elevation: 5,
-                  fixedSize: const Size(150, 60),
+                  fixedSize:
+                      isMobile ? const Size(100, 40) : const Size(150, 60),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(6),
                   ),
                 ),
-                child: const Text(
+                child: Text(
                   'CLOSE',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: isMobile ? 16 : 20,
+                      fontWeight: FontWeight.bold),
                 )),
             const SizedBox(
               width: 7.0,
@@ -599,102 +666,113 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
   }
 
   Widget finalyzePaymentButton() {
-    return BlocBuilder<LoggedInUserBloc, LoggedInUser?>(
-      builder: (context, loggedInUser) {
-        return BlocBuilder<LocationBloc, Location?>(
-          builder: (context, location) {
-            return BlocBuilder<CustomerBloc, CustomerModel?>(
-              builder: (context, customer) {
-                return BlocBuilder<PricingBloc, PricingGroup?>(
-                  builder: (context, pricing) {
-                    return BlocBuilder<TotalDiscountBloc, TotalDiscountModel?>(
-                      builder: (context, discount) {
-                        return BlocBuilder<SettingsBloc, SettingsModel?>(
-                          builder: (context, settingsModel) {
-                            return BlocBuilder<CartBloc, CartState?>(
-                              builder: (context, cart) {
-                                if (cart is CartLoadedState) {
-                                  return BlocBuilder<TaxBloc, TaxModel?>(
-                                    builder: (context, tax) {
-                                      return BlocBuilder<CheckConnection, bool>(
-                                        builder: (context, isConnected) {
-                                          return ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                                foregroundColor: Colors.white,
-                                                backgroundColor:
-                                                    const Color(0xff59BA47),
-                                                elevation: 5,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(6),
-                                                ),
-                                                fixedSize: const Size(300, 60)),
-                                            onPressed: _isLoading
-                                                ? null
-                                                : () async {
-                                                    setLoading(
-                                                        true); // Start loading
-                                                    // TotalDiscountBloc bloc = BlocProvider.of<TotalDiscountBloc>(context);
-                                                    // bloc.add(null);
-                                                    // await displayManager.transferDataToPresentation({'type': 'discount', 'discount': TotalDiscountModel().toJson()});
-                                                    FunctionProduct
-                                                        .disappearBackSuccessTransitionScreen();
-                                                    await onFinalizeInvoice(
-                                                      loggedInUser:
-                                                          loggedInUser!,
-                                                      location: location!,
-                                                      customerModel: customer!,
-                                                      pricing: pricing!,
-                                                      totalDiscountModel:
-                                                          discount ??
-                                                              TotalDiscountModel(),
-                                                      taxModel: tax!,
-                                                      productList:
-                                                          cart.listProduct,
-                                                      settingsModel:
-                                                          settingsModel!,
-                                                      isConnected: isConnected,
-                                                    );
-                                                    setLoading(false);
-                                                    // End loading
-                                                  },
-                                            child: _isLoading
-                                                ? const SizedBox(
-                                                    width: 24,
-                                                    height: 24,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      color: Colors.white,
-                                                    ),
-                                                  )
-                                                : const Text(
-                                                    'PAY NOW',
-                                                    style: TextStyle(
-                                                        fontSize: 20,
-                                                        fontWeight:
-                                                            FontWeight.bold),
+    return BlocBuilder<IsMobile, bool>(builder: (context, isMobile) {
+      return BlocBuilder<LoggedInUserBloc, LoggedInUser?>(
+        builder: (context, loggedInUser) {
+          return BlocBuilder<LocationBloc, Location?>(
+            builder: (context, location) {
+              return BlocBuilder<CustomerBloc, CustomerModel?>(
+                builder: (context, customer) {
+                  return BlocBuilder<PricingBloc, PricingGroup?>(
+                    builder: (context, pricing) {
+                      return BlocBuilder<TotalDiscountBloc,
+                          TotalDiscountModel?>(
+                        builder: (context, discount) {
+                          return BlocBuilder<SettingsBloc, SettingsModel?>(
+                            builder: (context, settingsModel) {
+                              return BlocBuilder<CartBloc, CartState?>(
+                                builder: (context, cart) {
+                                  if (cart is CartLoadedState) {
+                                    return BlocBuilder<TaxBloc, TaxModel?>(
+                                      builder: (context, tax) {
+                                        return BlocBuilder<CheckConnection,
+                                            bool>(
+                                          builder: (context, isConnected) {
+                                            return ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                  foregroundColor: Colors.white,
+                                                  backgroundColor:
+                                                      const Color(0xff59BA47),
+                                                  elevation: 5,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            6),
                                                   ),
-                                          );
-                                        },
-                                      );
-                                    },
-                                  );
-                                }
-                                return Container();
-                              },
-                            );
-                          },
-                        );
-                      },
-                    );
-                  },
-                );
-              },
-            );
-          },
-        );
-      },
-    );
+                                                  fixedSize: isMobile
+                                                      ? const Size(200, 40)
+                                                      : const Size(300, 60)),
+                                              onPressed: _isLoading
+                                                  ? null
+                                                  : () async {
+                                                      setLoading(
+                                                          true); // Start loading
+                                                      // TotalDiscountBloc bloc = BlocProvider.of<TotalDiscountBloc>(context);
+                                                      // bloc.add(null);
+                                                      // await displayManager.transferDataToPresentation({'type': 'discount', 'discount': TotalDiscountModel().toJson()});
+                                                      FunctionProduct
+                                                          .disappearBackSuccessTransitionScreen();
+                                                      await onFinalizeInvoice(
+                                                        loggedInUser:
+                                                            loggedInUser!,
+                                                        location: location!,
+                                                        customerModel:
+                                                            customer!,
+                                                        pricing: pricing!,
+                                                        totalDiscountModel:
+                                                            discount ??
+                                                                TotalDiscountModel(),
+                                                        taxModel: tax!,
+                                                        productList:
+                                                            cart.listProduct,
+                                                        settingsModel:
+                                                            settingsModel!,
+                                                        isConnected:
+                                                            isConnected,
+                                                      );
+                                                      setLoading(false);
+                                                      // End loading
+                                                    },
+                                              child: _isLoading
+                                                  ? const SizedBox(
+                                                      width: 24,
+                                                      height: 24,
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        color: Colors.white,
+                                                      ),
+                                                    )
+                                                  : Text(
+                                                      'PAY NOW',
+                                                      style: TextStyle(
+                                                          fontSize: isMobile
+                                                              ? 16
+                                                              : 20,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                            );
+                                          },
+                                        );
+                                      },
+                                    );
+                                  }
+                                  return Container();
+                                },
+                              );
+                            },
+                          );
+                        },
+                      );
+                    },
+                  );
+                },
+              );
+            },
+          );
+        },
+      );
+    });
   }
 
   // Widget finalyzeInvoice() {
@@ -957,6 +1035,10 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
   //     }
   //   }
   // }
+  double roundToTwo(double value) {
+    return (value * 100).round() / 100;
+  }
+
   onFinalizeInvoice(
       {required LoggedInUser loggedInUser,
       required Location location,
@@ -985,8 +1067,7 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
       taxCalculationPercentage: taxModel.amount == null
           ? 0.0
           : double.parse(taxModel.amount.toString()),
-      taxCalculationAmount:
-          widget.totalAmount!.toDouble() - widget.amountWithOutTax!.toDouble(),
+      taxCalculationAmount: roundToTwo(widget.taxAmount ?? 0.0),
       orderTaxModal: int.parse(taxModel.taxId.toString()),
       discountTypeModal: totalDiscountModel.type,
       discountAmountModal: totalDiscountModel.amount == null
@@ -1110,9 +1191,8 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
                 payload.transactionPaxDeviceId = pnRefNum;
                 log('This is payload: ${payload.toJson()}');
 
-                debugPrint(
-                    "This is pnRefNum:${response["pnRefNum"]} from api response");
-                debugPrint("This is pnRefNum:${pnRefNum} saving to variable");
+                log("This is pnRefNum:${response["pnRefNum"]} from api response");
+                log("This is pnRefNum:${payload.transactionPaxDeviceId} saving to variable");
 
                 CartBloc cartBloc = BlocProvider.of<CartBloc>(context);
                 TotalDiscountBloc bloc =
@@ -1178,7 +1258,7 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
                     }
                   }, (error) {
                     ErrorFuncs(context)
-                        .errRegisterClose(errorInfo: {'info': error});
+                        .errRegisterClose(errorInfo: {'info': "123$error"});
                   });
                 });
                 setLoading(false);
@@ -1260,9 +1340,13 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
                 CustomerBalanceBloc balanceBloc =
                     BlocProvider.of<CustomerBalanceBloc>(context);
                 balanceBloc.add(customer);
+              } else {
+                log("mounted is false");
               }
             }, (error) {
-              ErrorFuncs(context).errRegisterClose(errorInfo: {'info': error});
+              log("Error occurred: $error");
+              ErrorFuncs(context)
+                  .errRegisterClose(errorInfo: {'error': "12$error"});
             });
           });
         }
@@ -1573,37 +1657,46 @@ class _MethodTypeWidget extends State<MethodTypeWidget> {
 
     // Initialize the amountController.text with default value
     String amountText = '0.00';
+    log('Initial amountText: $amountText');
 
-    // Check if totalAmount is 0.0 or not
+// Check if totalAmount is 0.0 or not
     if (widget.totalAmount != null && widget.totalAmount == 0.0) {
+      log('widget.totalAmount is 0.0');
+
       // Use paymentMethod.amount when totalAmount is 0.0
       if (widget.paymentMethod.amount != null) {
+        log('widget.paymentMethod.amount is not null: ${widget.paymentMethod.amount}');
         try {
           amountText = double.parse(widget.paymentMethod.amount.toString())
               .toStringAsFixed(2);
+          log('Parsed paymentMethod.amount: $amountText');
         } catch (e) {
-          // Handle parsing error, use default value
           log('Error parsing paymentMethod.amount: $e');
         }
+      } else {
+        log('widget.paymentMethod.amount is null');
       }
     } else if (widget.totalAmount != null) {
-      // Use totalAmount when it's greater than 0.0
+      log('widget.totalAmount is not null and not 0.0: ${widget.totalAmount}');
       try {
         amountText =
             double.parse(widget.totalAmount.toString()).toStringAsFixed(2);
-        widget.paymentMethod.amount =
-            widget.totalAmount.toString(); // Update amount in paymentMethod
+        widget.paymentMethod.amount = widget.totalAmount.toString();
+        log('Parsed totalAmount and updated paymentMethod.amount: $amountText');
       } catch (e) {
-        // Handle parsing error, use default value
         log('Error parsing totalAmount: $e');
       }
+    } else {
+      log('widget.totalAmount is null');
     }
+
     amountController.text = amountText;
+    log('Final amountController.text = $amountText');
+
     setState(() {
       widget.paymentMethod.cardType = selectedCardType;
+      log('Updated cardType: ${widget.paymentMethod.cardType}');
     });
-
-    log('amount of Balance ${amountController.text}');
   }
 
   void _onDenominationPressed(double denomination) {
@@ -1635,99 +1728,106 @@ class _MethodTypeWidget extends State<MethodTypeWidget> {
         BlocBuilder<IsMobile, bool>(builder: (context, isMobile) {
       return Column(
         children: [
-          cardDataRow(),
+          cardDataRow(isMobile: isMobile),
           const SizedBox(height: 5.0),
           cardDetails(isMobile: isMobile),
         ],
       );
     });
 
-    Widget methodWidget() => BlocBuilder<PaymentListBloc, List<PaymentMethod>>(
-            builder: (context, listMethods) {
-          return BlocBuilder<PaymentOptionsBloc, PaymentMethod?>(
-              builder: (context, selectedMethod) {
-            return BlocBuilder<LocationBloc, Location?>(
-              builder: (context, location) {
-                return BlocBuilder<LoggedInUserBloc, LoggedInUser?>(
-                  builder: (context, loggedInUser) {
-                    return Material(
-                        color: const Color.fromARGB(73, 174, 174, 174),
-                        shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(15.0))),
-                        child: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  IconButton(
-                                      onPressed: widget.onTap,
-                                      icon: const Icon(Icons.close))
-                                ],
-                              ),
-                              selectionMethodRow(
-                                paymentList: listMethods,
-                              ),
-                              const SizedBox(
-                                height: 5.0,
-                              ),
-                              if (widget.paymentMethod.method == 'card')
-                                cardState,
-                              const SizedBox(
-                                height: 5.0,
-                              ),
-                              if (widget.paymentMethod.method == 'cheque')
-                                chequeWidget(),
-                              if (widget.paymentMethod.method ==
-                                  'Bank Transfer')
-                                bankTransferWidget(),
-                              const SizedBox(
-                                height: 5.0,
-                              ),
-                              paymentNote(),
-                              if (widget.paymentMethod.method == 'card')
-                                Column(
+    Widget methodWidget() =>
+        BlocBuilder<IsMobile, bool>(builder: (context, isMobile) {
+          return BlocBuilder<PaymentListBloc, List<PaymentMethod>>(
+              builder: (context, listMethods) {
+            return BlocBuilder<PaymentOptionsBloc, PaymentMethod?>(
+                builder: (context, selectedMethod) {
+              return BlocBuilder<LocationBloc, Location?>(
+                builder: (context, location) {
+                  return BlocBuilder<LoggedInUserBloc, LoggedInUser?>(
+                    builder: (context, loggedInUser) {
+                      return Material(
+                          color: const Color.fromARGB(73, 174, 174, 174),
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0))),
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Column(
+                              children: [
+                                Row(
                                   children: [
-                                    const SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        const Spacer(),
-                                        Builder(builder: (context) {
-                                          if (doCharge == true) {
-                                            return const Padding(
-                                              padding: EdgeInsets.all(15.0),
-                                              child: SizedBox(
-                                                  width: 30.0,
-                                                  height: 30.0,
-                                                  child:
-                                                      CircularProgressIndicator()),
-                                            );
-                                          }
-
-                                          return OutlinedButton(
-                                              onPressed: () => onChargeCard(
-                                                  location:
-                                                      location ?? Location(),
-                                                  loggedInUser: loggedInUser ??
-                                                      LoggedInUser()),
-                                              child: const Text('CHARGE'));
-                                        })
-                                      ],
-                                    )
+                                    IconButton(
+                                        onPressed: widget.onTap,
+                                        icon: const Icon(Icons.close))
                                   ],
-                                )
-                            ],
-                          ),
-                        ));
-                  },
-                );
-              },
-            );
+                                ),
+                                selectionMethodRow(
+                                  paymentList: listMethods,
+                                  isMobile: isMobile,
+                                ),
+                                const SizedBox(
+                                  height: 5.0,
+                                ),
+                                if (widget.paymentMethod.method == 'card')
+                                  cardState,
+                                const SizedBox(
+                                  height: 5.0,
+                                ),
+                                if (widget.paymentMethod.method == 'cheque')
+                                  chequeWidget(),
+                                if (widget.paymentMethod.method ==
+                                    'Bank Transfer')
+                                  bankTransferWidget(),
+                                const SizedBox(
+                                  height: 5.0,
+                                ),
+                                paymentNote(),
+                                if (widget.paymentMethod.method == 'card' &&
+                                    !isMobile)
+                                  Column(
+                                    children: [
+                                      const SizedBox(
+                                        height: 5.0,
+                                      ),
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          const Spacer(),
+                                          Builder(builder: (context) {
+                                            if (doCharge == true) {
+                                              return const Padding(
+                                                padding: EdgeInsets.all(15.0),
+                                                child: SizedBox(
+                                                    width: 30.0,
+                                                    height: 30.0,
+                                                    child:
+                                                        CircularProgressIndicator()),
+                                              );
+                                            }
+
+                                            return OutlinedButton(
+                                                onPressed: () {},
+                                                //  => onChargeCard(
+                                                //     location: location ??
+                                                //         const Location(),
+                                                //     loggedInUser:
+                                                //         loggedInUser ??
+                                                //             LoggedInUser()),
+                                                child: const Text('CHARGE'));
+                                          })
+                                        ],
+                                      )
+                                    ],
+                                  )
+                              ],
+                            ),
+                          ));
+                    },
+                  );
+                },
+              );
+            });
           });
         });
 
@@ -1772,6 +1872,7 @@ class _MethodTypeWidget extends State<MethodTypeWidget> {
 
   Widget selectionMethodRow({
     required List<PaymentMethod> paymentList,
+    required bool isMobile,
   }) {
     return Column(
       children: [
@@ -1816,71 +1917,142 @@ class _MethodTypeWidget extends State<MethodTypeWidget> {
                   bool isSelected =
                       widget.paymentMethod.methodType?.type == e.type;
 
-                  return Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              isSelected ? Constant.colorPurple : Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                            side: BorderSide(
-                              color: isSelected
-                                  ? Colors.transparent
-                                  : Colors.black,
-                              width: 1.0,
+                  return isMobile
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: isSelected
+                                  ? Constant.colorPurple
+                                  : Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                side: BorderSide(
+                                  color: isSelected
+                                      ? Colors.transparent
+                                      : Colors.black,
+                                  width: 1.0,
+                                ),
+                              ),
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 12.0),
+                              minimumSize: const Size(70, 55),
+                            ),
+                            onPressed: () {
+                              if (isSelectedInList && isSelected) {
+                                // Show error if method is already selected elsewhere
+                                ConstDialog(context).showErrorDialog(
+                                  error: "${e.type} already selected",
+                                );
+                              } else {
+                                setState(() {
+                                  if (isSelected) {
+                                    // Unselect if already selected
+                                    onMethodChanged(paymentList, null);
+                                  } else {
+                                    // Select the new method
+                                    onMethodChanged(paymentList, e.type);
+                                  }
+                                });
+                              }
+                            },
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 5.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  if (isSelected)
+                                    const Icon(Icons.check,
+                                        color: Colors.white),
+                                  const SizedBox(width: 8.0),
+                                  Text(
+                                    e.name.toString(),
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      color: isSelected
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                          padding: const EdgeInsets.symmetric(vertical: 12.0),
-                          minimumSize: const Size(double.infinity, 55.0),
-                        ),
-                        onPressed: () {
-                          if (isSelectedInList && isSelected) {
-                            // Show error if method is already selected elsewhere
-                            ConstDialog(context).showErrorDialog(
-                              error: "${e.type} already selected",
-                            );
-                          } else {
-                            setState(() {
-                              if (isSelected) {
-                                // Unselect if already selected
-                                onMethodChanged(paymentList, null);
-                              } else {
-                                // Select the new method
-                                onMethodChanged(paymentList, e.type);
-                              }
-                            });
-                          }
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              if (isSelected)
-                                const Icon(Icons.check, color: Colors.white),
-                              const SizedBox(width: 8.0),
-                              Text(
-                                e.name.toString(),
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  color:
-                                      isSelected ? Colors.white : Colors.black,
+                        )
+                      : Expanded(
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 4.0),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: isSelected
+                                    ? Constant.colorPurple
+                                    : Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  side: BorderSide(
+                                    color: isSelected
+                                        ? Colors.transparent
+                                        : Colors.black,
+                                    width: 1.0,
+                                  ),
                                 ),
-                                textAlign: TextAlign.center,
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 12.0),
+                                minimumSize: const Size(double.infinity, 55.0),
                               ),
-                            ],
+                              onPressed: () {
+                                if (isSelectedInList && isSelected) {
+                                  // Show error if method is already selected elsewhere
+                                  ConstDialog(context).showErrorDialog(
+                                    error: "${e.type} already selected",
+                                  );
+                                } else {
+                                  setState(() {
+                                    if (isSelected) {
+                                      // Unselect if already selected
+                                      onMethodChanged(paymentList, null);
+                                    } else {
+                                      // Select the new method
+                                      onMethodChanged(paymentList, e.type);
+                                    }
+                                  });
+                                }
+                              },
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    if (isSelected)
+                                      const Icon(Icons.check,
+                                          color: Colors.white),
+                                    const SizedBox(width: 8.0),
+                                    Text(
+                                      e.name.toString(),
+                                      style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: isSelected
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
-                  );
+                        );
                 }).toList(),
               ),
             ),
             const SizedBox(width: 5.0),
-            if (widget.paymentMethod.method == 'card')
+            // if (isMobile) Divider(),
+            if (widget.paymentMethod.method == 'card' && !isMobile)
               Expanded(
                 child: DropdownButtonFormField<String>(
                   isDense: true,
@@ -1904,6 +2076,46 @@ class _MethodTypeWidget extends State<MethodTypeWidget> {
               ),
           ],
         ),
+        // if (isMobile)
+        //   const SizedBox(
+        //     height: 8.0,
+        //   ),
+        // Row(
+        //   children: [
+        //     const SizedBox(
+        //       height: 5.0,
+        //     ),
+        //     if (widget.paymentMethod.method == 'card' && isMobile)
+        //       Expanded(
+        //         child: Container(
+        //           decoration: BoxDecoration(
+        //             borderRadius: BorderRadius.circular(5.0),
+        //             color: Colors.white,
+        //             border: Border.all(color: Colors.grey),
+        //           ),
+        //           child: DropdownButtonFormField<String>(
+        //             isDense: true,
+        //             decoration: InputDecoration(
+        //               filled: true,
+        //               labelText: 'Select Card Type',
+        //               border: OutlineInputBorder(
+        //                 borderRadius: BorderRadius.circular(5.0),
+        //                 borderSide: BorderSide.none,
+        //               ),
+        //             ),
+        //             value: selectedCardType,
+        //             onChanged: onCardTypeChanged,
+        //             items: cardTypes
+        //                 .map((e) => DropdownMenuItem<String>(
+        //                       value: e,
+        //                       child: Text(e),
+        //                     ))
+        //                 .toList(),
+        //           ),
+        //         ),
+        //       ),
+        //   ],
+        // ),
       ],
     );
   }
@@ -1946,7 +2158,10 @@ class _MethodTypeWidget extends State<MethodTypeWidget> {
     );
   }
 
-  Widget cardDataRow() {
+  Widget cardDataRow({required bool isMobile}) {
+    if (isMobile) {
+      return Container();
+    }
     return Row(children: [
       Expanded(
         child: CustomInputField(
@@ -1971,41 +2186,7 @@ class _MethodTypeWidget extends State<MethodTypeWidget> {
 
   Widget cardDetails({required bool isMobile}) {
     if (isMobile) {
-      return Column(children: [
-        CustomInputField(
-          hintText: 'Card Holder Name',
-          labelText: 'HN',
-          controller: cardHolderName,
-          onChanged: onCardHolderNameChanged,
-        ),
-        const SizedBox(
-          height: 5.0,
-        ),
-        CustomInputField(
-            // enabled: true,
-            hintText: 'CVV2',
-            labelText: '*',
-            controller: cardSecurity,
-            onChanged: oncardSecurityChanged,
-            inputType: TextInputType.number),
-        const SizedBox(height: 5.0),
-        CustomInputField(
-            hintText: 'Month',
-            labelText: 'MM',
-            controller: monthController,
-            onChanged: onMonthControllerChanged,
-            inputType: TextInputType.number),
-        const SizedBox(
-          height: 5.0,
-        ),
-        CustomInputField(
-          hintText: 'Year',
-          labelText: 'YY',
-          controller: yearController,
-          onChanged: onYearControllerChanged,
-          inputType: TextInputType.number,
-        ),
-      ]);
+      return Container();
     }
 
     return Row(children: [
@@ -2083,60 +2264,35 @@ class _MethodTypeWidget extends State<MethodTypeWidget> {
                 children: cashDenominations!.map((denomination) {
                   return GestureDetector(
                     onPanUpdate: (_) => _refreshPaymentDetails(),
-                    child: Stack(
-                      alignment: Alignment.topRight,
-                      children: [
-                        SizedBox(
-                          width: 120,
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: ElevatedButton.icon(
-                              onPressed: () {
-                                setState(() {
-                                  double denominationValue =
-                                      double.tryParse(denomination) ?? 0.0;
-                                  _onDenominationPressed(denominationValue);
-                                  // denominationCounts[denomination] =
-                                  //     (denominationCounts[denomination] ?? 0) +
-                                  //         1;
-                                });
-                              },
-                              icon: const FaIcon(FontAwesomeIcons.moneyBill1),
-                              label: Text(
-                                denomination,
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xfff0f0f0),
-                                foregroundColor: const Color(0xff525f7f),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 12, vertical: 8),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(0),
-                                ),
-                              ),
+                    child: SizedBox(
+                      // ✅ Use SizedBox instead of Flexible/Expanded
+                      width: 120,
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            setState(() {
+                              double denominationValue =
+                                  double.tryParse(denomination) ?? 0.0;
+                              _onDenominationPressed(denominationValue);
+                            });
+                          },
+                          icon: const FaIcon(FontAwesomeIcons.moneyBill1),
+                          label: Text(
+                            denomination,
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xfff0f0f0),
+                            foregroundColor: const Color(0xff525f7f),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 8),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(0),
                             ),
                           ),
                         ),
-                        // Display the count in the top-right corner
-                        // if (denominationCounts[denomination] != null)
-                        //   Positioned(
-                        //     top: 2.5,
-                        //     right: 2.5,
-                        //     child: CircleAvatar(
-                        //       radius: 10.0,
-                        //       backgroundColor: Colors.red,
-                        //       child: Text(
-                        //         denominationCounts[denomination]?.toString() ??
-                        //             '0',
-                        //         style: const TextStyle(
-                        //           color: Colors.white,
-                        //           fontSize: 12.0,
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ),
-                      ],
+                      ),
                     ),
                   );
                 }).toList(),

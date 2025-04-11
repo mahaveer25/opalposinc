@@ -105,422 +105,936 @@ class _SuccessTransactionState extends State<SuccessTransaction> with PrintPDF {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CheckConnection, bool>(builder: (context, isConnected) {
-      return BlocBuilder<SettingsBloc, SettingsModel?>(
-          builder: (context, settings) {
-        return BlocBuilder<CustomerBloc, CustomerModel?>(
-            builder: (context, customerModel) {
-          if (settings == null || customerModel == null) {
-            return const Center(child: CircularProgressIndicator());
-          }
+    return BlocBuilder<IsMobile, bool>(builder: (context, isMobile) {
+      return BlocBuilder<CheckConnection, bool>(
+          builder: (context, isConnected) {
+        return BlocBuilder<SettingsBloc, SettingsModel?>(
+            builder: (context, settings) {
+          return BlocBuilder<CustomerBloc, CustomerModel?>(
+              builder: (context, customerModel) {
+            if (settings == null || customerModel == null) {
+              return const Center(child: CircularProgressIndicator());
+            }
 
-          return Scaffold(
-            resizeToAvoidBottomInset: true,
-            backgroundColor: Colors.white,
-            appBar: AppBar(
-              title: const Text('Success Transaction'),
-              leading: IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  Navigator.pop(context);
-                  FunctionProduct.disappearBackSuccessTransitionScreen();
-                },
+            return Scaffold(
+              resizeToAvoidBottomInset: true,
+              backgroundColor: Colors.white,
+              appBar: AppBar(
+                title: const Text('Success Transaction'),
+                leading: IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    FunctionProduct.disappearBackSuccessTransitionScreen();
+                  },
+                ),
               ),
-            ),
-            body: Row(
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade100,
-                      border: const Border(
-                        right: BorderSide(
-                            color: Color.fromARGB(108, 158, 158, 158),
-                            width: 2), // Left-side border
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+              body: isMobile
+                  ? SingleChildScrollView(
                       child: Column(
                         children: [
-                          const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Pay For This Order',
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
+                          if (isMobile)
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.shade100,
+                                      border: const Border(
+                                        right: BorderSide(
+                                            color: Color.fromARGB(
+                                                108, 158, 158, 158),
+                                            width: 2), // Left-side border
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        children: [
+                                          const Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              'Pay For This Order',
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 30,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              const Text("Order Subtotal: "),
+                                              Text(
+                                                "\$${double.parse(widget.invoice.subTotal.toString()).toStringAsFixed(2)}",
+                                                style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(widget.invoice
+                                                          .discountType ==
+                                                      "Percentage"
+                                                  ? "Discount (${widget.invoice.discountAmount}%)"
+                                                  : "Discount: "),
+                                              Text(
+                                                  "(-) \$${double.parse(widget.invoice.invoiceDiscount.toString()).toStringAsFixed(2)}",
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold))
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              const Text("Tax: "),
+                                              Text(
+                                                  "(+) \$${(double.parse(widget.invoice.taxAmount.toString()) * 100).roundToDouble() / 100}",
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold))
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Column(
+                                            children: widget
+                                                .invoice.paymentMethod!
+                                                .map((payment) {
+                                              DateTime dateTime =
+                                                  DateTime.parse(widget
+                                                      .invoice.date
+                                                      .toString());
+                                              String formattedDate =
+                                                  DateFormat('(dd/MM/yyyy)')
+                                                      .format(dateTime);
+
+                                              return Column(
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      // Display Payment Method and Date
+                                                      Text(
+                                                        '${payment.method.toString()} $formattedDate',
+                                                      ),
+
+                                                      // Display Payment Amount
+                                                      Text(
+                                                          '(-) \$${_formatNumber((payment.amount != null ? double.parse(payment.amount.toString()) : 0.0).toStringAsFixed(2))}',
+                                                          style: const TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold)),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                ],
+                                              );
+                                            }).toList(),
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              const Text("Total: ",
+                                                  style:
+                                                      TextStyle(fontSize: 20)),
+                                              Text(
+                                                  "\$${(double.parse(widget.invoice.total.toString()) * 100).roundToDouble() / 100}",
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 20))
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text("Order Subtotal: "),
-                              Text(
-                                "\$${double.parse(widget.invoice.subTotal.toString()).toStringAsFixed(2)}",
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
+                              Flexible(
+                                child: DefaultTabController(
+                                  length: 3,
+                                  child: SingleChildScrollView(
+                                    child: SizedBox(
+                                      width: MediaQuery.of(context).size.width,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.9,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Column(
+                                            children: [
+                                              Container(
+                                                width: double.infinity,
+                                                height: 60,
+                                                color: const Color.fromARGB(
+                                                    34, 130, 178, 255),
+                                                child: Center(
+                                                  child: Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      const Icon(
+                                                          Icons.check_circle,
+                                                          color: Colors.green,
+                                                          size:
+                                                              20.0), // Adjust size and color as needed
+
+                                                      Text(
+                                                        '\$${double.parse(widget.invoice.totalPaid.toString()).toStringAsFixed(2)}',
+                                                        style: const TextStyle(
+                                                          fontSize:
+                                                              20, // Adjust the font size as needed
+                                                          fontWeight: FontWeight
+                                                              .bold, // Adjust the font weight as needed
+                                                          color: Colors
+                                                              .black, // Change color if needed
+                                                        ),
+                                                      ),
+                                                      const Text(
+                                                        '  Payment Successful',
+                                                        style: TextStyle(
+                                                          fontSize: 20,
+                                                          color: Colors
+                                                              .black, // Change color if needed
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(height: 10),
+                                              Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    const FaIcon(
+                                                      FontAwesomeIcons
+                                                          .solidMoneyBill1,
+                                                      size: 50,
+                                                      color: Colors.green,
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 20,
+                                                    ),
+                                                    const Text(
+                                                      "Change: ",
+                                                      style: TextStyle(
+                                                          fontSize: 28),
+                                                    ),
+                                                    Text(
+                                                      "\$${double.parse(widget.invoice.changeReturn.toString()).toStringAsFixed(2)}",
+                                                      style: const TextStyle(
+                                                          fontSize: 28,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )
+                                                  ]),
+                                              const SizedBox(
+                                                height: 20,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    "How Would you like your Receipt? ",
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            isMobile ? 22 : 35),
+                                                  )
+                                                ],
+                                              ),
+                                              const SizedBox(
+                                                height: 20,
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 20),
+                                                child: ElevatedButton(
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    minimumSize: const Size(
+                                                        double.infinity,
+                                                        50), // Set width and height
+                                                    backgroundColor: isPressed
+                                                        ? Colors.white
+                                                        : Constant
+                                                            .colorPurple, // Change background color on press
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        vertical: 8.0,
+                                                        horizontal: 15.0),
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10.0),
+                                                      side: BorderSide(
+                                                        color: isPressed
+                                                            ? Constant
+                                                                .colorPurple
+                                                            : Colors
+                                                                .transparent, // Change border color on press
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  onPressed: () async {
+                                                    setState(() {
+                                                      isPressed =
+                                                          true; // Change button state on press
+                                                    });
+
+                                                    final path =
+                                                        await GenerateInvoice
+                                                            .printInvoice(
+                                                                invoiceModel:
+                                                                    widget
+                                                                        .invoice);
+                                                    log("invoice: pdf :${widget.invoice}");
+                                                    await printPdf(
+                                                            path: path,
+                                                            context: context)
+                                                        .whenComplete(() async {
+                                                      await displayManager
+                                                          .transferDataToPresentation({
+                                                        'type': 'discount',
+                                                        'discount':
+                                                            TotalDiscountModel()
+                                                                .toJson(),
+                                                      });
+
+                                                      FunctionProduct
+                                                          .disappearBackSuccessTransitionScreen();
+
+                                                      final customer =
+                                                          await CustomerBalanceService
+                                                              .getCustomerBalance(
+                                                        context,
+                                                        int.parse(customerModel!
+                                                            .id
+                                                            .toString()),
+                                                      );
+                                                      ListCustomerBloc
+                                                          customerListBloc =
+                                                          BlocProvider.of<
+                                                                  ListCustomerBloc>(
+                                                              context);
+                                                      CustomerBloc
+                                                          customerBloc =
+                                                          BlocProvider.of<
+                                                                  CustomerBloc>(
+                                                              context);
+                                                      customerBloc.add(
+                                                          customerListBloc
+                                                              .state.first);
+
+                                                      CustomerBalanceBloc
+                                                          balanceBloc =
+                                                          BlocProvider.of<
+                                                                  CustomerBalanceBloc>(
+                                                              context);
+                                                      balanceBloc.add(customer);
+                                                    }).whenComplete(() =>
+                                                            Navigator.pop(
+                                                                context));
+
+                                                    setState(() {
+                                                      isPressed = false;
+                                                    });
+                                                  },
+                                                  child: Text(
+                                                    'PRINT RECEIPT',
+                                                    style: TextStyle(
+                                                        color: isPressed
+                                                            ? Constant
+                                                                .colorPurple
+                                                            : Colors
+                                                                .white, // Change text color on press
+                                                        fontSize: 20),
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 20,
+                                              ),
+                                            ],
+                                          ),
+
+                                          TabBar(
+                                            onTap: (index) async {
+                                              await displayManager
+                                                  .transferDataToPresentation({
+                                                'type': 'tabIndex',
+                                                'tabIndex': index,
+                                              });
+                                              if (mounted) {
+                                                setState(() {
+                                                  _selectedTabIndex = index;
+
+                                                  final currentCustomer =
+                                                      context
+                                                          .read<CustomerBloc>()
+                                                          .state;
+                                                  if (currentCustomer != null) {
+                                                    _updateCustomerData(
+                                                        currentCustomer);
+                                                  }
+                                                });
+                                              }
+                                            },
+                                            labelStyle: const TextStyle(
+                                              fontWeight: FontWeight
+                                                  .bold, // Make the text bold
+                                              fontSize:
+                                                  16, // Adjust the font size if needed
+                                            ),
+                                            labelColor: Colors.black,
+                                            indicatorColor:
+                                                Constant.colorPurple,
+                                            tabs: const [
+                                              Tab(text: 'SMS'),
+                                              Tab(text: 'EMAIL'),
+                                              Tab(text: 'BOTH'),
+                                            ],
+                                          ),
+                                          // TabBarView for different content
+                                          Flexible(
+                                            fit: FlexFit.loose,
+                                            child: TabBarView(
+                                              children: [
+                                                smsTab(settings ??
+                                                    const SettingsModel()),
+                                                emailTab(settings ??
+                                                    const SettingsModel()),
+                                                bothTab(settings ??
+                                                    const SettingsModel()),
+                                              ],
+                                            ),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              // Close Button
+                                              Expanded(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: ElevatedButton(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      backgroundColor:
+                                                          Constant.colorPurple,
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          vertical: 12.0,
+                                                          horizontal: 15.0),
+                                                      // minimumSize: const Size(
+                                                      //     double.infinity,50), // Set width and height
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10.0),
+                                                      ),
+                                                    ),
+                                                    onPressed: () async {
+                                                      FunctionProduct
+                                                          .disappearBackSuccessTransitionScreen();
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: const Text(
+                                                      'CLOSE',
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 20),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               )
                             ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(widget.invoice.discountType == "Percentage"
-                                  ? "Discount (${widget.invoice.discountAmount}%)"
-                                  : "Discount: "),
-                              Text(
-                                  "(-) \$${double.parse(widget.invoice.invoiceDiscount.toString()).toStringAsFixed(2)}",
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold))
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text("Tax: "),
-                              Text(
-                                  "(+) \$${(double.parse(widget.invoice.taxAmount.toString()) * 100).roundToDouble() / 100}",
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold))
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Column(
-                            children:
-                                widget.invoice.paymentMethod!.map((payment) {
-                              DateTime dateTime = DateTime.parse(
-                                  widget.invoice.date.toString());
-                              String formattedDate =
-                                  DateFormat('(dd/MM/yyyy)').format(dateTime);
-
-                              return Column(
+                          )
+                        ],
+                      ),
+                    )
+                  : Row(
+                      children: [
+                        Flexible(
+                          flex: 3,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade100,
+                              border: const Border(
+                                right: BorderSide(
+                                    color: Color.fromARGB(108, 158, 158, 158),
+                                    width: 2), // Left-side border
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
                                 children: [
+                                  const Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      'Pay For This Order',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 30,
+                                  ),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      // Display Payment Method and Date
+                                      const Text("Order Subtotal: "),
                                       Text(
-                                        '${payment.method.toString()} $formattedDate',
-                                      ),
-
-                                      // Display Payment Amount
+                                        "\$${double.parse(widget.invoice.subTotal.toString()).toStringAsFixed(2)}",
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(widget.invoice.discountType ==
+                                              "Percentage"
+                                          ? "Discount (${widget.invoice.discountAmount}%)"
+                                          : "Discount: "),
                                       Text(
-                                          '(-) \$${_formatNumber((payment.amount != null ? double.parse(payment.amount.toString()) : 0.0).toStringAsFixed(2))}',
+                                          "(-) \$${double.parse(widget.invoice.invoiceDiscount.toString()).toStringAsFixed(2)}",
                                           style: const TextStyle(
-                                              fontWeight: FontWeight.bold)),
+                                              fontWeight: FontWeight.bold))
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text("Tax: "),
+                                      Text(
+                                          "(+) \$${(double.parse(widget.invoice.taxAmount.toString()) * 100).roundToDouble() / 100}",
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold))
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Column(
+                                    children: widget.invoice.paymentMethod!
+                                        .map((payment) {
+                                      DateTime dateTime = DateTime.parse(
+                                          widget.invoice.date.toString());
+                                      String formattedDate =
+                                          DateFormat('(dd/MM/yyyy)')
+                                              .format(dateTime);
+
+                                      return Column(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              // Display Payment Method and Date
+                                              Text(
+                                                '${payment.method.toString()} $formattedDate',
+                                              ),
+
+                                              // Display Payment Amount
+                                              Text(
+                                                  '(-) \$${_formatNumber((payment.amount != null ? double.parse(payment.amount.toString()) : 0.0).toStringAsFixed(2))}',
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                        ],
+                                      );
+                                    }).toList(),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text("Total: ",
+                                          style: TextStyle(fontSize: 20)),
+                                      Text(
+                                          "\$${(double.parse(widget.invoice.total.toString()) * 100).roundToDouble() / 100}",
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20))
                                     ],
                                   ),
                                   const SizedBox(
                                     height: 10,
                                   ),
                                 ],
-                              );
-                            }).toList(),
+                              ),
+                            ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text("Total: ",
-                                  style: TextStyle(fontSize: 20)),
-                              Text(
-                                  "\$${(double.parse(widget.invoice.total.toString()) * 100).roundToDouble() / 100}",
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20))
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Flexible(
-                  flex: 7,
-                  child: DefaultTabController(
-                    length: 3,
-                    child: SingleChildScrollView(
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.9,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Column(
-                              children: [
-                                Container(
-                                  width: double.infinity,
-                                  height: 60,
-                                  color:
-                                      const Color.fromARGB(34, 130, 178, 255),
-                                  child: Center(
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                        ),
+                        Flexible(
+                          flex: 7,
+                          child: DefaultTabController(
+                            length: 3,
+                            child: SingleChildScrollView(
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.9,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Column(
                                       children: [
-                                        const Icon(Icons.check_circle,
-                                            color: Colors.green,
-                                            size:
-                                                20.0), // Adjust size and color as needed
+                                        Container(
+                                          width: double.infinity,
+                                          height: 60,
+                                          color: const Color.fromARGB(
+                                              34, 130, 178, 255),
+                                          child: Center(
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                const Icon(Icons.check_circle,
+                                                    color: Colors.green,
+                                                    size:
+                                                        20.0), // Adjust size and color as needed
 
-                                        Text(
-                                          '\$${double.parse(widget.invoice.totalPaid.toString()).toStringAsFixed(2)}',
-                                          style: const TextStyle(
-                                            fontSize:
-                                                20, // Adjust the font size as needed
-                                            fontWeight: FontWeight
-                                                .bold, // Adjust the font weight as needed
-                                            color: Colors
-                                                .black, // Change color if needed
+                                                Text(
+                                                  '\$${double.parse(widget.invoice.totalPaid.toString()).toStringAsFixed(2)}',
+                                                  style: const TextStyle(
+                                                    fontSize:
+                                                        20, // Adjust the font size as needed
+                                                    fontWeight: FontWeight
+                                                        .bold, // Adjust the font weight as needed
+                                                    color: Colors
+                                                        .black, // Change color if needed
+                                                  ),
+                                                ),
+                                                const Text(
+                                                  '  Payment Successful',
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                    color: Colors
+                                                        .black, // Change color if needed
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                        const Text(
-                                          '  Payment Successful',
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors
-                                                .black, // Change color if needed
+                                        const SizedBox(height: 10),
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              const FaIcon(
+                                                FontAwesomeIcons
+                                                    .solidMoneyBill1,
+                                                size: 50,
+                                                color: Colors.green,
+                                              ),
+                                              const SizedBox(
+                                                width: 20,
+                                              ),
+                                              const Text(
+                                                "Change: ",
+                                                style: TextStyle(fontSize: 28),
+                                              ),
+                                              Text(
+                                                "\$${double.parse(widget.invoice.changeReturn.toString()).toStringAsFixed(2)}",
+                                                style: const TextStyle(
+                                                    fontSize: 28,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )
+                                            ]),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              "How Would you like your Receipt? ",
+                                              style: TextStyle(
+                                                  fontSize: isMobile ? 22 : 35),
+                                            )
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20),
+                                          child: ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              minimumSize: const Size(
+                                                  double.infinity,
+                                                  50), // Set width and height
+                                              backgroundColor: isPressed
+                                                  ? Colors.white
+                                                  : Constant
+                                                      .colorPurple, // Change background color on press
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 8.0,
+                                                      horizontal: 15.0),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                                side: BorderSide(
+                                                  color: isPressed
+                                                      ? Constant.colorPurple
+                                                      : Colors
+                                                          .transparent, // Change border color on press
+                                                ),
+                                              ),
+                                            ),
+                                            onPressed: () async {
+                                              setState(() {
+                                                isPressed =
+                                                    true; // Change button state on press
+                                              });
+
+                                              final path = await GenerateInvoice
+                                                  .printInvoice(
+                                                      invoiceModel:
+                                                          widget.invoice);
+                                              log("invoice: pdf :${widget.invoice}");
+                                              await printPdf(
+                                                      path: path,
+                                                      context: context)
+                                                  .whenComplete(() async {
+                                                await displayManager
+                                                    .transferDataToPresentation({
+                                                  'type': 'discount',
+                                                  'discount':
+                                                      TotalDiscountModel()
+                                                          .toJson(),
+                                                });
+
+                                                FunctionProduct
+                                                    .disappearBackSuccessTransitionScreen();
+
+                                                final customer =
+                                                    await CustomerBalanceService
+                                                        .getCustomerBalance(
+                                                  context,
+                                                  int.parse(customerModel!.id
+                                                      .toString()),
+                                                );
+                                                ListCustomerBloc
+                                                    customerListBloc =
+                                                    BlocProvider.of<
+                                                            ListCustomerBloc>(
+                                                        context);
+                                                CustomerBloc customerBloc =
+                                                    BlocProvider.of<
+                                                        CustomerBloc>(context);
+                                                customerBloc.add(
+                                                    customerListBloc
+                                                        .state.first);
+
+                                                CustomerBalanceBloc
+                                                    balanceBloc = BlocProvider
+                                                        .of<CustomerBalanceBloc>(
+                                                            context);
+                                                balanceBloc.add(customer);
+                                              }).whenComplete(() =>
+                                                      Navigator.pop(context));
+
+                                              setState(() {
+                                                isPressed = false;
+                                              });
+                                            },
+                                            child: Text(
+                                              'PRINT RECEIPT',
+                                              style: TextStyle(
+                                                  color: isPressed
+                                                      ? Constant.colorPurple
+                                                      : Colors
+                                                          .white, // Change text color on press
+                                                  fontSize: 20),
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                      ],
+                                    ),
+
+                                    TabBar(
+                                      onTap: (index) async {
+                                        await displayManager
+                                            .transferDataToPresentation({
+                                          'type': 'tabIndex',
+                                          'tabIndex': index,
+                                        });
+                                        if (mounted) {
+                                          setState(() {
+                                            _selectedTabIndex = index;
+
+                                            final currentCustomer = context
+                                                .read<CustomerBloc>()
+                                                .state;
+                                            if (currentCustomer != null) {
+                                              _updateCustomerData(
+                                                  currentCustomer);
+                                            }
+                                          });
+                                        }
+                                      },
+                                      labelStyle: const TextStyle(
+                                        fontWeight: FontWeight
+                                            .bold, // Make the text bold
+                                        fontSize:
+                                            16, // Adjust the font size if needed
+                                      ),
+                                      labelColor: Colors.black,
+                                      indicatorColor: Constant.colorPurple,
+                                      tabs: const [
+                                        Tab(text: 'SMS'),
+                                        Tab(text: 'EMAIL'),
+                                        Tab(text: 'BOTH'),
+                                      ],
+                                    ),
+                                    // TabBarView for different content
+                                    Flexible(
+                                      fit: FlexFit.loose,
+                                      child: TabBarView(
+                                        children: [
+                                          smsTab(settings ??
+                                              const SettingsModel()),
+                                          emailTab(settings ??
+                                              const SettingsModel()),
+                                          bothTab(settings ??
+                                              const SettingsModel()),
+                                        ],
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        // Close Button
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    Constant.colorPurple,
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 12.0,
+                                                        horizontal: 15.0),
+                                                // minimumSize: const Size(
+                                                //     double.infinity,50), // Set width and height
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                              ),
+                                              onPressed: () async {
+                                                FunctionProduct
+                                                    .disappearBackSuccessTransitionScreen();
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text(
+                                                'CLOSE',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 20),
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ],
                                     ),
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const FaIcon(
-                                        FontAwesomeIcons.solidMoneyBill1,
-                                        size: 50,
-                                        color: Colors.green,
-                                      ),
-                                      const SizedBox(
-                                        width: 20,
-                                      ),
-                                      const Text(
-                                        "Change: ",
-                                        style: TextStyle(fontSize: 28),
-                                      ),
-                                      Text(
-                                        "\$${double.parse(widget.invoice.changeReturn.toString()).toStringAsFixed(2)}",
-                                        style: const TextStyle(
-                                            fontSize: 28,
-                                            fontWeight: FontWeight.bold),
-                                      )
-                                    ]),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                const Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "How Would you like your Receipt? ",
-                                      style: TextStyle(fontSize: 35),
-                                    )
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20),
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      minimumSize: const Size(double.infinity,
-                                          50), // Set width and height
-                                      backgroundColor: isPressed
-                                          ? Colors.white
-                                          : Constant
-                                              .colorPurple, // Change background color on press
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 8.0, horizontal: 15.0),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        side: BorderSide(
-                                          color: isPressed
-                                              ? Constant.colorPurple
-                                              : Colors
-                                                  .transparent, // Change border color on press
-                                        ),
-                                      ),
-                                    ),
-                                    onPressed: () async {
-                                      setState(() {
-                                        isPressed =
-                                            true; // Change button state on press
-                                      });
-
-                                      final path =
-                                          await GenerateInvoice.printInvoice(
-                                              invoiceModel: widget.invoice);
-                                      log("invoice: pdf :${widget.invoice}");
-                                      await printPdf(
-                                              path: path, context: context)
-                                          .whenComplete(() async {
-                                        await displayManager
-                                            .transferDataToPresentation({
-                                          'type': 'discount',
-                                          'discount':
-                                              TotalDiscountModel().toJson(),
-                                        });
-
-                                        FunctionProduct
-                                            .disappearBackSuccessTransitionScreen();
-
-                                        final customer =
-                                            await CustomerBalanceService
-                                                .getCustomerBalance(
-                                          context,
-                                          int.parse(
-                                              customerModel!.id.toString()),
-                                        );
-                                        ListCustomerBloc customerListBloc =
-                                            BlocProvider.of<ListCustomerBloc>(
-                                                context);
-                                        CustomerBloc customerBloc =
-                                            BlocProvider.of<CustomerBloc>(
-                                                context);
-                                        customerBloc
-                                            .add(customerListBloc.state.first);
-
-                                        CustomerBalanceBloc balanceBloc =
-                                            BlocProvider.of<
-                                                CustomerBalanceBloc>(context);
-                                        balanceBloc.add(customer);
-                                      }).whenComplete(
-                                              () => Navigator.pop(context));
-
-                                      setState(() {
-                                        isPressed = false;
-                                      });
-                                    },
-                                    child: Text(
-                                      'PRINT RECEIPT',
-                                      style: TextStyle(
-                                          color: isPressed
-                                              ? Constant.colorPurple
-                                              : Colors
-                                                  .white, // Change text color on press
-                                          fontSize: 20),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                              ],
-                            ),
-
-                            TabBar(
-                              onTap: (index) async {
-                                await displayManager
-                                    .transferDataToPresentation({
-                                  'type': 'tabIndex',
-                                  'tabIndex': index,
-                                });
-                                if (mounted) {
-                                  setState(() {
-                                    _selectedTabIndex = index;
-
-                                    final currentCustomer =
-                                        context.read<CustomerBloc>().state;
-                                    if (currentCustomer != null) {
-                                      _updateCustomerData(currentCustomer);
-                                    }
-                                  });
-                                }
-                              },
-                              labelStyle: const TextStyle(
-                                fontWeight:
-                                    FontWeight.bold, // Make the text bold
-                                fontSize: 16, // Adjust the font size if needed
-                              ),
-                              labelColor: Colors.black,
-                              indicatorColor: Constant.colorPurple,
-                              tabs: const [
-                                Tab(text: 'SMS'),
-                                Tab(text: 'EMAIL'),
-                                Tab(text: 'BOTH'),
-                              ],
-                            ),
-                            // TabBarView for different content
-                            Flexible(
-                              fit: FlexFit.loose,
-                              child: TabBarView(
-                                children: [
-                                  smsTab(settings ?? const SettingsModel()),
-                                  emailTab(settings ?? const SettingsModel()),
-                                  bothTab(settings ?? const SettingsModel()),
-                                ],
                               ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                // Close Button
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Constant.colorPurple,
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 12.0, horizontal: 15.0),
-                                        // minimumSize: const Size(
-                                        //     double.infinity,50), // Set width and height
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                        ),
-                                      ),
-                                      onPressed: () async {
-                                        FunctionProduct
-                                            .disappearBackSuccessTransitionScreen();
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text(
-                                        'CLOSE',
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 20),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+                          ),
+                        )
+                      ],
                     ),
-                  ),
-                )
-              ],
-            ),
-          );
+            );
+          });
         });
       });
     });
@@ -548,13 +1062,14 @@ class _SuccessTransactionState extends State<SuccessTransaction> with PrintPDF {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(response['message'])),
       );
-
+      emailAddressController.text = "";
+      phoneController.text = "";
       ListCustomerBloc customerListBloc =
           BlocProvider.of<ListCustomerBloc>(context);
       CustomerBloc customerBloc = BlocProvider.of<CustomerBloc>(context);
       customerBloc.add(customerListBloc.state.first);
-      FunctionProduct.disappearBackSuccessTransitionScreen();
-      Navigator.pop(context);
+      // FunctionProduct.disappearBackSuccessTransitionScreen();
+      // Navigator.pop(context);
       if (response['sms_sent'] == true) {
         // ScaffoldMessenger.of(context).showSnackBar(
         //   SnackBar(content: Text(response['message'])),

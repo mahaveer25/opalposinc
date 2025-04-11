@@ -1,5 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:opalposinc/model/OrderTaxModel.dart';
@@ -37,112 +39,116 @@ class _OrderTaxDropdownState extends State<OrderTaxDropdown> {
         selectedTax = orderTaxList[1];
       });
     } catch (e) {
-      print("Error fetching taxes: $e");
+      log("Error fetching taxes: $e");
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.4,
-      width: MediaQuery.of(context).size.width * 0.4,
-      child: Dialog(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  'Edit Order Tax',
-                  style: TextStyle(fontSize: 20),
-                ),
-                IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: Icon(Icons.close_rounded)),
-              ],
-            ),
-            SizedBox(height: 6),
-            const Text(
-              'Order Tax:*',
-              style: TextStyle(fontSize: 20),
-            ),
-            Decorations.contain(
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton2<OrderTaxModel>(
-                  isExpanded: true,
-                  items: orderTaxList
-                      .map((item) => DropdownMenuItem(
-                            value: item,
-                            child: Text(
-                              '${item.name}',
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontSize: 14,
+    return BlocBuilder<IsMobile, bool>(builder: (context, isMobile) {
+      return SizedBox(
+        height: MediaQuery.of(context).size.height * 0.4,
+        width: isMobile
+            ? MediaQuery.of(context).size.height * 0.6
+            : MediaQuery.of(context).size.width * 0.4,
+        child: Dialog(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Edit Order Tax',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  IconButton(
+                      onPressed: () => Navigator.pop(context),
+                      icon: Icon(Icons.close_rounded)),
+                ],
+              ),
+              SizedBox(height: 6),
+              const Text(
+                'Order Tax:*',
+                style: TextStyle(fontSize: 20),
+              ),
+              Decorations.contain(
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton2<OrderTaxModel>(
+                    isExpanded: true,
+                    items: orderTaxList
+                        .map((item) => DropdownMenuItem(
+                              value: item,
+                              child: Text(
+                                '${item.name}',
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                ),
                               ),
-                            ),
-                          ))
-                      .toList(),
-                  value: selectedTax,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedTax = value;
-                      TaxBloc taxBloc = BlocProvider.of<TaxBloc>(context);
-                      taxBloc.add(selectedTax != null
-                          ? TaxModel(
-                              taxId: selectedTax?.id,
-                              amount: selectedTax?.amount,
-                              businessId: selectedTax?.businessId,
-                              name: selectedTax?.name)
-                          : TaxModel());
-                    });
-                  },
-                  buttonStyleData: const ButtonStyleData(
-                    padding: EdgeInsets.symmetric(horizontal: 5),
-                    height: 40,
-                    width: 150,
-                  ),
-                  dropdownStyleData: const DropdownStyleData(
-                    maxHeight: 200,
-                  ),
-                  menuItemStyleData: const MenuItemStyleData(
-                    height: 40,
+                            ))
+                        .toList(),
+                    value: selectedTax,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedTax = value;
+                        TaxBloc taxBloc = BlocProvider.of<TaxBloc>(context);
+                        taxBloc.add(selectedTax != null
+                            ? TaxModel(
+                                taxId: selectedTax?.id,
+                                amount: selectedTax?.amount,
+                                businessId: selectedTax?.businessId,
+                                name: selectedTax?.name)
+                            : TaxModel());
+                      });
+                    },
+                    buttonStyleData: const ButtonStyleData(
+                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      height: 40,
+                      width: 150,
+                    ),
+                    dropdownStyleData: const DropdownStyleData(
+                      maxHeight: 200,
+                    ),
+                    menuItemStyleData: const MenuItemStyleData(
+                      height: 40,
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(height: 25),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                buildBtn(
-                  height: 50,
-                  width: 100,
-                  btnBorder: 8,
-                  btnColor: Constant.colorPurple,
-                  btnName: "Update",
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-                const SizedBox(width: 10),
-                buildBtn(
-                  height: 50,
-                  width: 100,
-                  btnBorder: 8,
-                  btnColor: Constant.colorPurple,
-                  btnName: "Cancel",
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            ),
-          ],
+              const SizedBox(height: 25),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  buildBtn(
+                    height: 50,
+                    width: 100,
+                    btnBorder: 8,
+                    btnColor: Constant.colorPurple,
+                    btnName: "Update",
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  const SizedBox(width: 10),
+                  buildBtn(
+                    height: 50,
+                    width: 100,
+                    btnBorder: 8,
+                    btnColor: Constant.colorPurple,
+                    btnName: "Cancel",
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget buildBtn({
