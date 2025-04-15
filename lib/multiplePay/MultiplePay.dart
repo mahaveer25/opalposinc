@@ -707,10 +707,6 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
             return;
           }
 
-          // Create a DEEP COPY of card methods to process
-          final cardMethodsToProcess = methodListWidget.where((element) => element.method == "card").map((e) => PaymentListMethod.fromJson(e.toJson())).toList();
-
-          int successfulTransactions = 0;
           double totalPaid = 0.0;
           bool hasErrors = false;
           List<PaymentListMethod> successfullyProcessed = [];
@@ -754,13 +750,10 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
               if (res == "000000" || res == "0" || res == "OK") {
                 oneCardSuccessTransaction += 1;
                 remainingBalance = 0.0;
-                successfulTransactions++;
-                // totalPaid += amount;
                 tempPaidAmount += double.parse(method.amount!);
                 successfullyProcessed.add(method);
                 if (mounted) {
                   setState(() {
-                    // afterPayPrice = totalPaid; // Update paid amount in UI
                     afterPayPrice = tempPaidAmount;
                     for (var m in methodListWidget) {
                       if (m.method == method.method && m.amount == method.amount) {
@@ -1003,8 +996,6 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
           debugPrint("This is pnRefNum:${response["pnRefNum"]} from api response");
           debugPrint("This is pnRefNum:$pnRefNum saving to variable");
 
-          CartBloc cartBloc = BlocProvider.of<CartBloc>(context);
-          TotalDiscountBloc bloc = BlocProvider.of<TotalDiscountBloc>(context);
           log('This is payload while sending place order: ${payload.toJson()}');
           setLoading(true);
           return response["resultCode"];
@@ -1078,7 +1069,6 @@ class _MultiplePayuI extends State<MultiplePayUi> with PrintPDF {
   }
 
   _completeOrderPlacement(Transaction payload, CustomerModel customerModel, SettingsModel settingsModel, List<PaymentListMethod> plm) {
-    CartBloc cartBloc = BlocProvider.of<CartBloc>(context);
     payload.transactionPaxDeviceId = "0";
 
 
