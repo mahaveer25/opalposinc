@@ -1,6 +1,8 @@
 import 'package:opalposinc/model/payment_model.dart';
 
 class PaymentListMethod {
+  bool? isProcessed;
+  String? transactionPaxId;
   PaymentMethod? methodType;
   String? method;
   String? amount;
@@ -17,6 +19,8 @@ class PaymentListMethod {
   String? cardString;
   PaymentListMethod(
       {this.methodType,
+        this.isProcessed = false,
+        this.transactionPaxId,
       this.method,
       this.amount,
       this.cardNumber,
@@ -75,13 +79,18 @@ class PaymentListMethod {
       'payment_note': paymentNote,
       'account_number': accountNumber,
       'cheque_number': chequeNumber,
-      'card_string': cardString
+      'card_string': cardString,
+      'transactionPaxId': transactionPaxId,
     };
   }
 
   static PaymentListMethod fromJson(Map<String, Object?> json) {
     return PaymentListMethod(
+        isProcessed: json['isProcessed'] == null
+            ? false
+            : json['isProcessed'] as bool,
         method: json['method'] == null ? null : json['method'] as String,
+        transactionPaxId: json['transactionPaxId'] == null ? null : json['transactionPaxId'] as String,
         amount: json['amount'] == null ? null : json['amount'] as String,
         cardNumber:
             json['card_number'] == null ? null : json['card_number'] as String,
